@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>替代成分出现频率_静态版_2026-09-02</title>
+<style>
+  :root{
+    --green:#8BA888; --blue:#7E99AB; --pink:#B58E8E; --purple:#9788A8; --yellow:#B8A87E; --brown:#A89B8F;
+    --bg:#F5F1EA; --card:#FDFBF7; --ink:#3D3A36; --sub:#7A756D; --line:#E3DCCE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7;padding:28px 20px 60px;}
+  .wrap{max-width:960px;margin:0 auto;}
+  h1{font-size:26px;font-weight:700;letter-spacing:1px;}
+  .sub{color:var(--sub);font-size:14px;margin-top:6px;}
+  .meta{display:inline-block;margin-top:12px;background:#EFE9DC;color:#6E675C;font-size:12.5px;padding:5px 12px;border-radius:20px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:22px;box-shadow:0 2px 10px rgba(140,130,110,0.06);}
+  .card h2{font-size:17px;font-weight:600;margin-bottom:4px;}
+  .card .dsc{color:var(--sub);font-size:13px;margin-bottom:14px;}
+  .svgbox{width:100%;overflow-x:auto;}
+  svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+  .clk{cursor:pointer;transition:opacity .15s;}
+  .clk:hover{opacity:.8;}
+  .hit{margin-top:10px;padding:11px 14px;border-radius:10px;background:#EFE9DC;border:1px dashed #CFC3AC;font-size:13.5px;color:#5E5749;min-height:24px;transition:all .2s;}
+  .hit b{color:var(--ink);}
+  .src{font-size:11.5px;color:#9A9184;margin-top:8px;border-top:1px dashed var(--line);padding-top:8px;}
+  .pipeline{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .pipe{background:#EFE9DC;border:1px solid #DDD3BF;border-radius:10px;padding:9px 14px;font-size:13px;color:#5E5749;}
+  .pipe b{color:var(--ink);}
+  .arrow{color:#B0A487;align-self:center;font-size:16px;}
+  .key{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;}
+  .kbox{flex:1;min-width:190px;border-radius:12px;padding:16px 18px;color:#fff;cursor:pointer;transition:transform .15s;}
+  .kbox:hover{transform:translateY(-2px);}
+  .kbox .num{font-size:34px;font-weight:700;line-height:1.2;}
+  .kbox .lbl{font-size:13px;opacity:.95;margin-top:2px;}
+  table{width:100%;border-collapse:collapse;font-size:12.8px;}
+  th{background:#EFE9DC;color:#5E5749;text-align:left;padding:8px 10px;font-weight:600;border-bottom:2px solid var(--line);}
+  td{padding:8px 10px;border-bottom:1px solid #EDE6D8;vertical-align:top;}
+  tr:hover td{background:#F7F2E8;}
+  a{color:#7E99AB;text-decoration:none;word-break:break-all;}
+  a:hover{text-decoration:underline;}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;margin-right:4px;}
+  .t-a{background:#E3EBDD;color:#5F7455;} .t-b{background:#F0EBD9;color:#8A7A4E;}
+  .note{margin-top:10px;font-size:12.5px;color:var(--sub);}
+  .star{color:#B58E8E;font-weight:700;}
+  .hint{font-size:12px;color:#9A9184;text-align:right;margin-bottom:6px;}
+  #tip{position:fixed;pointer-events:none;background:#FDFBF7;color:#3D3A36;border:1px solid #D8CFBE;padding:9px 13px;border-radius:9px;font-size:13px;display:none;z-index:999;max-width:320px;box-shadow:0 5px 18px rgba(61,58,54,.15);line-height:1.55;}
+  #tip b{color:#7E99AB;}
+  @media (hover:none){#tip{display:none !important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>"0添加"替代成分出现频率分析（静态版）</h1>
+  <div class="sub">严格按商品实际宣传点筛查 · 宣传"0蔗糖"只查蔗糖替代成分，宣传"0防腐剂"只查防腐剂</div>
+  <div class="meta">57条分层随机抽样 · 56条有效配料表核验 · 检索日期 2026-09-02</div>
+
+  <div class="card">
+    <h2>抽样口径（可复现）</h2>
+    <div class="pipeline">
+      <div class="pipe">抽样总体：<b>549条</b>（京东272 + 淘宝277，2026-09-02 实测爬取）</div>
+      <span class="arrow">→</span>
+      <div class="pipe">剔除非食品 <b>44条</b>（身体乳/皂液/猫砂/香水等）</div>
+      <span class="arrow">→</span>
+      <div class="pipe">食品总体 <b>505条</b></div>
+      <span class="arrow">→</span>
+      <div class="pipe">12食品品类分层随机抽样 <b>57条</b>（random_state=42）</div>
+      <span class="arrow">→</span>
+      <div class="pipe">剔除色素原料类1条 → <b>有效56条</b></div>
+    </div>
+    <div class="note">每条商品按标题/详情页实际宣传点（0添加/0蔗糖/0防腐剂/0香精/0人工色素/无糖/低甜度等）逐条对照对应替代成分，配料表经公开商品页/品牌官网/权威科普平台核验，每条附来源。</div>
+  </div>
+
+  <div class="key">
+    <div class="kbox" style="background:var(--green);" data-hit="hit0" data-name="宣传不实" data-detail="17 条（占 56 条有效样本的 30.4%）"><div class="num">17 条</div><div class="lbl">宣传不实：配料含宣传点对应的替代成分（占 30.4%）</div></div>
+    <div class="kbox" style="background:var(--yellow);" data-hit="hit0" data-name="宣传属实但藏其他添加" data-detail="7 条（占 56 条有效样本的 12.5%）"><div class="num">7 条</div><div class="lbl">宣传属实但藏其他添加成分（占 12.5%）</div></div>
+    <div class="kbox" style="background:var(--blue);" data-hit="hit0" data-name="完全干净且符合宣传" data-detail="32 条（占 56 条有效样本的 57.1%）"><div class="num">32 条</div><div class="lbl">配料完全干净且符合宣传（占 57.1%）</div></div>
+  </div>
+  <div class="hit" id="hit0">🖱 点击上方卡片或下方图表色块，查看对应数据</div>
+
+  <div class="card">
+    <h2>图1 · 56 条有效样本的三类判定结果</h2>
+    <div class="dsc">严格按宣传点对照后：近三成"0添加"宣称与配料不符，另有一成半宣传属实但藏着宣传范围之外的其他添加成分。</div>
+    <div class="hint">👆 点击色块查看数据</div>
+    <div class="svgbox">
+    <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+      <path class="clk" data-hit="hit1" data-name="宣传不实" data-detail="17 条，占 56 条有效样本的 30.4%" d="M 210 44 A 131 131 0 0 1 333.7 218.4 L 290.2 203.1 A 85 85 0 0 0 210 90 Z" fill="#8BA888"/>
+      <path class="clk" data-hit="hit1" data-name="宣传属实但藏其他添加" data-detail="7 条，占 56 条有效样本的 12.5%" d="M 333.7 218.4 A 131 131 0 0 1 266.9 293 L 246.9 251.6 A 85 85 0 0 0 290.2 203.1 Z" fill="#B8A87E"/>
+      <path class="clk" data-hit="hit1" data-name="完全干净且符合宣传" data-detail="32 条，占 56 条有效样本的 57.1%" d="M 266.9 293 A 131 131 0 1 1 210 44 L 210 90 A 85 85 0 1 0 246.9 251.6 Z" fill="#7E99AB"/>
+      <text x="210" y="168" text-anchor="middle" font-size="30" font-weight="700" fill="#3D3A36">56 条</text>
+      <text x="210" y="192" text-anchor="middle" font-size="13" fill="#7A756D">有效样本</text>
+      <g transform="translate(400,70)">
+        <rect x="0" y="0" width="16" height="16" rx="3" fill="#8BA888"/>
+        <text x="24" y="13" font-size="13" fill="#555">宣传不实 · 17条（30.4%）</text>
+        <rect x="0" y="34" width="16" height="16" rx="3" fill="#B8A87E"/>
+        <text x="24" y="47" font-size="13" fill="#555">宣传属实但藏其他添加 · 7条（12.5%）</text>
+        <rect x="0" y="68" width="16" height="16" rx="3" fill="#7E99AB"/>
+        <text x="24" y="81" font-size="13" fill="#555">完全干净且符合宣传 · 32条（57.1%）</text>
+      </g>
+    </svg>
+    </div>
+    <div class="hit" id="hit1">🖱 点击环形图色块查看数据</div>
+    <div class="src">数据来源：2026-09-02 京东/淘宝 549条实测爬取 → 分层随机抽样 57条（random_state=42 可复现）→ 56条有效配料表核验，逐条按宣传点对照。</div>
+  </div>
+
+  <div class="card">
+    <h2>图2 · 替代成分出现频率（17 条"宣传不实"样本内）</h2>
+    <div class="dsc">一条商品可含多类替代成分，故条次数可叠加。糖类/代糖高居榜首——"0蔗糖"宣称背后最常见的套路是改用白砂糖/糖浆/蜂蜜或木糖醇/三氯蔗糖等代糖。<span class="star">★</span>为最典型案例：西麦玉米片"0添加蔗糖"实含三氯蔗糖；手撕素肉"0添防腐剂"实含山梨酸钾。</div>
+    <div class="hint">👆 点击色块查看数据</div>
+    <div class="svgbox">
+    <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+      <g font-size="13">
+        <text x="10" y="38" fill="#3D3A36">糖类/代糖</text>
+        <text x="10" y="94" fill="#3D3A36">其他</text>
+        <text x="10" y="150" fill="#3D3A36">酵母抽提物</text>
+        <text x="10" y="206" fill="#3D3A36">胶体（卡拉胶等）</text>
+        <text x="10" y="262" fill="#3D3A36">芹菜粉/樱桃粉</text>
+      </g>
+      <g>
+        <rect class="clk" data-hit="hit2" data-name="糖类/代糖" data-detail="12 条，占 17 条宣传不实样本的 70.6%" x="150" y="22" width="510" height="30" rx="4" fill="#8BA888"/>
+        <text x="668" y="43" font-size="13" fill="#555">12 条（70.6%）</text>
+        <rect class="clk" data-hit="hit2" data-name="其他" data-detail="3 条，占 17 条宣传不实样本的 17.6%" x="150" y="78" width="127.5" height="30" rx="4" fill="#9788A8"/>
+        <text x="286" y="99" font-size="13" fill="#555">3 条（17.6%）</text>
+        <rect class="clk" data-hit="hit2" data-name="酵母抽提物" data-detail="2 条，占 17 条宣传不实样本的 11.8%" x="150" y="134" width="85" height="30" rx="4" fill="#B58E8E"/>
+        <text x="244" y="155" font-size="13" fill="#555">2 条（11.8%）</text>
+        <rect class="clk" data-hit="hit2" data-name="胶体（卡拉胶等）" data-detail="1 条，占 17 条宣传不实样本的 5.9%" x="150" y="190" width="42.5" height="30" rx="4" fill="#A89B8F"/>
+        <text x="200" y="211" font-size="13" fill="#555">1 条（5.9%）</text>
+        <rect x="150" y="246" width="1" height="30" rx="4" fill="#C9C2B6"/>
+        <text x="160" y="267" font-size="13" fill="#9A9184">0 条（0%）· 点击查看说明</text>
+      </g>
+      <!-- 坐标轴：y分类轴 + x数值轴 -->
+      <g stroke="#B8AE9E" stroke-width="1">
+        <line x1="140" y1="278" x2="680" y2="278"/>
+        <line x1="140" y1="8" x2="140" y2="278"/>
+      </g>
+      <g font-size="11" fill="#9A9184" text-anchor="middle">
+        <text x="150" y="296">0</text>
+        <text x="235" y="296">2</text>
+        <text x="320" y="296">4</text>
+        <text x="405" y="296">6</text>
+        <text x="490" y="296">8</text>
+        <text x="575" y="296">10</text>
+        <text x="660" y="296">12</text>
+      </g>
+      <text x="700" y="296" font-size="11" fill="#9A9184" text-anchor="middle">条数</text>
+    </svg>
+    </div>
+    <div class="hit" id="hit2">🖱 点击条形色块查看数据</div>
+    <div class="src">数据来源：同上。芹菜粉/樱桃粉 0% 检出，以学术文献（中国农科院 agri.nais.net.cn、《肉类研究》rlyj.net.cn、维普 dianda.cqvip.com）作为"天然硝酸盐→亚硝酸盐"替代机制的支撑证据。</div>
+  </div>
+
+  <div class="card">
+    <h2>图3 · "其他"类替代成分细分</h2>
+    <div class="dsc">非糖类替代成分的具体分布：防腐剂、香精、益生元各占 1 条。</div>
+    <div class="hint">👆 点击色块查看数据</div>
+    <div class="svgbox">
+    <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+      <g font-size="13">
+        <text x="10" y="38" fill="#3D3A36">防腐剂（山梨酸钾）</text>
+        <text x="10" y="94" fill="#3D3A36">香精</text>
+        <text x="10" y="150" fill="#3D3A36">益生元/功能配料</text>
+      </g>
+      <g>
+        <rect class="clk" data-hit="hit3" data-name="防腐剂（山梨酸钾）" data-detail="1 条：手撕素肉宣称 0添防腐剂，实含山梨酸钾" x="190" y="22" width="170" height="30" rx="4" fill="#B58E8E"/>
+        <text x="368" y="43" font-size="13" fill="#555">1 条</text>
+        <rect class="clk" data-hit="hit3" data-name="香精" data-detail="1 条：芙芙蕾面包宣称 0添加，配料含香精" x="190" y="78" width="170" height="30" rx="4" fill="#9788A8"/>
+        <text x="368" y="99" font-size="13" fill="#555">1 条</text>
+        <rect class="clk" data-hit="hit3" data-name="益生元/功能配料" data-detail="1 条：养益君果蔬粉宣称 0添加，配料含低聚异麦芽糖、抗性糊精" x="190" y="134" width="170" height="30" rx="4" fill="#A89B8F"/>
+        <text x="368" y="155" font-size="13" fill="#555">1 条</text>
+      </g>
+      <!-- 坐标轴：y分类轴 + x数值轴 -->
+      <g stroke="#B8AE9E" stroke-width="1">
+        <line x1="180" y1="166" x2="560" y2="166"/>
+        <line x1="180" y1="8" x2="180" y2="166"/>
+      </g>
+      <g font-size="11" fill="#9A9184" text-anchor="middle">
+        <text x="190" y="184">0</text>
+        <text x="360" y="184">1</text>
+      </g>
+      <text x="580" y="184" font-size="11" fill="#9A9184" text-anchor="middle">条数</text>
+    </svg>
+    </div>
+    <div class="hit" id="hit3">🖱 点击条形色块查看数据</div>
+    <div class="src">数据来源：17 条"宣传不实"样本逐条配料表核验（2026-09-02）。</div>
+  </div>
+
+  <div class="card">
+    <h2>图4 · 品类分布：三类判定堆叠（13 个食品品类）</h2>
+    <div class="dsc">烘焙 4/5 宣传不实最严重，巧克力糖果 2/4 不实 + 2/4 藏添加，乳制品 5 条全部干净。</div>
+    <div class="hint">👆 点击色块查看数据</div>
+    <div class="svgbox">
+    <svg viewBox="0 0 820 410" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#E7DFCF" stroke-width="1">
+        <line x1="46" y1="340" x2="778" y2="340"/>
+        <line x1="46" y1="292" x2="778" y2="292"/>
+        <line x1="46" y1="244" x2="778" y2="244"/>
+        <line x1="46" y1="196" x2="778" y2="196"/>
+        <line x1="46" y1="148" x2="778" y2="148"/>
+        <line x1="46" y1="100" x2="778" y2="100"/>
+      </g>
+      <g font-size="11" fill="#9A9184" text-anchor="end">
+        <text x="42" y="343">0</text>
+        <text x="42" y="295">1</text>
+        <text x="42" y="247">2</text>
+        <text x="42" y="199">3</text>
+        <text x="42" y="151">4</text>
+        <text x="42" y="103">5</text>
+      </g>
+      <!-- 堆叠自底向上：A宣传不实→B藏其他添加→C完全干净 -->
+      <g>
+        <!-- 调味品 A2 B1 C2 -->
+        <rect class="clk" data-hit="hit4" data-name="调味品 · 宣传不实" data-detail="2 条（松鲜鲜、海天纯金标，含酵母抽提物）" x="50" y="244" width="32" height="96" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="调味品 · 藏其他添加" data-detail="1 条（亨氏，藏糖+香精）" x="50" y="196" width="32" height="48" fill="#B8A87E"/>
+        <rect class="clk" data-hit="hit4" data-name="调味品 · 完全干净" data-detail="2 条（海天料酒、胖东来酱油）" x="50" y="100" width="32" height="96" fill="#7E99AB"/>
+        <!-- 饮料 A1 B1 C3 -->
+        <rect class="clk" data-hit="hit4" data-name="饮料 · 宣传不实" data-detail="1 条（三只松鼠玉米汁，含糖/代糖）" x="108" y="292" width="32" height="48" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="饮料 · 藏其他添加" data-detail="1 条（百事，藏代糖+防腐剂）" x="108" y="244" width="32" height="48" fill="#B8A87E"/>
+        <rect class="clk" data-hit="hit4" data-name="饮料 · 完全干净" data-detail="3 条（颂优乳、天士力、中国农垦）" x="108" y="100" width="32" height="144" fill="#7E99AB"/>
+        <!-- 烘焙 A4 C1 -->
+        <rect class="clk" data-hit="hit4" data-name="烘焙 · 宣传不实" data-detail="4 条（手撕面包/厚切吐司/牛角包/全麦吐司/芙芙蕾中4条）" x="166" y="148" width="32" height="192" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="烘焙 · 完全干净" data-detail="1 条（全麦恰巴塔）" x="166" y="100" width="32" height="48" fill="#7E99AB"/>
+        <!-- 乳制品 C5 -->
+        <rect class="clk" data-hit="hit4" data-name="乳制品 · 完全干净" data-detail="5 条（大桶酸奶/养只奶牛/九阳豆浆粉/英氏/吾岛）" x="224" y="100" width="32" height="240" fill="#7E99AB"/>
+        <!-- 果干蜜饯 A1 C4 -->
+        <rect class="clk" data-hit="hit4" data-name="果干蜜饯 · 宣传不实" data-detail="1 条（蓝莓山楂条，含白砂糖）" x="282" y="292" width="32" height="48" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="果干蜜饯 · 完全干净" data-detail="4 条（山楂干/西梅干/六物山楂丸/红薯干）" x="282" y="100" width="32" height="192" fill="#7E99AB"/>
+        <!-- 其他 A2 B1 C2 -->
+        <rect class="clk" data-hit="hit4" data-name="其他 · 宣传不实" data-detail="2 条（牛角包、汉方百膳记）" x="340" y="244" width="32" height="96" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="其他 · 藏其他添加" data-detail="1 条（备得福，藏糖+味精）" x="340" y="196" width="32" height="48" fill="#B8A87E"/>
+        <rect class="clk" data-hit="hit4" data-name="其他 · 完全干净" data-detail="2 条（松花蛋、今康明健）" x="340" y="100" width="32" height="96" fill="#7E99AB"/>
+        <!-- 冲饮谷物 A1 C4 -->
+        <rect class="clk" data-hit="hit4" data-name="冲饮谷物 · 宣传不实" data-detail="1 条（西麦玉米片，含三氯蔗糖）" x="398" y="292" width="32" height="48" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="冲饮谷物 · 完全干净" data-detail="4 条（九阳黑豆/西麦燕麦片/非转基因豆浆粉/全麦脆）" x="398" y="100" width="32" height="192" fill="#7E99AB"/>
+        <!-- 肉制品 A1 B2 C2 -->
+        <rect class="clk" data-hit="hit4" data-name="肉制品 · 宣传不实" data-detail="1 条（手撕素肉，含山梨酸钾）" x="456" y="292" width="32" height="48" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="肉制品 · 藏其他添加" data-detail="2 条（花田熊、牛乐高，藏海藻糖）" x="456" y="196" width="32" height="96" fill="#B8A87E"/>
+        <rect class="clk" data-hit="hit4" data-name="肉制品 · 完全干净" data-detail="2 条（窝小芽、鸡胸肉）" x="456" y="100" width="32" height="96" fill="#7E99AB"/>
+        <!-- 坚果 A1 C4 -->
+        <rect class="clk" data-hit="hit4" data-name="坚果 · 宣传不实" data-detail="1 条（黑芝麻软糕，含麦芽糖）" x="514" y="292" width="32" height="48" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="坚果 · 完全干净" data-detail="4 条（胖东来每日坚果/阳光小草/老街口/南瓜子仁）" x="514" y="100" width="32" height="192" fill="#7E99AB"/>
+        <!-- 烘焙原料 A2 C2 -->
+        <rect class="clk" data-hit="hit4" data-name="烘焙原料 · 宣传不实" data-detail="2 条（养益君、小鹿农场）" x="572" y="244" width="32" height="96" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="烘焙原料 · 完全干净" data-detail="2 条（红甜菜粉、红曲粉）" x="572" y="100" width="32" height="144" fill="#7E99AB"/>
+        <!-- 巧克力糖果 A2 B2 -->
+        <rect class="clk" data-hit="hit4" data-name="巧克力糖果 · 宣传不实" data-detail="2 条（白凉粉含卡拉胶、比比赞含麦芽糖醇）" x="630" y="244" width="32" height="96" fill="#8BA888"/>
+        <rect class="clk" data-hit="hit4" data-name="巧克力糖果 · 藏其他添加" data-detail="2 条（喜之郎藏糖胶香精、焙小姐藏代糖）" x="630" y="148" width="32" height="96" fill="#B8A87E"/>
+        <!-- 米面主食 C2 -->
+        <rect class="clk" data-hit="hit4" data-name="米面主食 · 完全干净" data-detail="2 条（荞麦面、猴头菇米粉）" x="688" y="244" width="32" height="96" fill="#7E99AB"/>
+        <!-- 膨化 C1 -->
+        <rect class="clk" data-hit="hit4" data-name="膨化零食 · 完全干净" data-detail="1 条（乐事裸鲜贝）" x="746" y="292" width="32" height="48" fill="#7E99AB"/>
+      </g>
+      <g font-size="11" fill="#3D3A36" text-anchor="middle">
+        <text x="66" y="372">调味品</text>
+        <text x="124" y="372">饮料</text>
+        <text x="182" y="372">烘焙</text>
+        <text x="240" y="372">乳制品</text>
+        <text x="298" y="372">果干蜜饯</text>
+        <text x="356" y="372">其他</text>
+        <text x="414" y="372">冲饮谷物</text>
+        <text x="472" y="372">肉制品</text>
+        <text x="530" y="372">坚果</text>
+        <text x="588" y="372">烘焙原料</text>
+        <text x="646" y="372">巧克力糖果</text>
+        <text x="704" y="372">米面主食</text>
+        <text x="762" y="372">膨化零食</text>
+      </g>
+      <g transform="translate(620,20)">
+        <rect x="0" y="0" width="16" height="16" rx="3" fill="#8BA888"/>
+        <text x="22" y="13" font-size="13" fill="#555">宣传不实</text>
+        <rect x="0" y="24" width="16" height="16" rx="3" fill="#B8A87E"/>
+        <text x="22" y="37" font-size="13" fill="#555">藏其他添加</text>
+        <rect x="0" y="48" width="16" height="16" rx="3" fill="#7E99AB"/>
+        <text x="22" y="61" font-size="13" fill="#555">完全干净</text>
+      </g>
+      <text x="46" y="26" font-size="12" fill="#9A9184">每个品类为堆叠条，纵轴为该品类样本条数（0–5），自底向上依次为 宣传不实 → 藏其他添加 → 完全干净</text>
+    </svg>
+    </div>
+    <div class="hit" id="hit4">🖱 点击堆叠色块查看数据</div>
+    <div class="src">数据来源：56 条有效样本按 13 类食品品类归类（2026-09-02）。</div>
+  </div>
+
+  <div class="card">
+    <h2>明细表 · 24 条需关注样本（17 宣传不实 + 7 宣传属实但藏添加）</h2>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>商品</th><th>宣传点</th><th>替代成分（对应宣传点）</th><th>判定</th><th>来源</th></tr></thead>
+      <tbody>
+        <tr><td>西麦西澳阳光低脂玉米片</td><td>0添加蔗糖</td><td>三氯蔗糖（人工甜味剂替代蔗糖）</td><td><span class="tag t-a">宣传不实</span>★</td><td><a href="https://www.seamild.com.cn/product_1/92.html" target="_blank" rel="noopener">seamild.com.cn</a></td></tr>
+        <tr><td>手撕素肉</td><td>0添防腐剂</td><td>山梨酸钾（防腐剂）</td><td><span class="tag t-a">宣传不实</span>★</td><td><a href="https://www.iesdouyin.com/share/video/7641098967916350729" target="_blank" rel="noopener">iesdouyin.com/7641098967916350729</a></td></tr>
+        <tr><td>松鲜鲜特级生抽</td><td>0添加</td><td>酵母抽提物（增鲜替味精）</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://pcdetail.taobao.com/aWU4WEJLSEFYUTNHNnIwVTNRVTVEZz09.html" target="_blank" rel="noopener">pcdetail.taobao.com</a></td></tr>
+        <tr><td>海天纯金标生抽</td><td>0添加</td><td>酵母抽提物</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://www.taobao.com/list/item/693952813231.htm" target="_blank" rel="noopener">taobao.com/list/item/693952813231</a></td></tr>
+        <tr><td>三只松鼠鲜榨玉米汁</td><td>0添加</td><td>白砂糖、木糖醇</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://club.jd.com/repay/100109020669" target="_blank" rel="noopener">club.jd.com/100109020669</a></td></tr>
+        <tr><td>三只松鼠手撕面包</td><td>0蔗糖</td><td>木糖醇、山梨糖醇液（代糖替蔗糖）</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://www.iesdouyin.com/share/video/7677557472609743345" target="_blank" rel="noopener">iesdouyin.com/7677557472609743345</a></td></tr>
+        <tr><td>三只松鼠厚切吐司</td><td>0添加</td><td>白砂糖、山梨糖醇液、麦芽糖浆</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://pcdetail.taobao.com/dnN3aEgySkhZT25raVhWSVpPVVQ4Zz09.html" target="_blank" rel="noopener">pcdetail.taobao.com</a></td></tr>
+        <tr><td>三只松鼠牛角包</td><td>0蔗糖</td><td>糖醇类代糖</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://club.jd.com/repay/100119913537_cd913e3a33b06dd43f645cda07d955ba_1.html" target="_blank" rel="noopener">club.jd.com/100119913537</a></td></tr>
+        <tr><td>胖东来同款全麦坚果吐司</td><td>0蔗糖0添加</td><td>山梨糖醇液、麦芽糖醇、香精</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://www.iesdouyin.com/share/video/7588422597998546211" target="_blank" rel="noopener">iesdouyin.com/7588422597998546211</a></td></tr>
+        <tr><td>七点谷力芙芙蕾面包</td><td>0添加</td><td>白砂糖、海藻糖、甘油、香精</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://pcdetail.taobao.com/RzZBeTdSbzdlUXJQQ2dRTG0wMGx6Zz09.html" target="_blank" rel="noopener">pcdetail.taobao.com</a></td></tr>
+        <tr><td>蓝莓桑葚山楂条</td><td>无添加</td><td>白砂糖</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://pcdetail.taobao.com/bXBTM3NkNDE1NGFZVS9KYm5zalZDZz09.html" target="_blank" rel="noopener">pcdetail.taobao.com</a></td></tr>
+        <tr><td>黑芝麻核桃软糕</td><td>0添加剂</td><td>麦芽糖</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://pcdetail.taobao.com/QzdDTWFWb04zbTBPaXB2NDJKSzMwZz09.html" target="_blank" rel="noopener">pcdetail.taobao.com</a></td></tr>
+        <tr><td>小鹿农场益生菌蔬菜粉</td><td>0添加蔗糖</td><td>海藻糖（代糖）</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://www.taobao.com/list/item/714006044369.htm" target="_blank" rel="noopener">taobao.com/list/item/714006044369</a></td></tr>
+        <tr><td>比比赞黑巧克力</td><td>0蔗糖</td><td>麦芽糖醇（代糖）</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://www.iesdouyin.com/share/video/7677788394232250545" target="_blank" rel="noopener">iesdouyin.com/7677788394232250545</a></td></tr>
+        <tr><td>徽天赐白凉粉</td><td>0添加</td><td>卡拉胶、魔芋粉（凝固必需增稠剂）</td><td><span class="tag t-a">宣传不实</span>（功能必需）</td><td><a href="https://www.iesdouyin.com/share/video/7671991963780572489" target="_blank" rel="noopener">iesdouyin.com/7671991963780572489</a></td></tr>
+        <tr><td>养益君每日果蔬粉</td><td>0添加</td><td>低聚异麦芽糖、抗性糊精（益生元）</td><td><span class="tag t-a">宣传不实</span></td><td><a href="https://www.taobao.com/list/item/enFIOVdCRThaVDhJckVoWW5RYlZIdz09.htm" target="_blank" rel="noopener">taobao.com/list/item</a></td></tr>
+        <tr><td>汉方百膳记黄精丸</td><td>不添加（待确认）</td><td>蜂蜜（甜味粘合）</td><td><span class="tag t-a">宣传不实</span>（待确认）</td><td><a href="https://www.iesdouyin.com/share/video/7669754001608510729" target="_blank" rel="noopener">iesdouyin.com/7669754001608510729</a></td></tr>
+        <tr><td>亨氏番茄沙司</td><td>0脂肪</td><td>宣传属实｜配料含果葡糖浆、葡萄糖浆、香精</td><td><span class="tag t-b">藏糖+香精</span></td><td><a href="https://www.taobao.com/list/item/572868149588.htm" target="_blank" rel="noopener">taobao.com/list/item/572868149588</a></td></tr>
+        <tr><td>百事无糖可乐</td><td>无糖</td><td>宣传属实｜配料含3种代糖+苯甲酸钠、山梨酸钾</td><td><span class="tag t-b">藏代糖+防腐剂</span></td><td><a href="https://cn.openfoodfacts.org/product/6906907417344" target="_blank" rel="noopener">openfoodfacts.org/6906907417344</a></td></tr>
+        <tr><td>花田熊牛肉肠</td><td>无防腐剂</td><td>宣传属实｜配料含海藻糖（保水）</td><td><span class="tag t-b">藏海藻糖</span></td><td><a href="https://www.iesdouyin.com/share/video/7616358625276792100" target="_blank" rel="noopener">iesdouyin.com/7616358625276792100</a></td></tr>
+        <tr><td>牛乐高午餐肉</td><td>无添加防腐剂</td><td>宣传属实｜配料含海藻糖</td><td><span class="tag t-b">藏海藻糖</span></td><td><a href="https://www.iesdouyin.com/share/video/7669984599145909627" target="_blank" rel="noopener">iesdouyin.com/7669984599145909627</a></td></tr>
+        <tr><td>备得福榨菜丝</td><td>0防腐剂0着色剂0甜味剂</td><td>宣传属实｜配料含白砂糖、味精</td><td><span class="tag t-b">藏糖+味精</span></td><td><a href="https://pcdetail.taobao.com/cnpUcmQrUUU4M2I3dmt3aWQycVh6Zz09.html" target="_blank" rel="noopener">pcdetail.taobao.com</a></td></tr>
+        <tr><td>喜之郎NFC梅浆果冻</td><td>0防腐剂0人工色素</td><td>宣传属实｜配料含果葡糖浆、白砂糖、4种胶体、香精</td><td><span class="tag t-b">藏糖+胶体+香精</span></td><td><a href="https://pcdetail.taobao.com/clpta3pqZFAvMC9qdVI2S0t0TVZ2QT09.html" target="_blank" rel="noopener">pcdetail.taobao.com</a></td></tr>
+        <tr><td>焙小姐低甜度棉花糖</td><td>低甜度</td><td>宣传属实｜用代糖实现低甜度</td><td><span class="tag t-b">藏代糖</span></td><td><a href="https://www.taobao.com/list/item/WThxWTMxMytYZTdJN3pYcTBNVDBZUT09.htm" target="_blank" rel="noopener">taobao.com/list/item</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="src">来源核验日期：2026-09-02。淘宝 pcdetail/taobao list 详情页、京东 club 评价页、品牌官网、抖音商品视频、开放食品数据库均为公开可访问文本配料表来源。</div>
+  </div>
+
+</div>
+
+<div id="tip"></div>
+
+<script>
+(function(){
+  function showHit(target){
+    if(!target || !target.getAttribute) return;
+    var hit = document.getElementById(target.getAttribute('data-hit'));
+    if(hit){
+      var bg = target.getAttribute('fill') || '#EFE9DC';
+      hit.style.background = bg;
+      hit.style.borderColor = bg;
+      hit.style.color = '#fff';
+      hit.innerHTML = '<b>已选中：</b>' + target.getAttribute('data-name') + ' ｜ ' + target.getAttribute('data-detail');
+    }
+    document.querySelectorAll('.clk').forEach(function(x){
+      x.style.opacity = '1';
+      x.setAttribute('stroke','none');
+      x.setAttribute('stroke-width','0');
+    });
+    target.style.opacity = '0.75';
+    target.setAttribute('stroke','#3D3A36');
+    target.setAttribute('stroke-width','2');
+  }
+  document.addEventListener('click', function(e){
+    var cur = e.target;
+    while(cur && cur.getAttribute && typeof cur.getAttribute === 'function'){
+      var cls = cur.getAttribute('class') || '';
+      if(cls.indexOf('clk') !== -1){ showHit(cur); return; }
+      cur = cur.parentNode;
+    }
+  });
+
+  // 悬停提示气泡
+  var tip = document.getElementById('tip');
+  document.addEventListener('mousemove', function(e){
+    var cur = e.target;
+    var clk = null;
+    while(cur && cur.getAttribute && typeof cur.getAttribute === 'function'){
+      var cls = cur.getAttribute('class') || '';
+      if(cls.indexOf('clk') !== -1){ clk = cur; break; }
+      cur = cur.parentNode;
+    }
+    if(clk && window.matchMedia && window.matchMedia('(hover:hover)').matches){
+      var x = e.clientX + 16;
+      var y = e.clientY + 16;
+      if(x + 330 > window.innerWidth){ x = e.clientX - 336; }
+      if(y + 130 > window.innerHeight){ y = e.clientY - 130; }
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
+      tip.innerHTML = '<b>' + clk.getAttribute('data-name') + '</b><br>' + clk.getAttribute('data-detail');
+      tip.style.display = 'block';
+    } else {
+      tip.style.display = 'none';
+    }
+  });
+  document.addEventListener('mouseleave', function(){ if(tip){ tip.style.display = 'none'; } });
+})();
+</script>
+</body>
+</html>

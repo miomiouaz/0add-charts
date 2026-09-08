@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图1 拆分：三项扇形统计图 + 其余认知误区条形图（交互版）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#F3F0EA; --card:#FBFAF7; --ink:#4A443D; --sub:#7A7266; --line:#E2DCD2;
+    --sage:#9CAF9A; --mauve:#A4938F; --blue:#8FA3AD; --clay:#B08968; --pink:#C4A69C; --violet:#9B8EA6; --olive:#A3A380; --gray:#8B7D74;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7;}
+  header{padding:30px 20px 4px;text-align:center;}
+  header h1{margin:0;font-size:21px;font-weight:700;}
+  header p{margin:6px 0 0;color:var(--sub);font-size:13px;}
+  main{max-width:920px;margin:0 auto;padding:18px 18px 60px;}
+  .block{margin:22px 0;}
+  .block h2{font-size:16.5px;margin:0 0 2px;color:var(--ink);}
+  .block .sub{font-size:12.5px;color:var(--sub);margin:2px 0 8px;}
+  .donuts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .donut-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;box-shadow:0 2px 10px rgba(74,68,61,.05);}
+  .donut-card h3{font-size:13px;margin:0 0 4px;color:var(--ink);line-height:1.45;}
+  .donut-box{width:100%;height:240px;}
+  .donut-card .src{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:10.5px;color:var(--sub);}
+  .bar-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 12px;box-shadow:0 2px 10px rgba(74,68,61,.05);}
+  .bar-box{width:100%;height:360px;}
+  .bar-card .src{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--sub);}
+  .note{background:#EFE9E0;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--sub);margin:10px 0;}
+  @media(max-width:760px){.donuts{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>"0添加"认知误区 · 拆分图</h1>
+  <p>三项关键认知→扇形统计图 ｜ 其余误区→横向条形图（图1同版式）· 交互版 · 莫兰迪配色 · 检索截止2026-09-01</p>
+</header>
+<main>
+
+  <div class="block">
+    <h2>三项关键认知：扇形统计图</h2>
+    <p class="sub">占比（%）｜环形统计图（交互版：悬停查看占比）</p>
+    <div class="donuts">
+      <div class="donut-card">
+        <h3>① 认为标"无添加XX"产品比同类更好</h3>
+        <div class="donut-box" id="d1"></div>
+        <div class="src"><b>数据来源：</b>科信《2020中国消费者食品标签认知调查》，n=3100。</div>
+      </div>
+      <div class="donut-card">
+        <h3>② 认为"0添加/0防腐剂"食品更安全</h3>
+        <div class="donut-box" id="d2"></div>
+        <div class="src"><b>数据来源：</b>科信《2023中国消费者食品添加剂认知调查报告》，n=5284。</div>
+      </div>
+      <div class="donut-card">
+        <h3>③ 凭"0蔗糖"判断产品是否无糖（易被误导）</h3>
+        <div class="donut-box" id="d3"></div>
+        <div class="src"><b>数据来源：</b>科信《2022中国消费者甜味剂认知调查》；"近八成"为区间约值，图中取80%。</div>
+      </div>
+    </div>
+    <div class="note">注：三项均指向同一结论——消费者把"0"理解为"绝对零"，而国标中的"0"是界限值（详见对比信息图）。</div>
+  </div>
+
+  <div class="block">
+    <h2>其余认知误区：横向条形图（图1同版式）</h2>
+    <p class="sub">占比（%）｜横向条形图（交互版：悬停显示精确值）</p>
+    <div class="bar-card">
+      <div class="bar-box" id="bar"></div>
+      <div class="src"><b>数据来源：</b>科信食品与健康信息交流中心《2020中国消费者食品标签认知调查》(n=3100)、《2023中国消费者食品添加剂认知调查》(n=5284)。"不看配料表"=看不懂37.39%+太长浪费时间39.21%；"瘦肉精/三聚氰胺误认率"采用报告内页口径71.71%（报告首页另有85.94%口径差异）。原图1中的三项（"无添加XX更好""0添加/0防腐剂更安全""0蔗糖判断"）已拆出为上方3个扇形统计图。</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  var ink="#4A443D", sub="#7A7266", line="#E7E1D7";
+  var sage="#9CAF9A", blue="#8FA3AD", clay="#B08968", mauve="#A4938F";
+  var remainder="#E8E3DA";
+  var ttip={trigger:"item",triggerOn:"click",renderMode:"richText",confine:true,backgroundColor:"rgba(74,68,61,.92)",borderColor:"rgba(74,68,61,0)",textStyle:{color:"#F5F1EA",fontSize:11},padding:[6,9]};
+
+  function donut(id, value, color, unit){
+    var el=document.getElementById(id);
+    var chart=echarts.init(el);
+    chart.setOption({
+      backgroundColor:"transparent",
+      tooltip: Object.assign({}, ttip, {formatter:function(p){return p.name+"："+p.value+(unit||"%");}}),
+      title:{text:value+(unit||"%"),subtext:"",left:"center",top:"40%",textStyle:{fontSize:26,fontWeight:700,color:ink},subtextStyle:{fontSize:11,color:sub}},
+      series:[{type:"pie",radius:["60%","80%"],center:["50%","50%"],startAngle:90,silent:false,
+        data:[{value:value,name:"占比",itemStyle:{color:color}},{value:Math.round((100-value)*100)/100,name:"其余",itemStyle:{color:remainder}}],
+        label:{show:false},labelLine:{show:false},
+        emphasis:{scale:false,itemStyle:{shadowBlur:6,shadowColor:"rgba(74,68,61,.15)"}}}]
+    });
+    window.addEventListener("resize",function(){chart.resize();});
+  }
+  donut("d1", 60.65, blue, "%");
+  donut("d2", 66.03, sage, "%");
+  donut("d3", 80, clay, "%");
+
+  /* 横向条形图（同图1版式，其余6项） */
+  var bar=echarts.init(document.getElementById("bar"));
+  bar.setOption({
+    backgroundColor:"transparent",
+    tooltip:Object.assign({trigger:"axis",axisPointer:{type:"shadow"}},ttip),
+    grid:{left:10,right:52,top:8,bottom:8,containLabel:true},
+    xAxis:{type:"value",max:100,axisLabel:{color:sub,fontSize:11,formatter:"{value}%"},splitLine:{lineStyle:{color:line}}},
+    yAxis:{type:"category",inverse:true,
+      data:["不看配料表：看不懂/太长浪费时间","看配料表时最关注“食品添加剂”","误认“瘦肉精/三聚氰胺”是食品添加剂","认为长期摄入多种添加剂有害健康","认为天然来源比人工合成更安全","对食品添加剂印象负面"],
+      axisLabel:{color:ink,fontSize:11,width:210,overflow:"break"},axisLine:{show:false},axisTick:{show:false}},
+    series:[{name:"占比",type:"bar",barWidth:16,
+      data:[{value:76.6,itemStyle:{color:sage}},{value:76.45,itemStyle:{color:sage}},{value:71.71,itemStyle:{color:sage}},{value:71.59,itemStyle:{color:sage}},{value:70.14,itemStyle:{color:sage}},{value:45.32,itemStyle:{color:sage}}],
+      itemStyle:{borderRadius:[0,7,7,0]},
+      label:{show:true,position:"right",color:ink,fontSize:11,formatter:"{c}%"},
+      labelLayout:{hideOverlap:true}}]
+  });
+  window.addEventListener("resize",function(){bar.resize();});
+</script>
+</body>
+</html>

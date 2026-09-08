@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亚硝酸盐双路径对比 · 静态版 · 2026-09-03</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#F3F0EA;color:#3D3A36;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;padding:28px 20px;line-height:1.6;}
+  .wrap{max-width:1060px;margin:0 auto;}
+  h1{font-size:24px;font-weight:700;text-align:center;margin-bottom:6px;}
+  .sub{text-align:center;color:#7A7266;font-size:14px;margin-bottom:20px;}
+  .start-node{background:#FBFAF7;border:1.5px solid #C9C2B6;border-radius:14px;padding:14px 18px;margin:0 auto 20px;max-width:640px;text-align:center;font-size:15px;font-weight:600;}
+  .branch{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:20px;}
+  .path{flex:1 1 340px;min-width:0;border-radius:16px;padding:16px;background:#FBFAF7;}
+  .path-a{border:1.5px solid #D9C6B3;}
+  .path-b{border:1.5px solid #C6D3C4;}
+  .path-head{font-size:15px;font-weight:700;margin-bottom:12px;padding:8px 12px;border-radius:10px;}
+  .path-a .path-head{background:#F0E4D6;color:#8A6240;}
+  .path-b .path-head{background:#E4EDE2;color:#4F7150;}
+  .node{background:#FFFDF9;border:1.5px solid #E4E3DD;border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+  .node .t{font-size:15px;font-weight:700;}
+  .path-a .node .t{color:#8A6240;}
+  .path-b .node .t{color:#4F7150;}
+  .node .d{font-size:13px;color:#7A7266;margin-top:3px;}
+  .node .big{font-size:22px;font-weight:800;color:#3D3A36;}
+  .arrow{text-align:center;font-size:22px;color:#B8A87E;line-height:1.2;margin:2px 0;font-weight:700;}
+  .convert{background:#F4F6F1;border:1.5px dashed #8BA888;border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+  .convert .ct{font-size:14px;font-weight:700;color:#4F7150;text-align:center;margin-bottom:8px;}
+  .conv-track{display:flex;justify-content:space-between;align-items:center;background:#E4EDE2;border-radius:13px;padding:8px 12px;font-size:13px;color:#4F7150;font-weight:600;}
+  .conv-track .from{color:#8A6240;}
+  .conv-track .to{color:#B58E8E;}
+  .conv-track .rarrow{color:#7E99AB;font-size:16px;}
+  .conv-note{text-align:center;font-size:12px;color:#7A7266;margin-top:6px;}
+  .converge{background:#E8EDF2;border:2px solid #7E99AB;border-radius:16px;padding:16px 18px;margin-bottom:16px;text-align:center;}
+  .converge .t{font-size:17px;font-weight:800;color:#3A5468;}
+  .converge .d{font-size:14px;color:#55697A;margin-top:4px;}
+  .conclusion{background:#FBFAF7;border:1.5px solid #C9C2B6;border-radius:14px;padding:14px 18px;margin-bottom:16px;}
+  .conclusion .t{font-size:15px;font-weight:700;color:#8A6240;margin-bottom:6px;}
+  .conclusion ul{margin-left:18px;color:#5A5650;font-size:14px;}
+  .conclusion li{margin-bottom:4px;}
+  .src{font-size:12px;color:#7A7266;border-top:1px solid #DCD7CE;padding-top:12px;}
+  .src a{color:#55697A;}
+  .src b{color:#5A5650;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>直加亚硝酸盐 vs 芹菜粉转化：两条路，同一个"亚硝酸盐"</h1>
+  <div class="sub">传统工艺与"无添加亚硝酸盐"工艺，殊途同归的路径演示</div>
+
+  <div class="start-node">同一块肉，要加工成香肠或腌肉。<br>为防变色、防腐，两条工艺走了不同的路——但终点一样。</div>
+
+  <div class="branch">
+    <!-- 路径A：传统 -->
+    <div class="path path-a">
+      <div class="path-head">路径 A · 传统工艺（直接添加）</div>
+      <div class="node">
+        <div class="t">直接加"亚硝酸钠"</div>
+        <div class="d">化学合成，它本身就是亚硝酸盐</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="node">
+        <div class="t">在肉里发色、抑菌</div>
+        <div class="d">与肌红蛋白反应呈粉红，抑制肉毒梭菌</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="node">
+        <div class="t">成品：<span class="big">16.07</span> mg/kg 亚硝酸盐残留</div>
+        <div class="d">标签写明"亚硝酸钠"（明着标）· 对照组 100 mg/kg 添加、腌制 30 天</div>
+      </div>
+    </div>
+
+    <!-- 路径B：芹菜粉 -->
+    <div class="path path-b">
+      <div class="path-head">路径 B · "无添加亚硝酸盐"工艺（芹菜粉）</div>
+      <div class="node">
+        <div class="t">加的是"芹菜粉"</div>
+        <div class="d">芹菜天然含硝酸盐 2100–30000 mg/kg</div>
+      </div>
+      <div class="convert">
+        <div class="ct">↓ 微生物把硝酸盐还原成亚硝酸盐</div>
+        <div class="conv-track">
+          <span class="from">NO₃⁻ 硝酸盐（芹菜自带）</span>
+          <span class="rarrow">➜ 还原 ➜</span>
+          <span class="to">NO₂⁻ 亚硝酸盐（肉里生成）</span>
+        </div>
+        <div class="conv-note">腌制/存放过程中，肉中微生物（硝酸盐还原酶）完成这一步转化</div>
+      </div>
+      <div class="node">
+        <div class="t">同样在肉里发色、抑菌</div>
+        <div class="d">机理与传统亚硝酸盐完全相同</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="node">
+        <div class="t">成品：<span class="big">7.46</span> mg/kg 亚硝酸盐残留</div>
+        <div class="d">标签却写"无添加亚硝酸盐" · 0.3% 芹菜粉、腌制 30 天</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="converge">
+    <div class="t">殊途同归 —— 都生成了亚硝酸盐</div>
+    <div class="d">差别只在标签：一个明着标，一个用"天然"绕道</div>
+  </div>
+
+  <div class="conclusion">
+    <div class="t">一句话看懂："无添加亚硝酸盐"≠ 没有亚硝酸盐</div>
+    <ul>
+      <li>它只是把"直接加亚硝酸盐"换成了"加会变成亚硝酸盐的芹菜粉"——亚硝酸盐照样生成。</li>
+      <li>而且芹菜粉对单增李斯特菌、大肠杆菌的抑菌力弱于化学亚硝酸盐，保存风险未必更低。</li>
+    </ul>
+  </div>
+
+  <div class="src">
+    <b>数据来源：</b>① 中国农业科学院农业信息研究所（食品伙伴网 2026-05-15）：0.3% 芹菜粉腌肉 30 天后亚硝酸盐残留 7.46 mg/kg，比加 100 mg/kg 亚硝酸钠对照组低 53.58%（对照组 ≈ 16.07 mg/kg，按"低 53.58%"反推）· <a href="http://agri.nais.net.cn/resourcenavigation/webinfo/6e953a45-9bbf-42d8-b632-312c38b05e3a.html" target="_blank">中国农科院</a>；② 《肉类研究》2015：添加芹菜粉的川味香肠亚硝酸盐残留显著低于加亚硝酸盐样品，均远低于国标 ≤30 mg/kg · <a href="https://www.rlyj.net.cn/fileup/HTML/20150501.shtml" target="_blank">肉类研究</a>；③ 新鲜芹菜硝酸盐含量 2100–30000 mg/kg（中国农科院）；④ 果蔬组 65.52 vs 对照组 105.31 mg/kg · <a href="https://www.spkx.net.cn/fileup/HTML/2018-39-12-010.shtml" target="_blank">食品科学 2018</a>。
+  </div>
+</div>
+</body>
+</html>

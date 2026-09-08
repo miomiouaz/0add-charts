@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「0添加」在售食品品类分布统计</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F3F0EA; font-family: "PingFang SC","Microsoft YaHei",sans-serif; color: #3D3A36; padding: 32px 16px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  .title { font-size: 22px; font-weight: 700; color: #3D3A36; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #6B675F; margin-bottom: 18px; line-height: 1.6; }
+  .card { background: #FBFAF7; border-radius: 14px; padding: 24px; margin-bottom: 20px; border: 1px solid #E7E2D8; }
+  .card h2 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .card .note { font-size: 12px; color: #6B675F; margin-bottom: 12px; }
+  .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .stat-box { flex: 1 1 160px; background: #FBFAF7; border-radius: 12px; padding: 16px; border: 1px solid #E7E2D8; text-align: center; }
+  .stat-box .num { font-size: 30px; font-weight: 700; }
+  .stat-box .lab { font-size: 12px; color: #6B675F; margin-top: 4px; }
+  .source { font-size: 11px; color: #8A857B; line-height: 1.7; margin-top: 14px; border-top: 1px dashed #D9D3C6; padding-top: 12px; }
+  .legend { margin-top: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">「0添加」在售食品，到底长在哪类货架上？</div>
+  <div class="subtitle">基于京东、淘宝「0添加」关键词搜索结果（2026-09-02 采集）清洗后的 495 条有效食品，按 12 个品类归类统计</div>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="num" style="color:#A89B8F;">495</div><div class="lab">有效食品样本</div></div>
+    <div class="stat-box"><div class="num" style="color:#7E99AB;">12</div><div class="lab">覆盖品类</div></div>
+    <div class="stat-box"><div class="num" style="color:#B58E8E;">54</div><div class="lab">剔除非食品</div></div>
+    <div class="stat-box"><div class="num" style="color:#8BA888;">28.9%</div><div class="lab">调味品占比最高</div></div>
+  </div>
+
+  <div class="card">
+    <h2>图 1 · 各品类商品数量排行</h2>
+    <div class="note">横条长度代表该品类下「0添加」商品数量，条内为件数与占比</div>
+    <svg viewBox="0 0 760 622" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+  <text x="100" y="53" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">调味品</text>
+  <rect x="110" y="40" width="560" height="26" rx="6" fill="#A89B8F"/>
+  <text x="680" y="53" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">143 件 · 28.9%</text>
+  <text x="100" y="99" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">乳制品</text>
+  <rect x="110" y="86" width="352" height="26" rx="6" fill="#7E99AB"/>
+  <text x="472" y="99" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">90 件 · 18.2%</text>
+  <text x="100" y="145" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">烘焙</text>
+  <rect x="110" y="132" width="297" height="26" rx="6" fill="#B8A87E"/>
+  <text x="417" y="145" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">76 件 · 15.4%</text>
+  <text x="100" y="191" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">冲饮谷物</text>
+  <rect x="110" y="178" width="199" height="26" rx="6" fill="#8BA888"/>
+  <text x="319" y="191" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">51 件 · 10.3%</text>
+  <text x="100" y="237" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">饮料</text>
+  <rect x="110" y="224" width="180" height="26" rx="6" fill="#7FA7A0"/>
+  <text x="300" y="237" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">46 件 · 9.3%</text>
+  <text x="100" y="283" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">果干蜜饯</text>
+  <rect x="110" y="270" width="133" height="26" rx="6" fill="#B58E8E"/>
+  <text x="253" y="283" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">34 件 · 6.9%</text>
+  <text x="100" y="329" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">烘焙原料</text>
+  <rect x="110" y="316" width="70" height="26" rx="6" fill="#9788A8"/>
+  <text x="190" y="329" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">18 件 · 3.6%</text>
+  <text x="100" y="375" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">肉制品</text>
+  <rect x="110" y="362" width="62" height="26" rx="6" fill="#B07E6F"/>
+  <text x="182" y="375" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">16 件 · 3.2%</text>
+  <text x="100" y="421" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">坚果</text>
+  <rect x="110" y="408" width="35" height="26" rx="6" fill="#A8B08F"/>
+  <text x="155" y="421" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">9 件 · 1.8%</text>
+  <text x="100" y="467" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">米面主食</text>
+  <rect x="110" y="454" width="23" height="26" rx="6" fill="#C9B98F"/>
+  <text x="143" y="467" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">6 件 · 1.2%</text>
+  <text x="100" y="513" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">巧克力糖果</text>
+  <rect x="110" y="500" width="15" height="26" rx="6" fill="#8D7B6B"/>
+  <text x="135" y="513" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">4 件 · 0.8%</text>
+  <text x="100" y="559" font-size="13" fill="#3D3A36" text-anchor="end" dominant-baseline="middle">膨化零食</text>
+  <rect x="110" y="546" width="7" height="26" rx="6" fill="#C9C2B6"/>
+  <text x="127" y="559" font-size="13" fill="#3D3A36" font-weight="600" dominant-baseline="middle">2 件 · 0.4%</text>
+    </svg>
+    <div class="source">数据来源：京东 272 条 + 淘宝 277 条「0添加」关键词在售商品（2026-09-02 采集），剔除 54 条非食品（日化/宠物/药品/保健品等）后，495 条有效食品按标题关键词归入 12 品类；占比=品类数/495。同一商品不同规格（如不同容量/包装）按不同 SKU 计入。</div>
+  </div>
+
+  <div class="card">
+    <h2>图 2 · 品类结构占比</h2>
+    <div class="note">环形图展示 12 个品类在 495 件「0添加」商品中的数量结构</div>
+    <div style="text-align:center;">
+      <svg viewBox="0 0 440 440" width="380" style="max-width:100%;" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+  <path d="M 220.0 55.0 A 165.0 165.0 0 0 1 380.1 259.9 L 334.5 248.5 A 118.0 118.0 0 0 0 220.0 102.0 Z" fill="#A89B8F" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 380.1 259.9 A 165.0 165.0 0 0 1 250.2 382.2 L 241.6 336.0 A 118.0 118.0 0 0 0 334.5 248.5 Z" fill="#7E99AB" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 250.2 382.2 A 165.0 165.0 0 0 1 103.9 337.2 L 137.0 303.8 A 118.0 118.0 0 0 0 241.6 336.0 Z" fill="#B8A87E" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 103.9 337.2 A 165.0 165.0 0 0 1 56.7 243.5 L 103.2 236.8 A 118.0 118.0 0 0 0 137.0 303.8 Z" fill="#8BA888" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 56.7 243.5 A 165.0 165.0 0 0 1 70.8 149.6 L 113.3 169.6 A 118.0 118.0 0 0 0 103.2 236.8 Z" fill="#7FA7A0" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 70.8 149.6 A 165.0 165.0 0 0 1 113.9 93.6 L 144.2 129.6 A 118.0 118.0 0 0 0 113.3 169.6 Z" fill="#B58E8E" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 113.9 93.6 A 165.0 165.0 0 0 1 145.3 72.9 L 166.6 114.8 A 118.0 118.0 0 0 0 144.2 129.6 Z" fill="#9788A8" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 145.3 72.9 A 165.0 165.0 0 0 1 176.5 60.8 L 188.9 106.2 A 118.0 118.0 0 0 0 166.6 114.8 Z" fill="#B07E6F" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 176.5 60.8 A 165.0 165.0 0 0 1 195.0 56.9 L 202.1 103.4 A 118.0 118.0 0 0 0 188.9 106.2 Z" fill="#A8B08F" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 195.0 56.9 A 165.0 165.0 0 0 1 207.4 55.5 L 211.0 102.3 A 118.0 118.0 0 0 0 202.1 103.4 Z" fill="#C9B98F" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 207.4 55.5 A 165.0 165.0 0 0 1 215.8 55.1 L 217.0 102.0 A 118.0 118.0 0 0 0 211.0 102.3 Z" fill="#8D7B6B" stroke="#F3F0EA" stroke-width="1.5"/>
+  <path d="M 215.8 55.1 A 165.0 165.0 0 0 1 220.0 55.0 L 220.0 102.0 A 118.0 118.0 0 0 0 217.0 102.0 Z" fill="#C9C2B6" stroke="#F3F0EA" stroke-width="1.5"/>
+        <circle cx="220" cy="220" r="118" fill="#FBFAF7"/>
+        <text x="220" y="210" font-size="34" font-weight="700" fill="#3D3A36" text-anchor="middle">495</text>
+        <text x="220" y="236" font-size="13" fill="#6B675F" text-anchor="middle">有效食品总数</text>
+      </svg>
+    </div>
+    <div class="legend"><div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#A89B8F;display:inline-block;margin-right:6px;"></span>调味品 143件(28.9%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#7E99AB;display:inline-block;margin-right:6px;"></span>乳制品 90件(18.2%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#B8A87E;display:inline-block;margin-right:6px;"></span>烘焙 76件(15.4%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#8BA888;display:inline-block;margin-right:6px;"></span>冲饮谷物 51件(10.3%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#7FA7A0;display:inline-block;margin-right:6px;"></span>饮料 46件(9.3%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#B58E8E;display:inline-block;margin-right:6px;"></span>果干蜜饯 34件(6.9%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#9788A8;display:inline-block;margin-right:6px;"></span>烘焙原料 18件(3.6%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#B07E6F;display:inline-block;margin-right:6px;"></span>肉制品 16件(3.2%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#A8B08F;display:inline-block;margin-right:6px;"></span>坚果 9件(1.8%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#C9B98F;display:inline-block;margin-right:6px;"></span>米面主食 6件(1.2%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#8D7B6B;display:inline-block;margin-right:6px;"></span>巧克力糖果 4件(0.8%)</div>
+<div style="display:inline-flex;align-items:center;margin:4px 14px 4px 0;font-size:12px;color:#3D3A36;"><span style="width:10px;height:10px;border-radius:3px;background:#C9C2B6;display:inline-block;margin-right:6px;"></span>膨化零食 2件(0.4%)</div></div>
+    <div class="source">数据来源：同图 1。占比=品类数/495；各段按占比 0.1%~28.9% 由小到大排列，最小为膨化零食（2 件，0.4%）。</div>
+  </div>
+
+  <div class="source" style="border-top:1px solid #D9D3C6;">分类口径：调味品(酱油/醋/蚝油/酱/料酒等)、乳制品(酸奶/牛奶/奶粉)、烘焙(面包/饼干/蛋糕/月饼)、冲饮谷物(燕麦/豆浆粉/咖啡/代餐)、饮料(即饮果汁/无糖茶/植物蛋白奶)、果干蜜饯(果干/山楂/蜜饯)、烘焙原料(色素/代糖/果酱)、肉制品(香肠/牛肉干/午餐肉)、坚果、米面主食(挂面/馒头/速冻)、巧克力糖果(奶片/果冻/黑巧)、膨化零食(素肉/辣条/米饼)。豆浆粉归冲饮谷物、即饮豆奶归饮料；奶片/果冻归糖果；水果罐头归果干蜜饯。</div>
+</div>
+</body>
+</html>

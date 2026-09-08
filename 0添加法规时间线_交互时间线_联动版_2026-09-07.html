@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0添加法规时间线_交互时间线_联动版</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:transparent; }
+  body {
+    font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;
+    display:flex; justify-content:center; align-items:flex-start;
+    padding:24px 12px; min-height:100vh;
+    zoom:0.8;
+  }
+  .wrap { display:flex; gap:0; justify-content:center; align-items:flex-start; }
+
+  /* ===== 时间线 ===== */
+  .tl { position:relative; width:860px; height:820px; padding:14px 0 14px 26px; flex:0 0 860px; display:flex; flex-direction:column; justify-content:space-between; }
+  .tl-line {
+    position:absolute; left:12px; top:14px; bottom:14px; width:3px;
+    background:rgba(201,139,79,.45); border-radius:2px;
+  }
+  .node {
+    position:relative; padding-left:44px;
+    cursor:pointer; user-select:none;
+  }
+  .nd-dot {
+    position:absolute; left:-26px; top:0; width:26px; height:26px; border-radius:50%;
+    background:#C98B4F; border:2px solid #C98B4F;
+    transition:background .25s, transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .node:hover .nd-dot { transform:scale(1.15); }
+  .node.cur .nd-dot { background:#A4631F; border-color:#A4631F; box-shadow:0 0 0 6px rgba(164,99,31,.25); }
+  .nd-time {
+    font-size:29px; font-weight:900; color:#1F3A3A; letter-spacing:.5px; line-height:1.5;
+    transition:color .25s, font-weight .25s;
+  }
+  .node.cur .nd-time { color:#8F5B22; font-weight:900; font-size:33px; }
+  .nd-desc {
+    margin-top:8px; font-size:14px; font-weight:500; line-height:1.5;
+    color:rgba(31,58,58,.72); letter-spacing:.2px;
+  }
+  .node.cur .nd-desc { color:#1F3A3A; }
+
+  .splitter {
+    width:6px; cursor:col-resize; align-self:stretch; position:relative; flex:0 0 6px;
+    touch-action:none; background:transparent;
+  }
+
+  /* ===== 卡片区 ===== */
+  .cardwrap { width:620px; flex:0 0 620px; min-width:0; }
+  .stage {
+    position:relative; width:100%; height:820px;
+    border-radius:14px; overflow:hidden;
+    background:transparent;
+  }
+  .card {
+    position:absolute; left:0; top:0; width:100%; height:100%;
+    padding:22px 24px;
+    color:#1F3A3A; font-size:18px; font-weight:500; line-height:1.5;
+    background:rgba(201,139,79,.09);
+    border:1px solid rgba(201,139,79,.32);
+    border-radius:14px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .5s cubic-bezier(.22,.8,.3,1), opacity .5s ease;
+    will-change:transform, opacity;
+  }
+  .card.on   { transform:none; opacity:1; z-index:3; }
+  .card.hide { transform:none; opacity:0; z-index:1; }
+  .card.flyR { transform:translateX(118%) rotate(3deg); opacity:0; z-index:4; }
+  .card.flyL { transform:translateX(-118%) rotate(-3deg); opacity:0; z-index:4; }
+  .card .body { transition:opacity .3s ease; }
+  .card.hide .body { opacity:0; }
+  .card.on .body { opacity:1; }
+  .law { font-weight:900; }
+  .art { font-weight:800; }
+  .warn { font-weight:800; color:#B0550E; }
+  .card ul { margin:4px 0 0 1.2em; }
+  .card li { margin:2px 0; }
+  .bg { color:#2A4A48; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 时间线 -->
+  <div class="tl" id="tl">
+    <div class="tl-line"></div>
+
+    <div class="node" data-i="0">
+      <div class="nd-dot"></div>
+      <div class="nd-time">2011年 · 规则宽松，无明确限制</div>
+      <div class="nd-desc">两大国标正式实施，仅作基础规范：若标签强调某配料或成分含量较低或不含，须标注其在成品中的具体含量；无任何条款禁止"0添加"，标注与成分基本相符即可正常使用相关宣传用语。</div>
+    </div>
+
+    <div class="node" data-i="1">
+      <div class="nd-dot"></div>
+      <div class="nd-time">2015年 · 确立监管底线，仅查虚假标注</div>
+      <div class="nd-desc">新版《食品安全法》落地：标签、说明书与广告须真实合法，不得含虚假内容或疾病预防、治疗功能宣称，生产经营者承担主体责任；无专门"0添加"禁用条款，监管聚焦实际添加却宣称"0添加"的虚假标注个案。</div>
+    </div>
+
+    <div class="node" data-i="2">
+      <div class="nd-dot"></div>
+      <div class="nd-time">2016–2020年 · 立法探索蓄力，收紧信号释放</div>
+      <div class="nd-desc">立法探索蓄力：2016年实施条例修订草案拟禁"不添加""不含有"宣传，未入正式条例；2020年《食品标识监督管理办法（征求意见稿）》首提不得用"零添加"刻意强调未含物质，两份文件均未落地，释放收紧信号。</div>
+    </div>
+
+    <div class="node" data-i="3">
+      <div class="nd-dot"></div>
+      <div class="nd-time">2021–2024年 · 常态化从严核查，乱象倒逼立法</div>
+      <div class="nd-desc">常态化从严核查："0添加""无防腐剂"食品列为重点抽检对象，核查实际配料与宣称是否一致、是否制造误导；不实宣传依法处罚、真实未添加暂不处罚但引导慎用话术；2022年"科技与狠活"舆情后立法全面加速。</div>
+    </div>
+
+    <div class="node" data-i="4">
+      <div class="nd-dot"></div>
+      <div class="nd-time">2025年 · 新规落地，界定标注红线（2027年实施）</div>
+      <div class="nd-desc">GB 7718-2025 新规落地：配料或成分含量为0方可用"无""不含"声称；食品添加剂、污染物等一律禁"0添加"表述，钠、蔗糖达国标界限值可标"无"；严禁过程性宣传话术与替代成分投机，2027年3月全面实施。</div>
+    </div>
+  </div>
+
+  <!-- 拖拽分隔条 -->
+  <div class="splitter" id="split" title="拖动调整左右宽度"></div>
+
+  <!-- 法律卡片 -->
+  <div class="cardwrap">
+    <div class="stage" id="stage">
+
+      <!-- ① 2011 -->
+      <div class="card">
+        <div class="body" style="font-size:28px;">
+          <div class="bg">2011版食品标签、营养标签两大国标正式实施，仅对食品成分标注作出基础规范。规则仅要求：若食品标签特意强调某一配料、成分含量极低或不含，需标注该成分在成品中的具体含量。该阶段无任何条款禁止"0添加"相关表述，只要企业标注内容与产品实际成分基本相符，即可正常使用"0添加""无添加"等宣传用语，为后续行业乱象埋下隐患。</div>
+          <div style="height:.8em;"></div>
+          <div class="law">GB 7718-2011《食品安全国家标准 预包装食品标签通则》</div>
+          <div>4.1.4.2 如果在食品的标签上特别强调一种或多种配料或成分的含量较低或无时，应标示所强调配料或成分在成品中的含量。</div>
+          <div class="law">GB 28050-2011《食品安全国家标准 预包装食品营养标签通则》</div>
+          <div>附录 C 表 C.1 能量和营养成分含量声称的要求和条件</div>
+        </div>
+      </div>
+
+      <!-- ② 2015 -->
+      <div class="card">
+        <div class="body" style="font-size:22px;">
+          <div class="law">《中华人民共和国食品安全法》（主席令第二十一号）</div>
+          <div class="art">第七十条</div>
+          <div>食品添加剂应当有标签、说明书和包装。标签、说明书应当载明本法第六十七条第一款第一项至第六项、第八项、第九项规定的事项，以及食品添加剂的使用范围、用量、使用方法，并在标签上载明"食品添加剂"字样。</div>
+          <div class="art">第七十一条</div>
+          <div>食品和食品添加剂的标签、说明书，不得含有虚假内容，不得涉及疾病预防、治疗功能。生产经营者对其提供的标签、说明书的内容负责。</div>
+          <div>食品和食品添加剂的标签、说明书应当清楚、明显，生产日期、保质期等事项应当显著标注，容易辨识。</div>
+          <div>食品和食品添加剂与其标签、说明书的内容不符的，不得上市销售。</div>
+          <div class="art">第七十二条</div>
+          <div>食品经营者应当按照食品标签标示的警示标志、警示说明或者注意事项的要求销售食品。</div>
+          <div class="art">第七十三条</div>
+          <div>食品广告的内容应当真实合法，不得含有虚假内容，不得涉及疾病预防、治疗功能。食品生产经营者对食品广告内容的真实性、合法性负责。</div>
+        </div>
+      </div>
+
+      <!-- ③ 2016+2020 -->
+      <div class="card">
+        <div class="body" style="font-size:25.5px;">
+          <div class="bg">草案首次拟明确禁止不合理的"不添加""不含有"宣传，规定国标明令禁止添加的物质，不得做相关无添加声称；但该条款最终未纳入正式条例，仅为立法探索，未落地执行。</div>
+          <div style="height:.8em;"></div>
+          <div class="law">2016年10月《食品安全法实施条例（修订草案送审稿）》公开征求意见（中国经济网）</div>
+          <div>草案条款：按照食品安全标准本就不应当含有的物质，标签、广告不得宣称"不添加 / 不含有"。</div>
+          <div class="warn">⚠️ 重要：这只是征求意见稿，最终正式发布的 2019 版条例没有采纳这条，没有落地生效，属于立法早期探索。</div>
+          <div style="height:.8em;"></div>
+          <div class="law">2020.7.29 市场监管总局《食品标识监督管理办法（征求意见稿）》发布（中国经济网）</div>
+          <div>明确写入：对于食品中不含有或者未使用的物质，不得以"不添加""零添加""不含有"等字样强调。</div>
+          <div class="warn">⚠️ 仍然是征求意见稿，不是生效法律，释放明确监管信号，但企业还可以继续用。</div>
+        </div>
+      </div>
+
+      <!-- ④ 2021-2024 -->
+      <div class="card">
+        <div class="body" style="font-size:24px;">
+          <div class="bg">这一阶段，市场监管部门将印有"0添加""无防腐剂添加"等标识的食品列为重点抽检核查对象，形成常态化监管机制。执法核心逻辑为"严查虚假、审慎包容真实"：对标注与实际配料不符、虚假宣传的企业依法处罚；对真实未添加相关成分的产品不予处罚，但持续引导企业慎用"0添加"营销话术。2022年"科技与狠活"舆情爆发后，食品行业"0添加"营销泛滥，过度营销、概念炒作、误导消费的乱象愈发突出，严重扰乱市场秩序，倒逼"0添加"专项监管立法进程全面加速。</div>
+          <div style="height:.8em;"></div>
+          <div class="law">总局多轮监管提示、专项抽检（市场监管总局）</div>
+          <div>市场监管总局在食品抽检工作中，把包装印有"零添加、不添加防腐剂"的产品列为重点核查对象：</div>
+          <ul>
+            <li>核查两点：①实际配料是否和宣称一致；②是否利用零添加制造误导、暗示其他食品不安全。</li>
+            <li>执法逻辑：不实宣传处罚；真实未添加的，暂时不处罚，但提示企业慎用该类营销话术。</li>
+          </ul>
+          <div>2022 年"科技与狠活"舆情爆发后，"零添加"营销泛滥，行业乱象加剧，推动立法加速。</div>
+        </div>
+      </div>
+
+      <!-- ⑤ 2025 -->
+      <div class="card">
+        <div class="body" style="font-size:18px;">
+          <div class="law">《食品安全国家标准 预包装食品标签通则》（GB 7718-2025）</div>
+          <div class="art">三十二、关于使用"无""不含"等词汇时，其"相应配料或成分含量应为0"</div>
+          <div>当某配料或成分在终产品中的含量为"0"时，可以使用"无""不含"等词汇及其同义语对相应配料或成分进行特别强调。</div>
+          <div>当其他法律、法规或国家标准、地方标准、行业标准中另有规定的，应从其规定。例如，GB 28050对能量或某营养成分的含量声称有特殊规定时，应按照GB 28050的要求执行。当产品执行标准中设置了"无XX"等界限值要求的，可从其规定，如某食品标示了"无醇"时，则该食品的全部配料及其生产过程中不能含有或产生"乙醇"，或由配料带入及其生产过程中产生的"乙醇"符合该食品所执行标准中的"界限值"要求。</div>
+          <div class="art">三十三、关于不得使用"无""不含"等词汇及其同义语进行声称的情形</div>
+          <ul>
+            <li>1. 食品添加剂、食品污染物；</li>
+            <li>2. 法律、法规和标准（含公告）规定不允许添加到该食品中的物质；</li>
+            <li>3. 不应存在于食品中的物质。</li>
+          </ul>
+          <div class="warn">《食品安全国家标准 预包装食品标签通则》（GB 7718-2025）两年过渡期，2027年正式实施</div>
+          <div>新规明确了"0添加"宣传的硬性标准：</div>
+          <ul>
+            <li>不得使用"0添加""无添加"等绝对化表述，宣传未添加、未使用的食品添加剂、营养强化剂等成分；</li>
+            <li>除非产品在生产加工过程中，确实未使用、未添加该成分，且该成分不是生产工艺中不可避免的带入物；</li>
+            <li>禁止用"0添加某单一成分"，误导消费者认为产品"完全无添加"，比如不能用"0添加蔗糖"暗示产品"无糖"；</li>
+            <li>禁止标注"0添加"但实际添加了同类替代成分，比如标注"0添加防腐剂"，却添加了具有防腐作用的其他物质。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+(function() {
+  try {
+    var cards = document.querySelectorAll('.card');
+    var dots = document.querySelectorAll('.dot');
+    var nodes = document.querySelectorAll('.node');
+    var stage = document.getElementById('stage');
+    var split = document.getElementById('split');
+    var tlBox = document.querySelector('.tl');
+    var cur = 0, total = cards.length, busy = false;
+    if (!cards.length) return;
+
+    // 拖拽分隔条：独立调整时间线 / 卡片宽度
+    if (split && tlBox) {
+      var down = false, sx = 0, sw = 280;
+      split.addEventListener('pointerdown', function(e) {
+        down = true; sx = e.clientX; sw = tlBox.offsetWidth;
+        split.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      });
+      split.addEventListener('pointermove', function(e) {
+        if (!down) return;
+        var w = Math.max(760, Math.min(960, sw + (e.clientX - sx)));
+        tlBox.style.width = w + 'px';
+        tlBox.style.flexBasis = w + 'px';
+      });
+      split.addEventListener('pointerup', function() { down = false; });
+      split.addEventListener('pointercancel', function() { down = false; });
+    }
+
+    function setCls(k, cs) {
+      var c = cards[k];
+      c.className = 'card';
+      for (var i = 0; i < cs.length; i++) c.classList.add(cs[i]);
+    }
+    function setDots() {
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].classList.toggle('cur', i === cur);
+      }
+    }
+    function tlActivate(i) {
+      for (var k = 0; k < nodes.length; k++) nodes[k].classList.toggle('cur', k === i);
+    }
+    function goTo(i) {
+      if (busy || i === cur) return;
+      var dir = i > cur ? 1 : -1;
+      var flyCls = dir > 0 ? 'flyR' : 'flyL';
+      busy = true;
+      setCls(cur, [flyCls]);
+      var nw = cards[i];
+      setCls(i, [flyCls]);
+      nw.offsetHeight;
+      setCls(i, ['on']);
+      setTimeout(function() {
+        setCls(cur, ['hide']);
+        cur = i;
+        setDots();
+        tlActivate(cur);
+        busy = false;
+      }, 520);
+    }
+    function bind(el, fn) { if (el) el.addEventListener('click', fn); }
+
+    // 时间线节点 → 联动卡片
+    for (var n = 0; n < nodes.length; n++) {
+      (function(k) {
+        bind(nodes[k], function() {
+          if (k !== cur) { tlActivate(k); goTo(k); }
+          else tlActivate(k);
+        });
+      })(n);
+    }
+    // 卡片控件
+    for (var i = 0; i < dots.length; i++) {
+      (function(k) { bind(dots[k], function() { goTo(k); }); })(i);
+    }
+    bind(stage, function(e) {
+      if (e.target.closest('.arrow') || e.target.closest('.dot')) return;
+      goTo((cur + 1) % total);
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') goTo((cur + 1) % total);
+      else if (e.key === 'ArrowLeft') goTo((cur - 1 + total) % total);
+    });
+
+    // 初始
+    setCls(0, ['on']);
+    for (var k = 1; k < total; k++) setCls(k, ['hide']);
+    tlActivate(0);
+  } catch (err) { console.error(err); }
+})();
+</script>
+</body>
+</html>

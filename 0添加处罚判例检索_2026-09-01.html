@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"0添加/零添加"行政处罚与民事判决检索 · 2026-09-01</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{--bg:#F3F0EA;--card:#FBFAF7;--ink:#4A443D;--sub:#7A7266;--line:#E2DCD2;--sage:#9CAF9A;--mauve:#A4938F;--blue:#8FA3AD;--clay:#B08968;--pink:#C4A69C;--violet:#9B8EA6;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7;}
+  header{padding:28px 20px 2px;text-align:center;}
+  header h1{margin:0;font-size:20px;font-weight:700;}
+  header p{margin:6px 0 0;color:var(--sub);font-size:12.5px;}
+  main{max-width:1020px;margin:0 auto;padding:16px 18px 60px;}
+  .block{margin:20px 0;}
+  .block h2{font-size:16px;margin:0 0 4px;}
+  .block .sub{font-size:12.5px;color:var(--sub);margin:2px 0 10px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(74,68,61,.05);}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0;}
+  .meta span{background:#EFE9E0;border:1px solid var(--line);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--sub);}
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+  th{background:#EFE9E0;color:var(--ink);text-align:left;padding:7px 8px;font-weight:600;border-bottom:1px solid var(--line);}
+  td{padding:7px 8px;border-bottom:1px solid #EFE9E0;vertical-align:top;}
+  tr:hover td{background:#F6F2EB;}
+  .amt{font-weight:700;color:var(--clay);white-space:nowrap;}
+  .amt-big{font-weight:700;color:#B0563A;white-space:nowrap;}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;white-space:nowrap;}
+  .tag.fa{background:#F3E3D8;color:#A05A3C;}
+  .tag.flaw{background:#E5EBE2;color:#6B7F68;}
+  .tag.not{background:#E6E1DA;color:#8B7D74;}
+  .tag.win{background:#E2E9E5;color:#5F7A66;}
+  .tag.lose{background:#EFE6E2;color:#9A6B5A;}
+  .chart-box{width:100%;height:400px;}
+  .src{font-size:11px;color:var(--sub);margin-top:8px;padding-top:6px;border-top:1px dashed var(--line);word-break:break-all;}
+  .warn{background:#F3E7DE;border:1px solid #E4CDBE;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7A5444;margin:12px 0;}
+  a{color:#7A8C96;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  @media(max-width:700px){.chart-box{height:340px;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>"0添加 / 零添加"：行政处罚与民事判决案例检索</h1>
+  <p>关键词：0添加 / 零添加 / 无添加 · 虚假宣传 / 虚假广告 / 欺诈 · 退一赔三 · 莫兰迪配色 · 检索截止 2026-09-01</p>
+</header>
+<main>
+
+  <div class="meta">
+    <span>检索日期：2026-09-01</span>
+    <span>行政处罚样本：9 起（7 起名不副实被罚 · 1 起标签瑕疵 · 1 起查实属实不构成）</span>
+    <span>民事判决样本：4 起直接相关（2 起支持欺诈赔偿 · 1 起驳回 · 1 起最高法典型类比）</span>
+    <span>渠道：政府官网公示 / 官方通报 / 权威媒体报道</span>
+  </div>
+
+  <div class="warn">
+    <b>关于"统计判决结果"的说明：</b>中国裁判文书网需登录且无法全量检索，公开渠道无法取得"0添加欺诈退一赔三支持率"的精确统计值；本页为 2026-09-01 当日经权威来源核验的真实个案样本，可作为文章素材，但不能据此宣称"支持率 X%"。
+  </div>
+
+  <div class="block">
+    <h2>图 A · 行政处罚典型案例：处罚金额跨度（对数刻度）</h2>
+    <p class="sub">金额单位：元（对数轴）｜横条越长金额越高｜部分案件金额未公开，未列入</p>
+    <div class="card"><div class="chart-box" id="chartAmt"></div></div>
+  </div>
+
+  <div class="block">
+    <h2>一、行政处罚决定书数据（n = 9）</h2>
+    <p class="sub">检索渠道：重庆 / 广西 / 安徽 / 浙江 / 北京等地方政府市场监管局官网公示，市场监管总局"铁拳"行动通报，广西壮族自治区市监局典型案例，央视、人民日报、澎湃、海报新闻等媒体报道</p>
+    <div class="card">
+      <table>
+        <tr><th>#</th><th>处罚时间</th><th>处罚机关</th><th>当事人 / 产品</th><th>违法事实（"0添加"问题）</th><th>处罚内容</th></tr>
+        <tr>
+          <td>1</td><td>2025-07 通报</td><td>湛江市、县两级市监局（市场监管总局"铁拳"行动）</td>
+          <td>湛江宝辉水产 / 良基冷冻 / 尚方舟 / 中青海洋（冷冻虾仁）</td>
+          <td>生产环节超限量添加磷酸盐等水分保持剂，同时<span class="tag fa">虚假标注"零添加"</span></td>
+          <td class="amt-big">没收违法所得＋罚款 749.43 万元；吊销 4 家食品生产许可证（5 年内不得重新申请）；法定代表人及主要负责人罚款 260 余万元＋5 年行业禁入</td>
+        </tr>
+        <tr>
+          <td>2</td><td>2025-09-28</td><td>浙江省常山县市监局（常市监罚〔2025〕187 号）</td>
+          <td>浙江慧保生物科技有限公司 / 复合文旦汁饮料</td>
+          <td>2 个批次实际添加山梨酸钾，标签却标注<span class="tag fa">"0防腐"</span>；3 个批次未加浓缩苹果汁却标注</td>
+          <td class="amt">没收 145 箱＋没收违法所得 12461.56 元＋罚款 165911 元，合计 178372.56 元</td>
+        </tr>
+        <tr>
+          <td>3</td><td>2026-06-22</td><td>重庆市铜梁区市监局（渝铜梁市监处罚〔2026〕662 号）</td>
+          <td>重庆得享农业发展有限公司 / 阿椒纪®酸萝卜老鸭汤炖料</td>
+          <td>标签标"0添加防腐剂（山梨酸钾、苯甲酸钠）"，抽检实测检出山梨酸（0.0392）</td>
+          <td class="amt">没收违法所得 160.69 元＋没收 166 袋＋罚款 2600 元（标签虚假＋虚假广告）</td>
+        </tr>
+        <tr>
+          <td>4</td><td>2026-07</td><td>广西防城港东兴市市监局（广西网络食品销售虚假宣传典型案例第二批）</td>
+          <td>东兴市余花商行（淘宝店）/ 梨膏糖</td>
+          <td>页面标"天然0添加"，配料表含白砂糖、麦芽糖浆、冰糖、梨汁等糖类，无任何限定条件</td>
+          <td class="amt">责令停止发布违法广告＋罚款（《广告法》第55条）</td>
+        </tr>
+        <tr>
+          <td>5</td><td>2025-07-18</td><td>广西北海市市监局（桂北城市监处罚〔2025〕218 号）</td>
+          <td>亚麻籽核桃酥</td>
+          <td>配料含麦芽糖醇（食品添加剂），宣传却称<span class="tag fa">"0添加剂"</span></td>
+          <td class="amt">虚假宣传处罚</td>
+        </tr>
+        <tr>
+          <td>6</td><td>2026-01-22</td><td>广西桂林平乐县市监局（平市监处罚〔2026〕25 号）</td>
+          <td>柿子蜜饯</td>
+          <td>实际使用食品添加剂，却使用标有<span class="tag fa">"无添加"</span>的包装袋，标注虚假商品性能</td>
+          <td class="amt">罚款 2000 元</td>
+        </tr>
+        <tr>
+          <td>7</td><td>2026-04-24</td><td>安徽利辛县市监局（利市监处罚〔2026〕201 号）</td>
+          <td>利辛县展沟余生欢喜食品店 / "京德福"冰杨梅</td>
+          <td>冰杨梅配料含白砂糖、甜蜜素等，宣传图标注<span class="tag fa">"0添加"</span></td>
+          <td class="amt">罚款 300 元（《反不正当竞争法》＋《广告法》）</td>
+        </tr>
+        <tr>
+          <td>8</td><td>2026-04-01</td><td>广西来宾忻城县市监局（忻市监处罚〔2026〕17 号）</td>
+          <td>广西念初好物食品科技有限公司 / 水果玉米</td>
+          <td>标"0添加"但未按 GB7718-2011 第4.1.4.2 条标注所强调成分含量（经查实际确未添加）</td>
+          <td class="amt">认定为<span class="tag flaw">标签瑕疵</span>，责令改正＋罚款 500 元</td>
+        </tr>
+        <tr>
+          <td>9</td><td>2025-06-17</td><td>重庆市石柱县市监局（渝石柱市监处罚〔2025〕58 号）</td>
+          <td>石柱县某农副产品加工坊 / "原汁酱油"</td>
+          <td>抖音店铺宣传"0添加"被举报虚假广告，<b>查实该酱油确为零添加</b>（有检验报告＋工艺流程图佐证）</td>
+          <td class="amt">不构成虚假宣传；仅营养成分表顺序颠倒，<span class="tag not">标签瑕疵责令改正</span></td>
+        </tr>
+      </table>
+      <div class="src">
+        <b>来源与链接：</b>
+        ①央视新闻 2025-07-29《虚假标注"零添加"、雇佣"水军"诱导消费 五起食品安全案例公布》；
+        ②海报新闻 2025-10-01《添加山梨酸钾却标注"0防腐" 浙江慧保生物被罚》（浙江政务服务网公示）；
+        ③重庆市铜梁区政府官网 2026-06-26 行政处罚决定书；
+        ④广西壮族自治区市监局 2026-08-20《广西网络食品销售虚假宣传专项整治典型案例（第二批）》；
+        ⑤北海市政府官网 2025-07-18 桂北城市监处罚〔2025〕218 号；
+        ⑥桂林平乐县政府官网 2026-01-22 平市监处罚〔2026〕25 号；
+        ⑦安徽利辛县政府官网 2026-04-28 行政处罚公示；
+        ⑧广西忻城县政府官网 2026-04-01 忻市监处罚〔2026〕17 号；
+        ⑨重庆石柱县政府官网 2025-07-07 渝石柱市监处罚〔2025〕58 号。
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>二、民事判决书数据（n = 4）</h2>
+    <p class="sub">检索渠道：中国消费者报、人民日报、人民法院报转载及法院官网发布、最高法典型案例</p>
+    <div class="card">
+      <table>
+        <tr><th>#</th><th>法院 / 时间</th><th>案情</th><th>判决结果</th></tr>
+        <tr>
+          <td>1</td><td>北京互联网法院，2020-01 判决</td>
+          <td>消费者白某 2019-06-26 网购"弗里生乳牛"巧克力奶 55 元；网店宣传"无食品添加剂 / 无任何添加物"，实物配料表含微晶纤维素、卡拉胶、羧甲基纤维素钠、乳酸链球菌素、磷酸三钠、三氯蔗糖等 6 种添加剂</td>
+          <td><span class="tag win">构成欺诈</span>：退货款 55 元＋赔偿 500 元（《消保法》第55条，不足500按500），未上诉已生效</td>
+        </tr>
+        <tr>
+          <td>2</td><td>四川省武胜县人民法院，2021</td>
+          <td>电商销售固体饮料故意虚假宣传，原告请求退一赔三（货款 3344 元＋赔偿 10032 元）</td>
+          <td><span class="tag win">构成欺诈，支持退一赔三</span>：商家退还货款并支付三倍赔偿</td>
+        </tr>
+        <tr>
+          <td>3</td><td>安徽省芜湖市弋江区人民法院，2024-01 宣判</td>
+          <td>消费者仅凭"口感不佳"主张"生榨椰子汁"虚假宣传构成欺诈，要求退一赔三</td>
+          <td><span class="tag lose">证据不足，驳回诉讼请求</span>（欺诈须有证据证明宣传与事实不符）</td>
+        </tr>
+        <tr>
+          <td>4</td><td>最高人民法院典型案例（2026-03-15 发布，案例3，类比参考）</td>
+          <td>经营者虚假宣传理疗产品具有"降三高 / 治疗糖尿病并发症"功效，诱导老年消费者购买 1 万余元理疗服务</td>
+          <td><span class="tag win">构成欺诈，退一赔三</span>：退理疗费 1 万余元＋三倍赔偿金 3 万余元（非"0添加"专项，作为"虚假宣传→欺诈→退一赔三"裁判路径参照）</td>
+        </tr>
+      </table>
+      <div class="src">
+        <b>来源与链接：</b>
+        ①《中国消费者报》2020-04-22《牛奶"零添加"？厂家被告了》（人民日报人民号转载，澳门消委会存档）＋北京互联网法院 2026-03 发布会；
+        ②叶光之声·打假维权网 2021-09-07《电商销售涉案固体饮料故意虚假宣传 四川武胜法院：构成欺诈，支持"退一赔三"》；
+        ③中国法院网 / 澎湃新闻 2024-01-03《仅凭口感不佳诉商家欺诈要求退一赔三》；
+        ④最高人民法院官网 2026-03-15《最高人民法院发布消费者权益保护典型案例》（案例3）。
+      </div>
+      <div class="src" style="margin-top:8px;">
+        <b>关联检索补充：</b>北京互联网法院 2026-03-18 发布《涉食品药品网络消费典型案例》10 件、最高检 2026-03-15 发布《消费者权益保护公益诉讼典型案例》，均无"0添加"专属判例，可作为"标签虚假→欺诈/惩罚性赔偿"裁判取向的佐证。
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>三、结论与可写入文章的要点</h2>
+    <div class="card" style="font-size:13px;">
+      <ol style="margin:0;padding-left:20px;">
+        <li><b>行政处罚已呈规模化：</b>从市场监管总局"铁拳"行动（湛江 749.43 万元＋吊销 4 家许可证）到各地基层市监局小额罚款（300–2600 元），监管对"0添加"名不副实零容忍，但力度差异大。</li>
+        <li><b>"0添加"被罚的三种典型情形：</b>①实际添加却标"0添加/0防腐"（湛江虾仁、浙江慧保、重庆铜梁、北海核桃酥、平乐蜜饯、利辛冰杨梅）；②标"0添加"却不注明所指成分含量（忻城水果玉米，GB7718-2011 第4.1.4.2 条）；③无任何限定条件、让消费者误以为"完全无添加"（东兴梨膏糖）。</li>
+        <li><b>内容属实≠一定被罚：</b>石柱"0添加"酱油经查证确实零添加，不构成虚假宣传——说明 2027 年前监管以"是否名不副实"为界。</li>
+        <li><b>民事层面：</b>"0添加/无添加"宣传与实际配料不符可被认定欺诈并退一赔三（弗里生牛奶案为标志性判例，2019 年购买、2020-01 判决），但消费者需举证宣传与实物不符（芜湖案反证）。</li>
+        <li><b>立法趋势呼应：</b>GB 7718-2025（2027-03-16 施行）已禁止"不添加/零添加/不含有"等标注——处罚与判例正是这一立法收紧的现实背景。</li>
+      </ol>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  var ink="#4A443D", sub="#7A7266", line="#E7E1D7";
+  var sage="#9CAF9A", clay="#B08968", mauve="#A4938F";
+  var ttip={trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,backgroundColor:"rgba(74,68,61,.92)",borderColor:"rgba(74,68,61,0)",textStyle:{color:"#F5F1EA",fontSize:11},padding:[6,9]};
+
+  var amt=echarts.init(document.getElementById("chartAmt"));
+  amt.setOption({
+    backgroundColor:"transparent",
+    tooltip:Object.assign({axisPointer:{type:"shadow"}},ttip,{formatter:function(p){var v=p.value[0];return p.name+"：¥"+v.toLocaleString("zh-CN");}}),
+    grid:{left:10,right:56,top:10,bottom:8,containLabel:true},
+    xAxis:{type:"value",logBase:10,min:100,max:10000000,axisLabel:{color:sub,fontSize:10,formatter:function(v){if(v>=1000000)return (v/1000000)+"M";if(v>=10000)return (v/10000)+"万";return v;}},splitLine:{lineStyle:{color:line}}},
+    yAxis:{type:"category",inverse:true,data:["湛江保水虾仁(2025)","浙江慧保饮料(2025)","重庆铜梁炖料(2026)","平乐柿子蜜饯(2026)","忻城水果玉米(2026)","利辛冰杨梅(2026)"],
+      axisLabel:{color:ink,fontSize:11},axisLine:{show:false},axisTick:{show:false}},
+    series:[{type:"bar",barWidth:20,label:{show:true,position:"right",color:ink,fontSize:11,fontWeight:600,formatter:function(p){return "¥"+p.value[0].toLocaleString("zh-CN");}},
+      data:[
+        {value:7494300,itemStyle:{color:"#B0563A"}},
+        {value:178372.56,itemStyle:{color:clay}},
+        {value:2600,itemStyle:{color:clay}},
+        {value:2000,itemStyle:{color:sage}},
+        {value:500,itemStyle:{color:sage}},
+        {value:300,itemStyle:{color:sage}}],
+      itemStyle:{borderRadius:[0,6,6,0]}}]
+  });
+  window.addEventListener("resize",function(){amt.resize();});
+</script>
+</body>
+</html>

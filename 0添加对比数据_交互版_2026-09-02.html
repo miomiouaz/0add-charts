@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"0添加"对比数据可视化 · 交互版 · 2026-09-02</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{--bg:#F3F0EA;--card:#FBFAF7;--ink:#4A443D;--sub:#7A7266;--line:#E2DCD2;--clay:#B08968;--blue:#8FA3AD;--sage:#9CAF9A;--mauve:#A4938F;--pink:#C4A69C;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7;}
+  header{padding:26px 18px 4px;text-align:center;}
+  header h1{margin:0;font-size:20px;font-weight:800;}
+  header p{margin:6px 0 0;color:var(--sub);font-size:12.5px;}
+  main{max-width:1100px;margin:0 auto;padding:14px 18px 60px;}
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px 10px;margin:20px 0;box-shadow:0 2px 12px rgba(74,68,61,.06);}
+  .chart-card h2{margin:0 0 2px;font-size:15.5px;}
+  .chart-card .sub{font-size:11.5px;color:var(--sub);margin-bottom:4px;}
+  .chart{width:100%;height:380px;}
+  .src{font-size:11px;color:#6E8190;margin-top:6px;border-top:1px dashed var(--line);padding-top:7px;line-height:1.9;}
+  .src a{color:#6E8190;text-decoration:none;}
+  .src a:hover{text-decoration:underline;}
+  .tip{font-size:11.5px;color:var(--sub);background:#F6F2EB;border-radius:8px;padding:8px 11px;margin-top:8px;}
+  @media (max-width:640px){.chart{height:340px;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>"0添加"数据 · 对比可视化（交互版）</h1>
+  <p>平台规模对比 × 概念增速对比 × 消费者认知对比 × 认知vs国标界限｜全部真实数据·可溯源｜检索截止 2026-09-02｜莫兰迪配色</p>
+</header>
+<main>
+
+  <!-- 图1 平台规模对比 -->
+  <div class="chart-card">
+    <h2>① 各平台"0添加 / 配料干净"商品规模对比</h2>
+    <div class="sub">商品数量（款 / SKU）· 横向条形 · 悬停或点击查看详情</div>
+    <div id="c1" class="chart"></div>
+    <div class="src"><b>数据来源：</b><a href="https://www.jiemian.com/article/13754070.html" target="_blank">界面新闻（叮咚450+SKU，2025-12）</a>｜<a href="https://view.inews.qq.com/a/20250213A04MUJ00" target="_blank">零售氪星球/腾讯网（京东1号店400+款，2025-02）</a>｜<a href="https://www.iyiou.com/news/202409121077516" target="_blank">亿欧（京东0添加300+款，2024-09）</a><br>口径：各平台披露的商品数量，非全平台全量；检索日期 2026-09-02。</div>
+  </div>
+
+  <!-- 图2 增速对比 -->
+  <div class="chart-card">
+    <h2>② "0添加"概念销售增速对比</h2>
+    <div class="sub">同比增速（%）· 各来源口径不同，并列呈现 · 悬停查看口径</div>
+    <div id="c2" class="chart"></div>
+    <div class="src"><b>数据来源：</b><a href="https://column.iresearch.cn/b/202604/1027080.shtml" target="_blank">艾瑞网（苹果干0添加概念+433.29%）</a>｜<a href="https://research.mktindex.com/research/notebook/news_20241028" target="_blank">魔镜洞察（坚果炒货0添加MAT23 +50.7% / MAT24 +20.7%）</a>｜<a href="http://ishare.ifeng.com/c/s/v002eey4xQqpuFgzEJCS0wdD10bjnFmoYDfZJjk1NVrgNh8__" target="_blank">凤凰网（叮咚V5 GMV预计+50%，2026）</a>｜<a href="https://www.jiemian.com/article/13754070.html" target="_blank">界面新闻（叮咚配料干净+21%，2025H1）</a><br>口径提示：各来源年份与统计范围不同，不合并为统一曲线。</div>
+  </div>
+
+  <!-- 图3 消费者认知对比 -->
+  <div class="chart-card">
+    <h2>③ 消费者对"0添加 / 配料表"的关注度对比</h2>
+    <div class="sub">占比（%）· 横向条形 · 悬停或点击查看详情</div>
+    <div id="c3" class="chart"></div>
+    <div class="src"><b>数据来源：</b><a href="https://finance.sina.com.cn/jjxw/2025-12-12/doc-inhapmrp5249853.shtml" target="_blank">Innova《全球清洁标签趋势报告》2025（≈75%因配料表重新考虑购买，新浪财经转述）</a>｜<a href="http://life.china.com.cn/2025-02/24/content_42948814.htm" target="_blank">京东消费及产业发展研究院（68.8%关注0糖0脂0卡）</a>｜<a href="http://news.qq.com/rain/a/20250611A06LR900" target="_blank">京东超市618调研（64.1%购粮油调味关注0添加）</a></div>
+  </div>
+
+  <!-- 图4 认知 vs 国标界限值 -->
+  <div class="chart-card">
+    <h2>④ 消费者以为的"0" vs 国标界限值：巨大的认知差</h2>
+    <div class="sub">含量界限（每100g/100ml）· 消费者理解为"绝对零"，国标允许"低于界限值" · 悬停或点击对比</div>
+    <div id="c4" class="chart"></div>
+    <div class="src"><b>数据来源：</b>GB 28050-2011 表1 含量声称界限值（糖≤0.5g、反式脂肪酸≤0.3g、钠≤5mg）· 河北省市场监督管理局解读 <a href="http://scjg.hebei.gov.cn/info/113480" target="_blank">[链接]</a>｜光明网解读"0"界限 <a href="https://m.gmw.cn/2025-03/31/content_1304004985.htm" target="_blank">[链接]</a></div>
+  </div>
+
+  <div class="tip">所有图表均为交互版：可悬停 / 点击查看具体数值与口径。数据全部来自上列公开可溯源来源，无任何编造；"全平台含0添加关键词商品总数"无公开全量统计，故图①以平台披露口径呈现。</div>
+
+</main>
+
+<script>
+(function(){
+  var CLAY="#B08968", BLUE="#8FA3AD", SAGE="#9CAF9A", MAUVE="#A4938F", PINK="#C4A69C", VIOLET="#9B8EA6";
+  function base(t, sub){
+    return {
+      backgroundColor:"transparent",
+      tooltip:{trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,textStyle:{fontSize:11,lineHeight:15},padding:[6,8]},
+      grid:{left:10,right:40,top:24,bottom:10,containLabel:true},
+      xAxis:{type:"value",axisLabel:{color:"#7A7266",fontSize:11}},
+      yAxis:{type:"category",axisLabel:{color:"#4A443D",fontSize:11.5}},
+      title:{text:t,subtext:sub,left:"center",textStyle:{color:"#4A443D",fontSize:13,fontWeight:600}},
+    };
+  }
+
+  // 图1 平台规模对比（横向条形）
+  var c1=echarts.init(document.getElementById("c1"));
+  c1.setOption({
+    backgroundColor:"transparent",
+    tooltip:{trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,textStyle:{fontSize:11,lineHeight:15},padding:[6,8]},
+    grid:{left:10,right:50,top:40,bottom:10,containLabel:true},
+    xAxis:{type:"value",name:"款 / SKU",axisLabel:{color:"#7A7266",fontSize:11}},
+    yAxis:{type:"category",data:["京东1号店·配料干净(2025)","京东1号店·0添加(2024)","叮咚买菜·配料干净(2025H1)"],axisLabel:{color:"#4A443D",fontSize:11.5}},
+    series:[{name:"商品数量",type:"bar",barWidth:26,data:[
+      {value:400,itemStyle:{color:BLUE}},
+      {value:300,itemStyle:{color:MAUVE}},
+      {value:450,itemStyle:{color:CLAY}}
+    ],label:{show:true,position:"right",formatter:"{c}",color:"#4A443D",fontSize:11}}]
+  });
+
+  // 图2 增速对比
+  var c2=echarts.init(document.getElementById("c2"));
+  c2.setOption({
+    backgroundColor:"transparent",
+    tooltip:{trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,formatter:function(params){
+      var s="";
+      for(var i=0;i<params.length;i++){var p=params[i];s+=p.name+String.fromCharCode(10)+p.seriesName+": "+p.value+"%";}
+      return s;},textStyle:{fontSize:11,lineHeight:15},padding:[6,8]},
+    grid:{left:10,right:50,top:40,bottom:10,containLabel:true},
+    xAxis:{type:"value",name:"同比增速（%）",axisLabel:{color:"#7A7266",fontSize:11}},
+    yAxis:{type:"category",data:["苹果干·0添加概念(艾瑞2026)","坚果炒货·0添加(MAT2023)","叮咚V5·自有品牌GMV(2026预计)","叮咚·配料干净(2025H1)","坚果炒货·0添加(MAT2024)"],axisLabel:{color:"#4A443D",fontSize:11}},
+    series:[{name:"同比增速",type:"bar",barWidth:24,data:[
+      {value:433.29,itemStyle:{color:CLAY}},
+      {value:50.7,itemStyle:{color:SAGE}},
+      {value:50,itemStyle:{color:BLUE}},
+      {value:21,itemStyle:{color:MAUVE}},
+      {value:20.7,itemStyle:{color:PINK}}
+    ],label:{show:true,position:"right",formatter:"{c}%",color:"#4A443D",fontSize:10.5}}]
+  });
+
+  // 图3 消费者认知对比
+  var c3=echarts.init(document.getElementById("c3"));
+  c3.setOption({
+    backgroundColor:"transparent",
+    tooltip:{trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,textStyle:{fontSize:11,lineHeight:15},padding:[6,8]},
+    grid:{left:10,right:50,top:40,bottom:10,containLabel:true},
+    xAxis:{type:"value",name:"占比（%）",max:100,axisLabel:{color:"#7A7266",fontSize:11}},
+    yAxis:{type:"category",data:["因配料表重新考虑购买(Innova 2025)","关注0糖0脂0卡(京东消费研究院)","购粮油调味时关注0添加(京东618)"],axisLabel:{color:"#4A443D",fontSize:11.5}},
+    series:[{name:"占比",type:"bar",barWidth:26,data:[
+      {value:75,itemStyle:{color:CLAY}},
+      {value:68.8,itemStyle:{color:SAGE}},
+      {value:64.1,itemStyle:{color:BLUE}}
+    ],label:{show:true,position:"right",formatter:"{c}%",color:"#4A443D",fontSize:11}}]
+  });
+
+  // 图4 认知 vs 国标界限值（分组条形）
+  var c4=echarts.init(document.getElementById("c4"));
+  c4.setOption({
+    backgroundColor:"transparent",
+    tooltip:{trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,textStyle:{fontSize:11,lineHeight:15},padding:[6,8]},
+    legend:{top:2,itemWidth:14,itemHeight:8,textStyle:{color:"#6B7280",fontSize:11}},
+    grid:{left:10,right:50,top:44,bottom:10,containLabel:true},
+    xAxis:{type:"value",name:"每100g/100ml含量",axisLabel:{color:"#7A7266",fontSize:11}},
+    yAxis:{type:"category",data:["0钠 (mg)","0反式脂肪酸 (g)","0糖 (g)"],axisLabel:{color:"#4A443D",fontSize:11.5}},
+    series:[
+      {name:"消费者以为的“0”（绝对零）",type:"bar",barWidth:16,data:[
+        {value:0,itemStyle:{color:PINK}},{value:0,itemStyle:{color:PINK}},{value:0,itemStyle:{color:PINK}}],label:{show:true,position:"right",formatter:"绝对零",color:"#A87F74",fontSize:10}},
+      {name:"国标界限值（≤）",type:"bar",barWidth:16,data:[
+        {value:5,itemStyle:{color:CLAY}},{value:0.3,itemStyle:{color:CLAY}},{value:0.5,itemStyle:{color:CLAY}}],label:{show:true,position:"right",formatter:function(p){return "≤"+p.value;},color:"#4A443D",fontSize:10.5}}
+    ]
+  });
+
+  window.addEventListener("resize",function(){c1.resize();c2.resize();c3.resize();c4.resize();});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全国"0添加"专项整治通报样本统计（全国版）· 2026-09-01</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{--bg:#F3F0EA;--card:#FBFAF7;--ink:#4A443D;--sub:#7A7266;--line:#E2DCD2;--sage:#9CAF9A;--mauve:#A4938F;--blue:#8FA3AD;--clay:#B08968;--pink:#C4A69C;--violet:#9B8EA6;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7;}
+  header{padding:26px 20px 2px;text-align:center;}
+  header h1{margin:0;font-size:20px;font-weight:700;}
+  header p{margin:6px 0 0;color:var(--sub);font-size:12.5px;}
+  main{max-width:1100px;margin:0 auto;padding:16px 18px 60px;}
+  .block{margin:22px 0;}
+  .block h2{font-size:16px;margin:0 0 4px;}
+  .block .sub{font-size:12.5px;color:var(--sub);margin:2px 0 10px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(74,68,61,.05);}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0;}
+  .meta span{background:#EFE9E0;border:1px solid var(--line);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--sub);}
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+  th{background:#EFE9E0;text-align:left;padding:7px 8px;font-weight:600;border-bottom:1px solid var(--line);}
+  td{padding:7px 8px;border-bottom:1px solid #EFE9E0;vertical-align:top;}
+  tr:hover td{background:#F6F2EB;}
+  .num{font-weight:700;color:var(--clay);}
+  .hit{background:#F3E3D8;color:#A05A3C;font-weight:600;}
+  .chart-box{width:100%;height:390px;}
+  .src{font-size:11px;color:var(--sub);margin-top:8px;padding-top:6px;border-top:1px dashed var(--line);word-break:break-all;}
+  .warn{background:#F3E7DE;border:1px solid #E4CDBE;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7A5444;margin:12px 0;}
+  .big{font-size:26px;font-weight:800;color:var(--clay);}
+  .kpis{display:flex;flex-wrap:wrap;gap:16px;}
+  .kpis>div{flex:1;min-width:210px;}
+  a{color:#6E8190;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .tag{display:inline-block;padding:2px 9px;border-radius:11px;font-size:11px;white-space:nowrap;}
+  .tag.y{background:#F3E3D8;color:#A05A3C;}
+  .tag.n{background:#E5EBE2;color:#6B7F68;}
+  .tag.g{background:#E7E0EE;color:#6E5F80;}
+  .legend-note{font-size:11px;color:var(--sub);margin-top:4px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>全国"0添加"专项整治通报样本统计（全国版）</h1>
+  <p>各省市监局"网络食品销售虚假宣传专项整治典型案例"批次逐批核验｜检索截止 2026-09-01｜莫兰迪配色</p>
+</header>
+<main>
+
+  <div class="meta">
+    <span>覆盖：31 个省级行政区（含港澳台无此类通报）</span>
+    <span>专项批次：19 批</span>
+    <span>案例总数：85 起</span>
+    <span>涉"0添加/零添加/无添加/不含"话术：6 起</span>
+    <span>检索渠道：各市监局官网 / 央视 / 中国消费者报 / 中国质量新闻等</span>
+  </div>
+
+  <div class="block">
+    <h2>核心结论</h2>
+    <div class="card">
+      <div class="kpis">
+        <div><div class="big">6 / 85 ≈ 7.1%</div><div>专项整治通报样本内，"0添加/无添加/不含防腐剂"话术案例占比（约 1/14）</div></div>
+        <div><div class="big">19 批</div><div>覆盖 11 个省级行政区：广西·广东·江西·陕西·黑龙江·山东·四川·重庆·湖南·上海·天津</div></div>
+        <div><div class="big">6 起</div><div>东兴梨膏糖·崇左糖醋萝卜·佛山鲈鱼·聊城酱料·资阳青椒酱·重庆炖料</div></div>
+      </div>
+      <div class="warn" style="margin-top:12px;">
+        <b>口径说明：</b>这是"各省市监局主动发布的专项整治通报批次"内的占比，<b>不是全国全量处罚占比</b>。专项整治由市场监管总局 2026 年 4 月统一部署，2021–2025 年无同类可比批次，故"近5年"有效样本集中在 2025–2026。
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>图 1 · 各批次涉"0添加"案例数（n = 6）</h2>
+    <p class="sub">交互版：悬停查看｜仅列出命中 0 添加话术的批次（括号为该批总案例数）</p>
+    <div class="card"><div class="chart-box" id="chartHit"></div>
+      <div class="src"><b>图内来源：</b>各省市监局网络食品销售虚假宣传专项整治典型案例通报（2025–2026 年公布，19 批 85 起逐批核验）。检索日期 2026-09-01。命中批次：重庆〔13〕、广东佛山〔4〕、四川资阳雁江〔4〕、广西〔6〕、广西崇左〔2〕、山东聊城〔1〕。</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>图 2 · 专项整治批次样本构成（85 起）</h2>
+    <p class="sub">交互版：悬停查看占比</p>
+    <div class="card"><div class="chart-box" id="chartPie" style="height:330px;"></div>
+      <div class="src"><b>图内来源：</b>同上，19 批专项整治通报逐批核验（2026-09-01）。涉"0添加/无添加/不含防腐剂"话术 6 起，其余 79 起为功效宣称、广告违法、标签真实性等其他虚假宣传。</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>专项整治批次逐批统计（19 批 · 85 起 · 涉0添加 6 起）</h2>
+    <div class="card">
+      <table>
+        <tr><th>#</th><th>地区</th><th>批次 / 日期</th><th>案例数</th><th>涉0添加</th><th>涉0添加案例</th><th>链接</th></tr>
+        <tr><td>1</td><td>广西</td><td>第二批 2026-08-24</td><td class="num">6</td><td class="num">1</td><td class="hit">东兴市余花商行梨膏糖"0添加"（配料含白砂糖/麦芽糖浆）</td><td><a href="http://m.toutiao.com/group/7677479063041786394/" target="_blank">中国质量新闻</a></td></tr>
+        <tr><td>2</td><td>广西崇左</td><td>第三批 2026-08-17</td><td class="num">2</td><td class="num">1</td><td class="hit">江州区某公司糖醋萝卜"不含防腐剂"未标含量（GB7718-2011 第4.1.4.2）</td><td><a href="http://scjdglj.chongzuo.gov.cn/xxgk/t28039694.shtml" target="_blank">崇左市监局</a></td></tr>
+        <tr><td>3</td><td>广西南宁</td><td>第三批 2026-08-14</td><td class="num">2</td><td class="num">0</td><td>—（代可可脂巧克力·能量饮料功效）</td><td><a href="https://scjgj.nanning.gov.cn/yfxz/yasf/t6703858.html" target="_blank">南宁市监局</a></td></tr>
+        <tr><td>4</td><td>广东佛山</td><td>第二批 2026-08-27</td><td class="num">4</td><td class="num">1</td><td class="hit">元希（佛山）渔业鲈鱼视频宣称"0添加/零添加防腐剂/无抗生素"与标签矛盾</td><td><a href="https://www.nfnews.com/content/xovKdlKnyJ.html" target="_blank">南方+·佛山市场监管</a></td></tr>
+        <tr><td>5</td><td>广东汕尾</td><td>2026-08-27</td><td class="num">3</td><td class="num">0</td><td>—（保健食品功效·医疗用语·会销）</td><td><a href="https://www.shanwei.gov.cn/swscjdglj/zwgk/wgk/zxgk/content/post_1271897.html" target="_blank">汕尾市监局</a></td></tr>
+        <tr><td>6</td><td>广东潮州</td><td>2026-08-24</td><td class="num">3</td><td class="num">0</td><td>—（耐泡度·价格·牛肉含量）</td><td><a href="https://www.chaozhou.gov.cn/zwgk/zwdt/bmdt/content/mpost_4002447.html" target="_blank">潮州市政府</a></td></tr>
+        <tr><td>7</td><td>江西</td><td>省级 2026-08-19</td><td class="num">5</td><td class="num">0</td><td>—（虚构业绩/产地/功效）</td><td><a href="http://amr.jiangxi.gov.cn/amr/sjdt/content/content_2089898993329184768.html" target="_blank">江西省市监局</a></td></tr>
+        <tr><td>8</td><td>江西新余</td><td>2026-08-27</td><td class="num">4</td><td class="num">0</td><td>—（保健食品/普通食品功效）</td><td><a href="http://m.toutiao.com/group/7678910174694654499/" target="_blank">新余市场监管</a></td></tr>
+        <tr><td>9</td><td>陕西</td><td>第一期 2026-08-26</td><td class="num">4</td><td class="num">0</td><td>—（降血压·顶级·体重管理·信息不符）</td><td><a href="https://snamr.shaanxi.gov.cn/sy/sjyw/202608/t20260828_3670612.html" target="_blank">陕西省市监局</a></td></tr>
+        <tr><td>10</td><td>黑龙江</td><td>2026-08-20</td><td class="num">3</td><td class="num">0</td><td>—（功效宣称·食材不符）</td><td><a href="http://m.toutiao.com/group/7675989384033829391/" target="_blank">中国质量新闻</a></td></tr>
+        <tr><td>11</td><td>山东青岛</td><td>2026-09-01</td><td class="num">5</td><td class="num">0</td><td>—（抗癌/治胃肠炎·掺假·证照·检疫）</td><td><a href="https://m.guanhai.com.cn/p/470887.html" target="_blank">观海新闻</a></td></tr>
+        <tr><td>12</td><td>山东聊城</td><td>2026-05-15</td><td class="num">1</td><td class="num">1</td><td class="hit">某食品公司桶装酱料标"零添加"实际检出苯甲酸/山梨酸/三氯蔗糖</td><td><a href="http://liaocheng.dzwww.com/lcxw/202605/t20260518_17742949.htm" target="_blank">聊城市市监局（大众网）</a></td></tr>
+        <tr><td>13</td><td>四川资阳雁江</td><td>第一期 2026-08-21</td><td class="num">4</td><td class="num">1</td><td class="hit">某火锅店抖音标题"纯手工零添加"青椒酱（实际机器制作+加味精）</td><td><a href="http://www.xfzlw.com/newsDetail/24411de15c8823c1b5c0673d00140460/0" target="_blank">消费质量网</a></td></tr>
+        <tr><td>14</td><td>四川资阳</td><td>第三期 2026-08-28</td><td class="num">2</td><td class="num">0</td><td>—（视觉误导·NFC标注）</td><td><a href="http://m.toutiao.com/group/7679019584804717108/" target="_blank">资阳市场监管</a></td></tr>
+        <tr><td>15</td><td>重庆</td><td>2026-08-21</td><td class="num">13</td><td class="num">1</td><td class="hit">重庆得享农业酸萝卜老鸭汤炖料标"0添加防腐剂"检出山梨酸</td><td><a href="https://www.cqcb.com/news/63/2026-08-21/6202679.html" target="_blank">上游新闻</a></td></tr>
+        <tr><td>16</td><td>湖南</td><td>2026-07-28</td><td class="num">5</td><td class="num">0</td><td>—（药房/母婴功效宣传）</td><td><a href="https://www.ccn.com.cn/Content/2026/07-28/1646532211.html" target="_blank">中国消费网</a></td></tr>
+        <tr><td>17</td><td>湖南</td><td>2026-06-05</td><td class="num">5</td><td class="num">0</td><td>—（骨肉相连·硒功效·标签造假等）</td><td><a href="https://m.voc.com.cn/xhn/news/202606/32837700.html" target="_blank">新湖南</a></td></tr>
+        <tr><td>18</td><td>上海</td><td>2026-08-04</td><td class="num">11</td><td class="num">0</td><td>—（网络食品销售虚假宣传+保健食品护老专项行动，案例以功效类为主）</td><td><a href="https://www.ccn.com.cn/Content/2026/08-04/1602324357.html" target="_blank">中国消费网</a></td></tr>
+        <tr><td>19</td><td>天津</td><td>2026-08-21</td><td class="num">3</td><td class="num">0</td><td>—（网店名称不符·食安员缺失·无中文标签+虚假广告）</td><td><a href="http://www.cmrnn.com.cn/content/2026-08/25/content_295259.html" target="_blank">中国市场监管新闻网</a></td></tr>
+      </table>
+      <div class="src">合计：19 批、85 起案例，6 起涉"0添加/零添加/无添加/不含防腐剂"话术，占 7.1%。检索日期 2026-09-01；全部批次来自官方渠道或权威媒体报道，链接已逐条核验。注：上海批次名称含"网络食品销售虚假宣传"但案例以保健食品护老为主；天津为"网络餐饮及网络食品销售"合并口径。</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>相关口径批次（网络餐饮 / 铁拳 / 保健食品护老 / 反不正当竞争 / 广告，不计入核心）</h2>
+    <p class="sub">均经核验 0 起涉 0 添加，佐证"0添加"并非通报主流话术</p>
+    <div class="card">
+      <table>
+        <tr><th>地区</th><th>批次 / 日期</th><th>案例数</th><th>涉0添加</th><th>链接</th></tr>
+        <tr><td>宁夏</td><td>反不正当竞争（虚假宣传）2026-07-23</td><td class="num">9</td><td class="num">0</td><td><a href="http://m.toutiao.com/group/7665570019808264738/" target="_blank">宁夏市场监管</a></td></tr>
+        <tr><td>天津</td><td>老年人药品保健品虚假宣传 2025-12-18</td><td class="num">7</td><td class="num">0</td><td><a href="https://scjg.tj.gov.cn/tjsscjdglwyh_52651/xwdt/gzdt/202512/t20251218_7201173.html" target="_blank">天津市监</a></td></tr>
+        <tr><td>湖北</td><td>老年人药品保健品虚假宣传 2026-01-20</td><td class="num">约6</td><td class="num">0</td><td><a href="https://scjg.hubei.gov.cn/bmdt/dtyw/202601/t20260120_5859000.shtml" target="_blank">湖北省市监局</a></td></tr>
+        <tr><td>新疆</td><td>保健食品专项整治 2026-08-26</td><td class="num">5</td><td class="num">0</td><td><a href="https://scjgj.xinjiang.gov.cn/xjaic/qjxx/202608/f5fb5847ab754b85bc75172b9550bcdf.shtml" target="_blank">新疆市监局</a></td></tr>
+        <tr><td>贵州</td><td>毕节肉制品典型案例 2026-08-28</td><td class="num">3</td><td class="num">0</td><td><a href="http://m.toutiao.com/group/7678998176086426158/" target="_blank">贵州市场监管</a></td></tr>
+        <tr><td>内蒙古</td><td>广告监管专项整治第二批 2026-08-17</td><td class="num">约4</td><td class="num">0</td><td><a href="http://m.toutiao.com/group/7674902517888598562/" target="_blank">中国质量新闻</a></td></tr>
+        <tr><td>西藏</td><td>铁拳行动第二批 2026-08-04</td><td class="num">约4</td><td class="num">0</td><td><a href="http://m.toutiao.com/group/7670046714061685248/" target="_blank">中国质量新闻</a></td></tr>
+        <tr><td>河南</td><td>网络餐饮整治第一批 2026-08-10</td><td class="num">约5</td><td class="num">0</td><td><a href="https://scjg.henan.gov.cn/2026/08-10/3395236.html" target="_blank">河南省市监局</a></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>31 个省级行政区覆盖矩阵</h2>
+    <div class="card">
+      <table>
+        <tr><th>类别</th><th>省份</th></tr>
+        <tr><td><span class="tag y">有专门专项整治批次（11个）</span></td><td>广西（3批）· 广东（3地）· 江西（2批）· 陕西 · 黑龙江 · 山东（2地）· 四川（2批）· 重庆 · 湖南（2批）· 上海 · 天津</td></tr>
+        <tr><td><span class="tag n">仅有相关口径批次（10个）</span></td><td>河南 · 甘肃 · 宁夏 · 新疆 · 湖北 · 贵州 · 内蒙古 · 西藏 · 海南 · 江苏</td></tr>
+        <tr><td><span class="tag g">未检索到专项整治批次（10个）</span></td><td>北京 · 河北 · 山西 · 辽宁 · 吉林 · 浙江 · 安徽 · 福建 · 云南 · 青海</td></tr>
+      </table>
+      <div class="legend-note">说明：青海 2026-08-12 已发布"征集网络食品销售虚假宣传问题线索公告"（<a href="https://scjgj.qinghai.gov.cn/Article/FormDetailsSJJ?Article_ID=E4F0D98A-2C41-4551-AFF4-6F18E8AD4DE8" target="_blank">链接</a>）、福建福鼎 2026-05-25 发过线索征集通告、安徽宣城有专项整治部署报道，但均未公布批次案例——专项整治仍在推进中。</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>诚实说明</h2>
+    <div class="card">
+      <div class="warn" style="margin-top:0;">
+        <b>① 7.1% 是"通报样本内占比"</b>：即官方从全省案件中精选公布的批次里涉0添加话术的比例，不是全国全量处罚占比。全量无官方统计——"0添加"非独立违法案由（按广告法/反不正当竞争法/食安法定性），各地决定书上网率不齐，无法按关键词统计全量。<br><br>
+        <b>② "近5年"实际有效样本集中在 2025–2026</b>：网络食品销售虚假宣传专项整治由市场监管总局 2026 年 4 月统一部署，2021–2025 年无同类可比批次。<br><br>
+        <b>③ 引用建议</b>：本页 7.1%（约 1/14）可用于说明"0添加话术在官方通报中并非主流，且主要出现在标签真实性类案件中"，不可外推为"占全部虚假宣传处罚的比例"。
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  var ink="#4A443D", sub="#7A7266", line="#E7E1D7";
+  var sage="#9CAF9A", clay="#B08968", mauve="#A4938F", blue="#8FA3AD", pink="#C4A69C";
+  var ttip={trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,backgroundColor:"rgba(74,68,61,.92)",borderColor:"rgba(74,68,61,0)",textStyle:{color:"#F5F1EA",fontSize:11},padding:[6,9]};
+  var srcSub="数据来源：各省市监局网络食品销售虚假宣传专项整治通报（2025–2026）｜检索 2026-09-01";
+
+  var h1=echarts.init(document.getElementById("chartHit"));
+  h1.setOption({
+    backgroundColor:"transparent",
+    title:{text:"图 1 · 各批次涉\"0添加\"案例数（n = 6）",subtext:srcSub,left:"center",textStyle:{color:ink,fontSize:15,fontWeight:700},subtextStyle:{color:sub,fontSize:10.5}},
+    tooltip:Object.assign({axisPointer:{type:"shadow"}},ttip),
+    grid:{left:10,right:70,top:76,bottom:10,containLabel:true},
+    xAxis:{type:"value",minInterval:1,axisLabel:{color:sub,fontSize:11},splitLine:{lineStyle:{color:line}}},
+    yAxis:{type:"category",inverse:true,data:["重庆（13起中）","佛山（4起中）","资阳雁江（4起中）","广西第二批（6起中）","崇左（2起中）","聊城（1起中）"],axisLabel:{color:ink,fontSize:11},axisLine:{lineStyle:{color:line}},axisTick:{show:false}},
+    series:[{name:"涉0添加案例数",type:"bar",barWidth:18,data:[
+      {value:1,itemStyle:{color:clay}},{value:1,itemStyle:{color:clay}},{value:1,itemStyle:{color:clay}},{value:1,itemStyle:{color:sage}},{value:1,itemStyle:{color:sage}},{value:1,itemStyle:{color:sage}}],
+      itemStyle:{borderRadius:[0,6,6,0]},
+      label:{show:true,position:"right",color:ink,fontSize:12,fontWeight:600}}]
+  });
+
+  var p1=echarts.init(document.getElementById("chartPie"));
+  p1.setOption({
+    backgroundColor:"transparent",
+    title:{text:"图 2 · 专项整治批次样本构成（85 起）",subtext:srcSub,left:"center",textStyle:{color:ink,fontSize:15,fontWeight:700},subtextStyle:{color:sub,fontSize:10.5}},
+    tooltip:Object.assign({trigger:"item"},ttip,{formatter:"{b}：{c} 起（{d}%）"}),
+    legend:{bottom:0,itemWidth:14,itemHeight:8,textStyle:{color:sub,fontSize:11}},
+    series:[{name:"样本构成",type:"pie",radius:["38%","62%"],center:["50%","54%"],
+      label:{formatter:"{b}：{c} 起",color:ink,fontSize:11},
+      data:[
+        {value:6,name:"涉0添加话术",itemStyle:{color:clay}},
+        {value:79,name:"功效/广告/其他虚假宣传",itemStyle:{color:sage}}]}]
+  });
+
+  window.addEventListener("resize",function(){h1.resize();p1.resize();});
+</script>
+</body>
+</html>

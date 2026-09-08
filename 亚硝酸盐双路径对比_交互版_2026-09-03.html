@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亚硝酸盐双路径对比 · 交互版 · 2026-09-03</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#F3F0EA;color:#3D3A36;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;padding:28px 20px;line-height:1.6;}
+  .wrap{max-width:1060px;margin:0 auto;}
+  h1{font-size:24px;font-weight:700;text-align:center;margin-bottom:6px;}
+  .sub{text-align:center;color:#7A7266;font-size:14px;margin-bottom:6px;}
+  .hint{text-align:center;color:#A89B8F;font-size:13px;margin-bottom:18px;}
+  /* 模式按钮 */
+  .mode-bar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+  .mode-btn{border:1.5px solid #C9C2B6;background:#FBFAF7;color:#3D3A36;font-size:14px;padding:10px 18px;border-radius:22px;cursor:pointer;transition:all .2s;}
+  .mode-btn:hover{border-color:#8BA888;}
+  .mode-btn.active{background:#3D3A36;color:#FBFAF7;border-color:#3D3A36;}
+  /* 流程图 */
+  #flow{}
+  .start-node{background:#FBFAF7;border:1.5px solid #C9C2B6;border-radius:14px;padding:14px 18px;margin:0 auto 18px;max-width:640px;text-align:center;font-size:15px;font-weight:600;}
+  .branch{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:20px;}
+  .path{flex:1 1 340px;min-width:0;border-radius:16px;padding:16px;border:1.5px solid transparent;transition:opacity .3s,box-shadow .3s;background:#FBFAF7;}
+  .path-a{border-color:#D9C6B3;}
+  .path-b{border-color:#C6D3C4;}
+  .path.dim{opacity:.32;}
+  .path-hl-a{box-shadow:0 0 0 3px rgba(176,137,104,.35);}
+  .path-hl-b{box-shadow:0 0 0 3px rgba(139,168,136,.45);}
+  .path-head{font-size:15px;font-weight:700;margin-bottom:12px;padding:8px 12px;border-radius:10px;}
+  .path-a .path-head{background:#F0E4D6;color:#8A6240;}
+  .path-b .path-head{background:#E4EDE2;color:#4F7150;}
+  .node{background:#FFFDF9;border:1.5px solid #E4E3DD;border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:transform .15s,border-color .15s;}
+  .node:hover{transform:translateY(-2px);}
+  .node.active{border-color:#3D3A36;}
+  .node .t{font-size:15px;font-weight:700;}
+  .path-a .node .t{color:#8A6240;}
+  .path-b .node .t{color:#4F7150;}
+  .node .d{font-size:13px;color:#7A7266;margin-top:3px;}
+  .node .big{font-size:22px;font-weight:800;color:#3D3A36;}
+  .arrow{text-align:center;font-size:22px;color:#B8A87E;line-height:1.2;margin:2px 0;font-weight:700;}
+  /* 转化演示轨道 */
+  .convert{background:#F4F6F1;border:1.5px dashed #8BA888;border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+  .convert .ct{font-size:14px;font-weight:700;color:#4F7150;text-align:center;margin-bottom:8px;}
+  .track{position:relative;height:26px;background:#E4EDE2;border-radius:13px;}
+  .track .lbl{position:absolute;font-size:11px;color:#4F7150;top:5px;}
+  .track .lbl-l{left:12px;}
+  .track .lbl-r{right:12px;}
+  .track .dot{position:absolute;top:3px;left:6px;width:20px;height:20px;border-radius:50%;background:#B8A87E;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left 1.6s cubic-bezier(.5,0,.5,1);}
+  .track.play .dot{left:calc(100% - 26px);}
+  .track .dot.r{background:#B58E8E;}
+  .play-btn{display:block;margin:8px auto 0;border:1.5px solid #8BA888;background:#FBFAF7;color:#4F7150;font-size:13px;padding:7px 16px;border-radius:18px;cursor:pointer;transition:background .2s;}
+  .play-btn:hover{background:#E4EDE2;}
+  /* 汇合 */
+  .converge{background:#E8EDF2;border:2px solid #7E99AB;border-radius:16px;padding:16px 18px;margin-bottom:16px;text-align:center;cursor:pointer;}
+  .converge .t{font-size:17px;font-weight:800;color:#3A5468;}
+  .converge .d{font-size:14px;color:#55697A;margin-top:4px;}
+  /* 结论卡 */
+  .conclusion{background:#FBFAF7;border:1.5px solid #C9C2B6;border-radius:14px;padding:14px 18px;margin-bottom:16px;}
+  .conclusion .t{font-size:15px;font-weight:700;color:#8A6240;margin-bottom:6px;}
+  .conclusion ul{margin-left:18px;color:#5A5650;font-size:14px;}
+  .conclusion li{margin-bottom:4px;}
+  /* 详情面板 */
+  .detail{background:#3D3A36;color:#F3F0EA;border-radius:14px;padding:16px 18px;margin-bottom:16px;font-size:14px;min-height:64px;}
+  .detail b{color:#E8D9B8;}
+  /* 来源 */
+  .src{font-size:12px;color:#7A7266;border-top:1px solid #DCD7CE;padding-top:12px;}
+  .src a{color:#55697A;}
+  .src b{color:#5A5650;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>直加亚硝酸盐 vs 芹菜粉转化：两条路，同一个"亚硝酸盐"</h1>
+  <div class="sub">传统工艺与"无添加亚硝酸盐"工艺，殊途同归的路径演示</div>
+  <div class="hint">点击下方按钮切换路径高亮；点击任意环节查看详解；可播放芹菜粉的转化过程</div>
+
+  <div class="mode-bar">
+    <button class="mode-btn active" data-mode="all">对比全部</button>
+    <button class="mode-btn" data-mode="trad">只看传统路径</button>
+    <button class="mode-btn" data-mode="zero">只看"0添加"路径</button>
+  </div>
+
+  <div id="flow">
+    <div class="start-node">同一块肉，要加工成香肠或腌肉。<br>为防变色、防腐，两条工艺走了不同的路——但终点一样。</div>
+
+    <div class="branch">
+      <!-- 路径A：传统 -->
+      <div class="path path-a" data-path="a">
+        <div class="path-head">路径 A · 传统工艺（直接添加）</div>
+        <div class="node" data-name="直接加亚硝酸钠" data-desc="加工时直接加入亚硝酸钠（化学合成），它本身就是亚硝酸盐，无需转化。">
+          <div class="t">直接加"亚硝酸钠"</div>
+          <div class="d">化学合成，它本身就是亚硝酸盐</div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="node" data-name="发色 + 抑菌" data-desc="亚硝酸盐与肉中的肌红蛋白反应，呈现诱人粉红色；同时抑制肉毒梭菌等致病菌，这是传统腌制的核心目的。">
+          <div class="t">在肉里发色、抑菌</div>
+          <div class="d">与肌红蛋白反应呈粉红，抑制肉毒梭菌</div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="node" data-name="成品：亚硝酸盐残留16.07" data-desc="对照组按 100 mg/kg 添加亚硝酸钠，腌制 30 天后残留约 16.07 mg/kg（远低于国标限值 30 mg/kg）。标签老老实实写明“亚硝酸钠”。">
+          <div class="t">成品：<span class="big">16.07</span> mg/kg 亚硝酸盐残留</div>
+          <div class="d">标签写明"亚硝酸钠"（明着标）· 对照组 100 mg/kg 添加、腌制 30 天</div>
+        </div>
+      </div>
+
+      <!-- 路径B：芹菜粉 -->
+      <div class="path path-b" data-path="b">
+        <div class="path-head">路径 B · "无添加亚硝酸盐"工艺（芹菜粉）</div>
+        <div class="node" data-name="加的是芹菜粉" data-desc="配料表里加的不是亚硝酸盐，而是芹菜粉。芹菜天然富集硝酸盐，含量可达 2100–30000 mg/kg，是“潜伏的原料”。">
+          <div class="t">加的是"芹菜粉"</div>
+          <div class="d">芹菜天然含硝酸盐 2100–30000 mg/kg</div>
+        </div>
+        <div class="convert">
+          <div class="ct">↓ 微生物把硝酸盐还原成亚硝酸盐</div>
+          <div class="track" id="track">
+            <span class="dot" id="dot"></span>
+            <span class="lbl lbl-l">NO₃⁻ 硝酸盐</span>
+            <span class="lbl lbl-r">NO₂⁻ 亚硝酸盐</span>
+          </div>
+          <button class="play-btn" id="playBtn">▶ 播放转化过程</button>
+        </div>
+        <div class="node" data-name="同样发色抑菌" data-desc="生成的亚硝酸盐与传统路径作用完全相同：与肌红蛋白反应发色、抑制致病菌。机理并没有不同。">
+          <div class="t">同样在肉里发色、抑菌</div>
+          <div class="d">机理与传统亚硝酸盐完全相同</div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="node" data-name="成品：亚硝酸盐残留7.46" data-desc="0.3% 芹菜粉腌制 30 天后，亚硝酸盐残留约 7.46 mg/kg，比对照组低约 53.6%。但标签却可写“无添加亚硝酸盐”。">
+          <div class="t">成品：<span class="big">7.46</span> mg/kg 亚硝酸盐残留</div>
+          <div class="d">标签却写"无添加亚硝酸盐" · 0.3% 芹菜粉、腌制 30 天</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="converge" data-name="殊途同归" data-desc="两条工艺都生成了亚硝酸盐，并且都进入了肉里。区别只在标签：一条明着写“亚硝酸钠”，一条用“芹菜粉”绕道，写成“无添加亚硝酸盐”。">
+      <div class="t">殊途同归 —— 都生成了亚硝酸盐</div>
+      <div class="d">差别只在标签：一个明着标，一个用"天然"绕道</div>
+    </div>
+
+    <div class="conclusion">
+      <div class="t">一句话看懂："无添加亚硝酸盐"≠ 没有亚硝酸盐</div>
+      <ul>
+        <li>它只是把"直接加亚硝酸盐"换成了"加会变成亚硝酸盐的芹菜粉"——亚硝酸盐照样生成。</li>
+        <li>而且芹菜粉对单增李斯特菌、大肠杆菌的抑菌力弱于化学亚硝酸盐，保存风险未必更低。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="detail" id="detail">点击上方任意环节，这里会显示详细解释。</div>
+
+  <div class="src">
+    <b>数据来源：</b>① 中国农业科学院农业信息研究所（食品伙伴网 2026-05-15）：0.3% 芹菜粉腌肉 30 天后亚硝酸盐残留 7.46 mg/kg，比加 100 mg/kg 亚硝酸钠对照组低 53.58%（对照组 ≈ 16.07 mg/kg，按"低 53.58%"反推）· <a href="http://agri.nais.net.cn/resourcenavigation/webinfo/6e953a45-9bbf-42d8-b632-312c38b05e3a.html" target="_blank">中国农科院</a>；② 《肉类研究》2015：添加芹菜粉的川味香肠亚硝酸盐残留显著低于加亚硝酸盐样品，均远低于国标 ≤30 mg/kg · <a href="https://www.rlyj.net.cn/fileup/HTML/20150501.shtml" target="_blank">肉类研究</a>；③ 新鲜芹菜硝酸盐含量 2100–30000 mg/kg（中国农科院）；④ 果蔬组 65.52 vs 对照组 105.31 mg/kg · <a href="https://www.spkx.net.cn/fileup/HTML/2018-39-12-010.shtml" target="_blank">食品科学 2018</a>。
+  </div>
+</div>
+
+<script>
+(function(){
+  try {
+    var btns = document.querySelectorAll('.mode-btn');
+    var paths = document.querySelectorAll('.path');
+    var detail = document.getElementById('detail');
+    if (!detail) return;
+
+    function setMode(m){
+      for (var i=0;i<btns.length;i++){
+        btns[i].className = 'mode-btn' + (btns[i].getAttribute('data-mode')===m ? ' active' : '');
+      }
+      for (var j=0;j<paths.length;j++){
+        var isA = paths[j].getAttribute('data-path')==='a';
+        var isB = paths[j].getAttribute('data-path')==='b';
+        var dim = false;
+        if (m==='trad' && isB) dim = true;
+        if (m==='zero' && isA) dim = true;
+        paths[j].className = 'path ' + (isA?'path-a':'path-b') + (dim?' dim':'') + (m==='trad'?' path-hl-a':'') + (m==='zero'?' path-hl-b':'');
+      }
+    }
+
+    for (var k=0;k<btns.length;k++){
+      btns[k].onclick = (function(btn){
+        return function(){ setMode(btn.getAttribute('data-mode')); };
+      })(btns[k]);
+    }
+
+    // 点击节点/汇合 → 详情
+    var nodes = document.querySelectorAll('.node,.start-node,.converge,.path-head');
+    function showDetail(el){
+      var nm = el.getAttribute('data-name') || el.textContent.trim().substring(0,18);
+      var ds = el.getAttribute('data-desc') || '';
+      detail.innerHTML = '<b>' + nm + '</b>　' + ds;
+    }
+    for (var m=0;m<nodes.length;m++){
+      nodes[m].onclick = (function(el){
+        return function(){ showDetail(el); };
+      })(nodes[m]);
+    }
+
+    // 播放转化动画
+    var track = document.getElementById('track');
+    var dot = document.getElementById('dot');
+    var playBtn = document.getElementById('playBtn');
+    if (track && dot && playBtn){
+      playBtn.onclick = function(){
+        dot.className = 'dot';                    // 复位到左端
+        void track.offsetWidth;                   // 强制重排，触发动画
+        dot.className = 'dot r';                  // 变红色并滑到右端
+        track.className = 'track play';
+        setTimeout(function(){ track.className='track'; }, 1700);
+        setTimeout(function(){ dot.className='dot'; }, 1800);
+      };
+    }
+  } catch(e){
+    var d = document.getElementById('detail');
+    if (d) d.innerHTML = '脚本异常，请刷新重试。';
+  }
+})();
+</script>
+</body>
+</html>

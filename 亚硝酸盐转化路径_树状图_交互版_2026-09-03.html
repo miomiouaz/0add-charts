@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亚硝酸盐转化路径 · 树状图 · 交互版</title>
+<style>
+  body{background:#F3F0EA;color:#3D3A36;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;margin:0;padding:28px 16px;}
+  .wrap{max-width:1020px;margin:0 auto;}
+  h1{font-size:22px;font-weight:700;text-align:center;margin:0 0 4px;}
+  .sub{text-align:center;color:#7A7266;font-size:14px;margin:0 0 8px;}
+  .hint{text-align:center;color:#A89B8F;font-size:12.5px;margin:0 0 14px;}
+  .mode-bar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+  .mode-btn{border:1.5px solid #C9C2B6;background:#FBFAF7;color:#3D3A36;font-size:13.5px;padding:9px 16px;border-radius:20px;cursor:pointer;transition:all .2s;}
+  .mode-btn:hover{border-color:#8BA888;}
+  .mode-btn.active{background:#3D3A36;color:#FBFAF7;border-color:#3D3A36;}
+  .playbar{display:flex;justify-content:center;margin-bottom:10px;}
+  .play-btn{border:1.5px solid #6F8A6D;background:#FBFAF7;color:#4F7150;font-size:13.5px;padding:9px 20px;border-radius:20px;cursor:pointer;transition:background .2s;}
+  .play-btn:hover{background:#E4EDE2;}
+  svg{width:100%;height:auto;display:block;}
+  .clickable{cursor:pointer;}
+  .clickable:hover{filter:brightness(.97);}
+  .clickable.act{stroke-width:3;}
+  #grpL,#grpR{transition:opacity .35s;}
+  #dot{transition:transform 1.7s cubic-bezier(.45,0,.5,1),fill 1.7s;}
+  .src{font-size:12px;color:#7A7266;border-top:1px solid #DCD7CE;margin-top:14px;padding-top:12px;line-height:1.7;}
+  .src a{color:#55697A;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>香肠 / 腌肉里的亚硝酸盐，怎么来的？</h1>
+  <div class="sub">传统工艺与"无添加亚硝酸盐"工艺：两条路径，殊途同归</div>
+  <div class="hint">点按钮切换分支高亮；点 ▶ 播放"硝酸盐 → 亚硝酸盐"转化动画；点击任一环节可聚焦</div>
+
+  <div class="mode-bar">
+    <button class="mode-btn active" data-mode="all">对比全部</button>
+    <button class="mode-btn" data-mode="trad">传统工艺</button>
+    <button class="mode-btn" data-mode="zero">"无添加"工艺</button>
+  </div>
+  <div class="playbar">
+    <button class="play-btn" id="playBtn">▶ 播放 硝酸盐 → 亚硝酸盐 转化</button>
+  </div>
+
+  <svg viewBox="0 0 980 420" role="img" aria-label="亚硝酸盐转化路径树状图（交互版）">
+    <defs>
+      <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#A89B8F"/>
+      </marker>
+      <marker id="arwB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#B58E8E"/>
+      </marker>
+    </defs>
+
+    <!-- 根节点 -->
+    <g class="clickable" data-name="肉制品（香肠/腌肉）">
+      <rect x="370" y="24" width="240" height="60" rx="12" fill="#E8EDF2" stroke="#7E99AB" stroke-width="1.6"/>
+      <text x="490" y="52" text-anchor="middle" font-size="17" font-weight="700" fill="#3A5468">肉制品（香肠 / 腌肉）</text>
+      <text x="490" y="74" text-anchor="middle" font-size="12" fill="#55697A">加工时，两种工艺走了不同的路</text>
+    </g>
+
+    <!-- 根分叉线 -->
+    <path d="M490,84 L490,100 L270,100 L270,120" fill="none" stroke="#A89B8F" stroke-width="1.8" marker-end="url(#arw)"/>
+    <path d="M490,100 L710,100 L710,120" fill="none" stroke="#A89B8F" stroke-width="1.8" marker-end="url(#arw)"/>
+
+    <!-- 左分支：传统工艺 -->
+    <g id="grpL">
+      <g class="clickable" data-name="直接加亚硝酸钠">
+        <rect x="160" y="120" width="220" height="64" rx="12" fill="#F0E4D6" stroke="#B08968" stroke-width="1.6"/>
+        <text x="270" y="141" text-anchor="middle" font-size="12" fill="#8A6240">传统工艺 · 直接添加</text>
+        <text x="270" y="168" text-anchor="middle" font-size="16" font-weight="700" fill="#5A4632">直接加"亚硝酸钠"</text>
+      </g>
+      <path d="M270,184 L270,295 L488,295" fill="none" stroke="#A89B8F" stroke-width="1.8"/>
+    </g>
+
+    <!-- 右分支："无添加"工艺 -->
+    <g id="grpR">
+      <g class="clickable" data-name="加芹菜粉（含硝酸盐）">
+        <rect x="600" y="120" width="220" height="64" rx="12" fill="#E4EDE2" stroke="#8BA888" stroke-width="1.6"/>
+        <text x="710" y="141" text-anchor="middle" font-size="12" fill="#4F7150">"无添加亚硝酸盐"工艺</text>
+        <text x="710" y="168" text-anchor="middle" font-size="16" font-weight="700" fill="#3D5A3E">加"芹菜粉"（含硝酸盐）</text>
+      </g>
+      <path d="M710,184 L710,210" fill="none" stroke="#6F8A6D" stroke-width="1.8" marker-end="url(#arw)"/>
+      <g class="clickable" data-name="微生物还原">
+        <rect x="600" y="210" width="220" height="64" rx="12" fill="#E4EDE2" stroke="#6F8A6D" stroke-width="1.6"/>
+        <text x="710" y="236" text-anchor="middle" font-size="15" font-weight="700" fill="#3D5A3E">微生物还原</text>
+        <text x="710" y="259" text-anchor="middle" font-size="12.5" fill="#4F7150">硝酸盐 → 亚硝酸盐</text>
+      </g>
+      <path d="M710,274 L710,295 L492,295" fill="none" stroke="#A89B8F" stroke-width="1.8"/>
+    </g>
+
+    <!-- 转化动画圆点（起始位于微生物还原节点中心） -->
+    <circle id="dot" cx="710" cy="242" r="11" fill="#6F8A6D" stroke="#FBFAF7" stroke-width="2" style="transform-origin:710px 242px;transform:translate(0,0);"/>
+
+    <!-- 汇合进入亚硝酸盐 -->
+    <path d="M490,295 L490,320" fill="none" stroke="#B58E8E" stroke-width="2.2" marker-end="url(#arwB)"/>
+
+    <!-- 亚硝酸盐共同节点 -->
+    <g class="clickable" data-name="亚硝酸盐（两条路都生成它）">
+      <rect x="390" y="320" width="200" height="60" rx="12" fill="#EBDEDE" stroke="#B58E8E" stroke-width="2"/>
+      <text x="490" y="347" text-anchor="middle" font-size="19" font-weight="800" fill="#8A4B4B">亚硝酸盐</text>
+      <text x="490" y="369" text-anchor="middle" font-size="12.5" fill="#9A6A6A">两条路都生成了它</text>
+    </g>
+  </svg>
+
+  <div class="src">
+    <b>图示说明：</b>上方为共同起点（肉制品），向左分支为传统工艺（直接加亚硝酸钠），向右分支为"无添加亚硝酸盐"工艺（加芹菜粉后经微生物还原生成亚硝酸盐），两条路径最终汇入共同的"亚硝酸盐"。本图只展示到"生成亚硝酸盐"为止，不含发色、成品与数据对比。
+  </div>
+  <div class="src">
+    <b>转化机理依据：</b>① 芹菜天然富集硝酸盐，经肉中微生物还原可生成亚硝酸盐（中国农业科学院农业信息研究所，食品伙伴网 2026-05）· <a href="http://agri.nais.net.cn/resourcenavigation/webinfo/6e953a45-9bbf-42d8-b632-312c38b05e3a.html" target="_blank">中国农科院</a>；② 添加芹菜粉肉制品的亚硝酸盐生成机制与传统添加亚硝酸盐一致，发色抑菌作用相同（《肉类研究》2015）· <a href="https://www.rlyj.net.cn/fileup/HTML/20150501.shtml" target="_blank">肉类研究</a>。
+  </div>
+</div>
+
+<script>
+(function(){
+  try {
+    var btns = document.querySelectorAll('.mode-btn');
+    var grpL = document.getElementById('grpL');
+    var grpR = document.getElementById('grpR');
+    if (!grpL || !grpR) return;
+
+    function setMode(m){
+      for (var i=0;i<btns.length;i++){
+        btns[i].className = 'mode-btn' + (btns[i].getAttribute('data-mode')===m ? ' active' : '');
+      }
+      grpL.style.opacity = (m==='zero') ? '0.22' : '1';
+      grpR.style.opacity = (m==='trad') ? '0.22' : '1';
+    }
+    for (var k=0;k<btns.length;k++){
+      btns[k].onclick = (function(b){ return function(){ setMode(b.getAttribute('data-mode')); }; })(btns[k]);
+    }
+
+    // 点击节点聚焦
+    var cks = document.querySelectorAll('.clickable');
+    function clearAct(){
+      for (var i=0;i<cks.length;i++){
+        var r = cks[i].querySelector('rect');
+        if (r){ r.classList.remove('act'); r.style.strokeWidth = ''; }
+      }
+    }
+    for (var j=0;j<cks.length;j++){
+      cks[j].onclick = (function(el){
+        return function(){
+          clearAct();
+          var r = el.querySelector('rect');
+          if (r){ r.classList.add('act'); r.style.strokeWidth = '3.2'; }
+        };
+      })(cks[j]);
+    }
+
+    // 播放转化动画
+    var dot = document.getElementById('dot');
+    var playBtn = document.getElementById('playBtn');
+    if (dot && playBtn){
+      playBtn.onclick = function(){
+        dot.style.transform = 'translate(0,0)';
+        dot.style.fill = '#6F8A6D';
+        void dot.getBoundingClientRect();
+        dot.style.transform = 'translate(-220px,108px)';
+        dot.style.fill = '#B58E8E';
+      };
+    }
+  } catch(e){
+    var p = document.getElementById('playBtn');
+    if (p) p.textContent = '脚本异常，请刷新';
+  }
+})();
+</script>
+</body>
+</html>

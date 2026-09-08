@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"0添加"电商数据爬取步骤与方法 · 实测版 · 2026-09-02</title>
+<style>
+  :root{--bg:#F3F0EA;--card:#FBFAF7;--ink:#4A443D;--sub:#7A7266;--line:#E2DCD2;--clay:#B08968;--blue:#8FA3AD;--sage:#9CAF9A;--mauve:#A4938F;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.75;}
+  header{padding:26px 18px 4px;text-align:center;}
+  header h1{margin:0;font-size:19px;font-weight:800;}
+  header p{margin:6px 0 0;color:var(--sub);font-size:12.5px;}
+  main{max-width:1000px;margin:0 auto;padding:14px 18px 60px;}
+  .alert{background:#F3E7DE;border:1px solid #E4CDBE;border-radius:12px;padding:13px 16px;margin:16px 0;font-size:13px;}
+  .alert b{color:#A05A3C;}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0;box-shadow:0 1px 8px rgba(74,68,61,.05);}
+  .step h2{margin:0 0 8px;font-size:15px;display:flex;align-items:center;gap:8px;}
+  .step .num{width:24px;height:24px;border-radius:50%;background:var(--clay);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+  .step h3{font-size:13px;margin:12px 0 4px;color:var(--clay);}
+  code{background:#EFE9E0;padding:1px 6px;border-radius:5px;font-size:12px;}
+  pre{background:#2E2A26;color:#EFE9E0;border-radius:10px;padding:12px 14px;font-size:12px;overflow-x:auto;line-height:1.6;}
+  pre .c{color:#9CAF9A;}
+  table{width:100%;border-collapse:collapse;font-size:12px;background:var(--card);border-radius:10px;overflow:hidden;margin:8px 0;}
+  th{background:#EFE9E0;padding:8px 10px;text-align:left;font-size:11.5px;}
+  td{padding:8px 10px;border-top:1px solid #EFE9E0;}
+  .note{font-size:12px;color:var(--sub);background:#F6F2EB;border-left:3px solid var(--blue);padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;}
+  ul{margin:6px 0;padding-left:20px;}
+  li{margin:4px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>"0添加"电商数据爬取步骤与方法（实测版）</h1>
+  <p>京东 × 淘宝 ｜ 基于 2026-09-02 实际登录态采集经验 ｜ 附首批样本数据</p>
+</header>
+<main>
+
+  <div class="alert">
+    <b>先说结论（务必看）：</b>淘宝、京东搜索"0添加"都<b>只显示"共 100 页"分页上限、不暴露精确商品总数</b>（平台防爬设计）。实测：京东每页 30 条 ≈ <b>≥3000 件</b>；淘宝每页 44 条 ≈ <b>≥4400 件</b>；两平台合计去重前约 <b>7400 件量级</b>，真实数量只会更多。这是<b>页面可查证口径</b>（你登录后打开同样页面能看到"1/100"）。以下步骤据此设计。
+  </div>
+
+  <div class="step">
+    <h2><span class="num">1</span>准备：浏览器 + 登录态（必须）</h2>
+    <h3>为什么必须登录</h3>
+    <p>实测：未登录访问 <code>search.jd.com</code> 会被重定向到京东登录页；淘宝搜索页显示"亲，请登录"，结果区"加载中"不返回数据。两个平台都需要登录态才能看到搜索结果。</p>
+    <h3>操作</h3>
+    <ul>
+      <li>用 <b>Chrome/Edge</b> 打开京东、淘宝，分别完成登录（手机扫码最快）；</li>
+      <li>登录后先手动搜索一次 <code>0添加</code>，确认能看到商品列表与"1/100"分页；</li>
+      <li><b>不要关浏览器、不要退出登录</b>，后续自动化复用该登录态。</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">2</span>最简单方式（纯手动，约 5 分钟）</h2>
+    <p>无需任何代码，记录三组数字即可支撑"全景数据框"：</p>
+    <table>
+      <tr><th>步骤</th><th>操作</th><th>记录</th></tr>
+      <tr><td>1</td><td>京东搜索 <code>0添加</code>（登录态）</td><td>分页"共 N 页"、每页条数（30）→ 估算 ≥N×30 件</td></tr>
+      <tr><td>2</td><td>淘宝搜索 <code>0添加</code>（登录态）</td><td>分页"共 N 页"、每页条数（44）→ 估算 ≥N×44 件</td></tr>
+      <tr><td>3</td><td>换关键词：<code>0蔗糖 / 无添加 / 0防腐剂 / 0色素</code> 各搜一次</td><td>各关键词分页数，用于估算覆盖范围</td></tr>
+      <tr><td>4</td><td>记录第一页前 20 个商品标题+价格+销量</td><td>作为样本表</td></tr>
+    </table>
+    <div class="note">手动方式拿到的就是"分页上限×每页条数"口径，与自动化一致，真实可溯源。</div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">3</span>自动化方式（已实测跑通，可复用）</h2>
+    <h3>思路</h3>
+    <p>用<b>浏览器自动化</b>（复用登录态）打开搜索页，从 DOM 读取每页商品卡片与分页上限，无需破解反爬签名。比普通 Python 爬虫（requests）<b>可靠得多</b>——requests 拿不到登录态且极易触发验证。</p>
+    <h3>核心流程（伪代码，可直接照做）</h3>
+<pre><span class="c"># 1. 打开京东搜索（需已登录）</span>
+打开 https://search.jd.com/Search?keyword=0添加&amp;enc=utf-8
+<span class="c"># 2. 读取分页上限（页面文本“共100页”）与每页商品卡片</span>
+cards = document.querySelectorAll('[class*="_card_1y1ag_"]')  <span class="c"># 实测30个/页</span>
+总页数 = 页面分页组件中的“共 N 页”
+商品数下限 ≈ 每页卡片数 × 总页数
+
+<span class="c"># 3. 读取淘宝搜索（需已登录）</span>
+打开 https://s.taobao.com/search?page=1&amp;q=0添加&amp;tab=all
+<span class="c"># 4. 淘宝每页44条；分页组件“1/100”</span>
+<span class="c"># 5. 提取样本：定位含“人付款”文本的卡片，抓标题/价格/销量</span>
+cards = 包含“人付款”的卡片节点
+<span class="c"># 6. 若要品类分布：点击页面左侧分类筛选，逐类记录商品数</span></pre>
+    <div class="note">如果你用豆包/浏览器自动化工具，把上面"打开→读取卡片→记分页"写成脚本即可；本批次 30 条京东 + 15 条淘宝样本就是这样抓的。</div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">4</span>翻页与多关键词扩展（可选）</h2>
+    <ul>
+      <li><b>翻页深度</b>：京东分页 <code>?page=2,3,…</code>；淘宝 <code>&amp;page=2,…</code>。抓取前 N 页即可统计品类分布与品牌集中度（CR5）。</li>
+      <li><b>多关键词</b>：依次爬 <code>0添加 / 零添加 / 无添加 / 0蔗糖 / 无蔗糖 / 0防腐剂 / 0色素 / 无亚硝酸盐</code>，各记录分页数，取并集估算覆盖范围。</li>
+      <li><b>同比（2024→2025→2026）</b>：采集商品<b>上架时间</b>字段按年分组统计；或借助第三方平台（魔镜洞察/蝉妈妈/Nint任拓）历史数据。</li>
+      <li><b>品类</b>：按平台三级类目归属，统计酱油/饮料/饼干/酸奶/香肠/膨化食品等各品类商品数。</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">5</span>首批采集结果（2026-09-02，登录态实测）</h2>
+    <table>
+      <tr><th>平台</th><th>关键词</th><th>分页显示</th><th>每页条数</th><th>商品数（下限）</th><th>样本</th></tr>
+      <tr><td>京东</td><td>0添加</td><td>共100页</td><td>30</td><td>≥3000 件</td><td>30 条</td></tr>
+      <tr><td>淘宝</td><td>0添加</td><td>1/100</td><td>44</td><td>≥4400 件</td><td>15 条（去重）</td></tr>
+    </table>
+    <p style="font-size:12.5px;">样本覆盖：酱油（海天/千禾/鲁花/莲花）、蚝油/酱料（仲景/林小生）、酸奶（君乐宝简醇/真零/纯甄）、肉干（广发草原/蒙都/良品铺子）、饼干/糕点、果干（三只松鼠/味滋源/苹果干）、冲饮（九阳）、巧克力、荞麦面等。<b>原始样本见同目录 CSV。</b></p>
+    <div class="note">口径说明：两平台均不显示精确总数，"100页"为展示上限，故记"≥X件"。如需更精确，需深度翻页统计去重（工作量较大）或购买第三方电商数据平台报告。</div>
+  </div>
+
+</main>
+</body>
+</html>

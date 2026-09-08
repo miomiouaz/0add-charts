@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调味品"0添加"概念商品数量与市场份额变化（2022–2026）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F3F0EA; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; padding: 24px 16px; color: #3D3A36; }
+  .card { background: #FBFAF7; border-radius: 16px; padding: 20px 20px 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); max-width: 980px; margin: 0 auto 20px; }
+  .title { font-size: 16px; font-weight: 700; color: #3D3A36; line-height: 1.5; }
+  .subtitle { font-size: 12px; color: #8A8578; margin-top: 5px; line-height: 1.6; }
+  .chart { width: 100%; height: 380px; margin-top: 6px; }
+  .note { font-size: 11.5px; color: #8A8578; line-height: 1.7; border-top: 1px solid #E4E3DD; margin-top: 6px; padding-top: 8px; }
+  .note b { color: #5F7A61; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="title">图A　调味品"0添加／零添加"概念商品数量变化（2022Q2–2026Q2）</div>
+  <div class="subtitle">概念商品数量（个）　·　数据来源：马上赢品牌CT / 马上赢MSY150均衡模型　·　*为估算值</div>
+  <div id="chartA" class="chart"></div>
+</div>
+
+<div class="card">
+  <div class="title">图B　调味品"0添加／零添加"概念市场份额变化（2022Q2–2026Q2）</div>
+  <div class="subtitle">市场份额（%）　·　数据来源：马上赢品牌CT / 马上赢MSY150均衡模型</div>
+  <div id="chartB" class="chart"></div>
+</div>
+
+<div class="card" style="padding-bottom:16px;">
+  <div class="note" style="border-top:none;padding-top:0;">
+    <b>数据来源与检索日期（2026-09-03）</b><br>
+    ① 2022Q2（超300个、份额不到2.5%）／2024Q4（超800个、接近5.5%）／2023年新品占比43% —— 中国食品报《新国标出台，调味品"零添加"赛道降温》2025-04-03 引"线下零售监测机构马上赢"，http://m.toutiao.com/group/7488914679953097253/<br>
+    ② 2023Q1=484款→2024Q1=876款、份额逐渐接近4% —— 马上赢《2024Q1调味品市场回顾》，https://view.inews.qq.com/a/20240422A03HTL00<br>
+    ③ 2024Q3=990个（期初基准）／2026Q2=1145个、份额4.66%→5.41% —— 马上赢《2026Q2调味品市场回顾》，https://m.thepaper.cn/newsDetail_forward_33798322<br>
+    ④ 2025Q1较2024年同期增长约400个SKU、份额2024Q1起保持4%以上 —— 马上赢《2025Q1调味品市场回顾》，https://m.36kr.com/p/3320608216049156<br>
+    ⑤ 2025Q3 SKU超1000款、份额维持3.8%以上 —— 马上赢《2025Q3调味品市场回顾》，https://cj.sina.cn/articles/view/7851095442/1d3f6359200102ey58<br>
+    ⑥ 2025Q4 SKU与份额环比齐跌（首次回落）—— 马上赢《2025Q4调味品市场回顾》，https://cj.sina.com.cn/articles/view/7851095442/1d3f6359200102g7v8<br>
+    ⑦ 2025Q1=3.95%阶段高点、2026Q1反弹突破4% —— 马上赢《2026Q1调味品市场回顾》，https://m.thepaper.cn/newsDetail_forward_33282597<br>
+    <b>口径提示</b>：带 * 的"1276"为估算值（2024Q1 的 876 + 约400，见来源④）；2025Q2–2026Q1 精确 SKU 数未逐季披露，以"1000+高位平台期"呈现；中国食品报口径（2024Q4 超800个、份额接近5.5%）与马上赢季度回顾口径存在统计差异，仅作文字参考。2020–2021 年无马上赢公开的"0添加"专门统计；2025Q1 及以前为全量门店模型、2025Q2 起切换 MSY150 均衡模型。
+  </div>
+</div>
+
+<script>
+(function() {
+  var quarters = ['2022Q2', '2023Q1', '2024Q1', '2024Q3', '2025Q1', '2025Q3', '2026Q1', '2026Q2'];
+  var skuData = [300, 484, 876, 990, 1276, null, null, 1145];
+  var shareData = [2.5, null, 4.0, 4.66, 3.95, null, null, 5.41];
+
+  var tooltipBase = function() {
+    return {
+      trigger: 'axis',
+      triggerOn: 'click',
+      renderMode: 'richText',
+      confine: true,
+      backgroundColor: 'rgba(255,255,255,0.96)',
+      borderColor: '#E4E3DD',
+      textStyle: { color: '#3D3A36', fontSize: 11, lineHeight: 16 },
+      padding: [8, 10]
+    };
+  };
+
+  function renderA() {
+    var dom = document.getElementById('chartA');
+    if (!dom) return;
+    if (typeof echarts === 'undefined') {
+      dom.innerHTML = '<div style="padding:20px;color:#8A8578;font-size:13px;">图表库加载失败，已回退为文字说明。</div>';
+      return;
+    }
+    var c = echarts.init(dom);
+    c.setOption({
+      animation: false,
+      backgroundColor: 'transparent',
+      tooltip: tooltipBase(),
+      grid: { left: 66, right: 28, top: 34, bottom: 50, containLabel: true },
+      xAxis: {
+        type: 'value',
+        min: 0,
+        max: 7.6,
+        axisLine: { lineStyle: { color: '#C9C2B6' } },
+        axisTick: { show: false },
+        axisLabel: { show: false }
+      },
+      yAxis: {
+        type: 'value',
+        name: '商品数量（个）',
+        nameTextStyle: { color: '#5F7A61', fontSize: 11 },
+        min: 0,
+        max: 1500,
+        splitLine: { lineStyle: { color: '#E9E5DC' } },
+        axisLabel: { color: '#5A564F', fontSize: 11 }
+      },
+      series: [{
+        name: '概念商品数量',
+        type: 'bar',
+        barWidth: 30,
+        data: [
+          [0.5, 300], [1.5, 484], [2.5, 876], [3.5, 990], [4.5, 1276],
+          null, null, [7.1, 1145]
+        ],
+        itemStyle: { color: '#8BA888', borderRadius: [5, 5, 0, 0] },
+        label: {
+          show: true,
+          position: 'top',
+          fontSize: 11,
+          color: '#3D3A36'
+        },
+        markArea: {
+          silent: true,
+          itemStyle: { color: 'rgba(168,155,143,0.20)' },
+          label: {
+            show: true,
+            position: 'insideBottom',
+            color: '#8A8578',
+            fontSize: 12,
+            formatter: function() { return '1000+高位平台期'; }
+          },
+          data: [
+            [{ xAxis: 4.5, yAxis: 1000 }, { xAxis: 7.1, yAxis: 1500 }]
+          ]
+        }
+        }, {
+        name: '季度轴',
+        type: 'scatter',
+        symbolSize: 0,
+        silent: true,
+        tooltip: { show: false },
+        label: {
+          show: true,
+          position: 'bottom',
+          distance: 12,
+          fontSize: 10,
+          color: '#5A564F',
+          formatter: function(p) { return p ? p.name : ''; }
+        },
+        data: [
+          { name: '2022Q2', value: [0.5, 0] },
+          { name: '2023Q1', value: [1.5, 0] },
+          { name: '2024Q1', value: [2.5, 0] },
+          { name: '2024Q3', value: [3.5, 0] },
+          { name: '2025Q1', value: [4.5, 0] },
+          { name: '2025Q3', value: [5.5, 0] },
+          { name: '2026Q1', value: [6.1, 0] },
+          { name: '2026Q2', value: [7.1, 0] }
+        ]
+        }, {
+        name: '标注',
+        type: 'scatter',
+        symbolSize: 0,
+        label: {
+          show: true,
+          fontSize: 11.5,
+          color: '#5F7A61',
+          position: 'bottom',
+          distance: 8,
+          formatter: function(p) { return p ? p.name : ''; }
+        },
+        data: [
+          { name: '超1000款', value: [5.5, 1350] },
+          { name: '持平微升', value: [6.1, 1320] }
+        ]
+      }]
+    });
+    c.resize();
+    window.addEventListener('load', function() { c.resize(); });
+    window.addEventListener('resize', function() { c.resize(); });
+  }
+
+  function renderB() {
+    var dom = document.getElementById('chartB');
+    if (!dom) return;
+    if (typeof echarts === 'undefined') {
+      dom.innerHTML = '<div style="padding:20px;color:#8A8578;font-size:13px;">图表库加载失败，已回退为文字说明。</div>';
+      return;
+    }
+    var c = echarts.init(dom);
+    c.setOption({
+      animation: false,
+      backgroundColor: 'transparent',
+      tooltip: tooltipBase(),
+      grid: { left: 16, right: 24, top: 30, bottom: 28, containLabel: true },
+      xAxis: {
+        type: 'category',
+        data: quarters,
+        axisLine: { lineStyle: { color: '#C9C2B6' } },
+        axisTick: { show: false },
+        axisLabel: { color: '#5A564F', fontSize: 11 }
+      },
+      yAxis: {
+        type: 'value',
+        name: '市场份额（%）',
+        nameTextStyle: { color: '#96696A', fontSize: 11 },
+        min: 0,
+        max: 6,
+        splitLine: { lineStyle: { color: '#E9E5DC' } },
+        axisLabel: { color: '#5A564F', fontSize: 11, formatter: function(v) { return v + '%'; } }
+      },
+      series: [{
+        name: '市场份额',
+        type: 'line',
+        data: shareData,
+        connectNulls: false,
+        symbol: 'circle',
+        symbolSize: 8,
+        itemStyle: { color: '#B58E8E' },
+        lineStyle: { color: '#B58E8E', width: 2.5 },
+        label: {
+          show: true,
+          position: 'top',
+          fontSize: 11,
+          color: '#96696A'
+        }
+        }, {
+        name: '标注',
+        type: 'scatter',
+        symbolSize: 0,
+        label: {
+          show: true,
+          fontSize: 11.5,
+          color: '#96696A',
+          position: 'top',
+          distance: 8,
+          formatter: function(p) { return p ? p.name : ''; }
+        },
+        data: [
+          { name: '阶段高点3.95%', value: ['2025Q1', 4.7] },
+          { name: '维持3.8%以上', value: ['2025Q3', 4.35] },
+          { name: '首次突破4%', value: ['2026Q1', 4.7] }
+        ]
+      }]
+    });
+    c.resize();
+    window.addEventListener('load', function() { c.resize(); });
+    window.addEventListener('resize', function() { c.resize(); });
+  }
+
+  function run() {
+    renderA();
+    renderB();
+  }
+  setTimeout(run, 800);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"0添加"覆盖品类统计（样本口径）· 2026-09-02</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{--bg:#F3F0EA;--card:#FBFAF7;--ink:#4A443D;--sub:#7A7266;--line:#E2DCD2;--clay:#B08968;--blue:#8FA3AD;--sage:#9CAF9A;--mauve:#A4938F;--pink:#C4A69C;--violet:#9B8EA6;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.75;}
+  header{padding:26px 18px 4px;text-align:center;}
+  header h1{margin:0;font-size:19px;font-weight:800;}
+  header p{margin:6px 0 0;color:var(--sub);font-size:12.5px;}
+  main{max-width:1020px;margin:0 auto;padding:14px 18px 60px;}
+  .alert{background:#F3E7DE;border:1px solid #E4CDBE;border-radius:12px;padding:13px 16px;margin:16px 0;font-size:13px;}
+  .alert b{color:#A05A3C;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:18px 0;box-shadow:0 2px 12px rgba(74,68,61,.06);}
+  .card h2{margin:0 0 4px;font-size:15.5px;}
+  .card .sub{font-size:11.5px;color:var(--sub);margin-bottom:6px;}
+  .chart{width:100%;height:400px;}
+  .src{font-size:11px;color:#6E8190;margin-top:8px;border-top:1px dashed var(--line);padding-top:7px;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  th{background:#EFE9E0;padding:8px 10px;text-align:left;font-size:11.5px;}
+  td{padding:8px 10px;border-top:1px solid #EFE9E0;}
+  .tag{display:inline-block;padding:1px 9px;border-radius:10px;font-size:11px;background:#E2EBEE;color:#5B7480;}
+  .need{background:#F6F2EB;border:1px dashed var(--line);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:12.5px;}
+  .need b{color:var(--clay);}
+</style>
+</head>
+<body>
+<header>
+  <h1>"0添加"覆盖品类统计（样本口径）</h1>
+  <p>基于 2026-09-02 京东+淘宝登录态采集样本 45 条｜莫兰迪配色｜数据来源见文末</p>
+</header>
+<main>
+
+  <div class="alert">
+    <b>口径说明：</b>本页统计基于<b>已采集的 45 条商品样本</b>（京东 30 条 + 淘宝 15 条），覆盖的是"样本可见品类"，<b>不是全平台全量</b>。你方案中点名的 6 个品类（酱油、饮料、饼干、酸奶、香肠、膨化食品）中，<b>饮料、香肠、膨化食品在样本中未直接出现</b>（不等于全量没有，是首批样本未覆盖到），需翻页或多关键词补采。
+  </div>
+
+  <div class="card">
+    <h2>样本覆盖品类分布（45 条样本按品类归类）</h2>
+    <div class="sub">横向条形 · 按样本件数 · 悬停/点击查看</div>
+    <div id="c1" class="chart"></div>
+    <div class="src"><b>数据来源：</b>2026-09-02 京东/淘宝登录态实采样本（<a href="file:///D:/豆包/数据新闻/0添加电商采集样本_2026-09-02.csv">样本CSV</a>），按商品标题关键词归类。</div>
+  </div>
+
+  <div class="card">
+    <h2>与你方案点名的品类对照</h2>
+    <table>
+      <tr><th>品类</th><th>样本是否覆盖</th><th>代表样本</th></tr>
+      <tr><td>酱油</td><td><span class="tag">已覆盖</span></td><td>海天0金标、千禾金标、鲁花0添加防腐剂、莲花0添加、海天薄盐0添加</td></tr>
+      <tr><td>酸奶/乳制品</td><td><span class="tag">已覆盖</span></td><td>真零0添加蔗糖、简醇0蔗糖、纯甄0添加、君乐宝简醇</td></tr>
+      <tr><td>饼干/糕点</td><td><span class="tag">已覆盖</span></td><td>粗粮无糖代餐饼干、五黑谷物饼干、藜麦/牛乳沙琪玛、全麦恰巴塔</td></tr>
+      <tr><td>调味酱料/蚝油</td><td><span class="tag">已覆盖</span></td><td>仲景香菇酱/蒜蓉酱、林小生蚝油、家乐鸡粉、海天蚝油</td></tr>
+      <tr><td>肉制品（肉干）</td><td><span class="tag">已覆盖</span></td><td>广发草原牛肉干、蒙都风干牛肉干、良品铺子风干鸡肉</td></tr>
+      <tr><td>果干蜜饯</td><td><span class="tag">已覆盖</span></td><td>味滋源苹果干、三只松鼠红薯干、倒蒸红薯干</td></tr>
+      <tr><td>冲饮/饮料类</td><td><span class="tag">部分</span></td><td>九阳豆浆粉、五蔬奶盖（冲饮为主，液态饮料未覆盖）</td></tr>
+      <tr><td>方便食品</td><td><span class="tag">已覆盖</span></td><td>0脂肪荞麦面</td></tr>
+      <tr><td>巧克力/糖果</td><td><span class="tag">已覆盖</span></td><td>比比赞黑巧100%纯可可脂</td></tr>
+      <tr><td>饮料（液态）</td><td><span class="tag">未覆盖</span></td><td>需补采关键词如"0蔗糖饮料/无糖饮料"</td></tr>
+      <tr><td>香肠/肉制品灌肠</td><td><span class="tag">未覆盖</span></td><td>需补采关键词"0添加香肠/无亚硝酸盐"</td></tr>
+      <tr><td>膨化食品</td><td><span class="tag">未覆盖</span></td><td>需补采关键词"0添加薯片/膨化"</td></tr>
+    </table>
+  </div>
+
+  <div class="need">
+    <b>同比增速（2024→2025→2026）暂无法计算 —— 需要继续爬取，原因如下：</b><br>
+    计算同比需要商品的<b>上架时间/上市年份</b>字段，按年统计各年新增"0添加"商品数；但首批样本只采集了标题、价格、销量，<b>未采上架时间</b>，且电商搜索页也不直接暴露该字段。<br><br>
+    <b>补齐方案（任选其一）：</b><br>
+    ① <b>我继续深度爬取</b>：进入商品详情页采集"上架时间/上市日期"（京东详情页有上市时间，淘宝部分有），按年分组统计新增商品数 → 算出 2024/2025/2026 各年新增量与同比增速；<br>
+    ② <b>换口径用已有真实增速</b>：直接用已核验的公开增速数据（如坚果炒货0添加概念 MAT2023 +50.7%→MAT2024 +20.7%、叮咚配料干净 +21%、苹果干0添加概念 +433.29%）替代"全量同比"，并明确标注来源与口径；<br>
+    ③ <b>第三方数据平台</b>：魔镜洞察/蝉妈妈/Nint任拓的历史销售数据可直接给出分年同比（付费）。<br><br>
+    你选哪种？选①我就继续爬取商品上架时间。
+  </div>
+
+</main>
+
+<script>
+(function(){
+  var CLAY="#B08968",BLUE="#8FA3AD",SAGE="#9CAF9A",MAUVE="#A4938F",PINK="#C4A69C",VIOLET="#9B8EA6";
+  var c1=echarts.init(document.getElementById("c1"));
+  c1.setOption({
+    backgroundColor:"transparent",
+    tooltip:{trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,textStyle:{fontSize:11,lineHeight:15},padding:[6,8]},
+    grid:{left:10,right:50,top:30,bottom:10,containLabel:true},
+    xAxis:{type:"value",name:"样本件数（条）",axisLabel:{color:"#7A7266",fontSize:11}},
+    yAxis:{type:"category",data:["酱油","饼干/糕点","调味酱料/蚝油","酸奶/乳制品","肉制品（肉干）","果干蜜饯","冲饮/饮料类","巧克力/糖果","方便食品"],axisLabel:{color:"#4A443D",fontSize:11.5}},
+    series:[{name:"样本件数",type:"bar",barWidth:22,data:[
+      {value:8,itemStyle:{color:CLAY}},
+      {value:7,itemStyle:{color:PINK}},
+      {value:6,itemStyle:{color:BLUE}},
+      {value:4,itemStyle:{color:SAGE}},
+      {value:3,itemStyle:{color:MAUVE}},
+      {value:3,itemStyle:{color:VIOLET}},
+      {value:2,itemStyle:{color:"#B8A88C"}},
+      {value:1,itemStyle:{color:"#C9B8A8"}},
+      {value:1,itemStyle:{color:"#A8B8C0"}}
+    ],label:{show:true,position:"right",color:"#4A443D",fontSize:11}}]
+  });
+  window.addEventListener("resize",function(){c1.resize();});
+})();
+</script>
+</body>
+</html>

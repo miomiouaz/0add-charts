@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"0添加"处罚/判例近5年清单与比例 · 2026-09-01</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{--bg:#F3F0EA;--card:#FBFAF7;--ink:#4A443D;--sub:#7A7266;--line:#E2DCD2;--sage:#9CAF9A;--mauve:#A4938F;--blue:#8FA3AD;--clay:#B08968;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7;}
+  header{padding:28px 20px 2px;text-align:center;}
+  header h1{margin:0;font-size:20px;font-weight:700;}
+  header p{margin:6px 0 0;color:var(--sub);font-size:12.5px;}
+  main{max-width:1020px;margin:0 auto;padding:16px 18px 60px;}
+  .block{margin:20px 0;}
+  .block h2{font-size:16px;margin:0 0 4px;}
+  .block .sub{font-size:12.5px;color:var(--sub);margin:2px 0 10px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(74,68,61,.05);}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0;}
+  .meta span{background:#EFE9E0;border:1px solid var(--line);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--sub);}
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+  th{background:#EFE9E0;color:var(--ink);text-align:left;padding:7px 8px;font-weight:600;border-bottom:1px solid var(--line);}
+  td{padding:7px 8px;border-bottom:1px solid #EFE9E0;vertical-align:top;}
+  tr:hover td{background:#F6F2EB;}
+  .amt{font-weight:700;color:var(--clay);white-space:nowrap;}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;white-space:nowrap;}
+  .tag.fa{background:#F3E3D8;color:#A05A3C;}
+  .tag.flaw{background:#E5EBE2;color:#6B7F68;}
+  .tag.not{background:#E6E1DA;color:#8B7D74;}
+  .chart-box{width:100%;height:360px;}
+  .src{font-size:11px;color:var(--sub);margin-top:8px;padding-top:6px;border-top:1px dashed var(--line);word-break:break-all;}
+  .warn{background:#F3E7DE;border:1px solid #E4CDBE;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7A5444;margin:12px 0;}
+  .steps{background:#EFE9E0;border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:12.5px;margin:8px 0;}
+  .steps b{color:var(--ink);}
+  .steps ol{margin:6px 0 0;padding-left:20px;}
+  a{color:#6E8190;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .big{font-size:24px;font-weight:800;color:var(--clay);}
+  @media(max-width:700px){.chart-box{height:300px;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>"0添加"处罚 / 判例：近5年清单与比例</h1>
+  <p>仅收录明确涉及"0添加 / 零添加 / 无添加 / 不含·绝无添加"字样的真实事件｜每起附网页链接｜莫兰迪配色｜检索截止 2026-09-01</p>
+</header>
+<main>
+
+  <div class="meta">
+    <span>检索日期：2026-09-01</span>
+    <span>行政处罚样本：11 起（严格"0添加"字样 8 起 · 同类话术 3 起）</span>
+    <span>民事判例样本：1 起（弗里生牛奶案，2020 年判决）</span>
+    <span>渠道：政府官网决定书 / 官方通报 / 央视·人民日报·中国消费者报等</span>
+  </div>
+
+  <div class="warn">
+    <b>关于"比例"的诚实说明：</b>全国市场监管系统不存在公开的"涉及'0添加'处罚占全部虚假宣传处罚比例"的全量统计数据，<b>无法给出权威的全国占比数值</b>。本页给出两类可核验的比例：①近5年（2021-09-01 至今）事件占全部可核验样本的比例；②可核验处罚事件的年度分布趋势。如需精确全国占比，见文末"操作步骤"。
+  </div>
+
+  <div class="block">
+    <h2>图 A · 近5年"0添加"处罚事件年度分布（n = 11）</h2>
+    <p class="sub">单位：起｜柱状图（交互版：悬停查看）｜2022、2024 年未检索到公开可核验案例</p>
+    <div class="card"><div class="chart-box" id="chartYear"></div></div>
+  </div>
+
+  <div class="block">
+    <h2>近5年比例速览</h2>
+    <div class="card" style="display:flex;flex-wrap:wrap;gap:18px;font-size:13px;">
+      <div style="flex:1;min-width:220px;">
+        <div class="big">11 / 11 = 100%</div>
+        <div>可核验的"0添加"话术处罚事件全部发生在近5年（2021-09 至今）内</div>
+      </div>
+      <div style="flex:1;min-width:220px;">
+        <div class="big">≈ 81.8%</div>
+        <div>近5年处罚事件中，2025–2026 两年占 9/11——监管集中整治阶段</div>
+      </div>
+      <div style="flex:1;min-width:220px;">
+        <div class="big">≈ 91.7%</div>
+        <div>含民事判例（弗里生 2020 判决）时，近5年事件占全部样本 11/12</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>一、行政处罚 · 严格"0添加 / 零添加 / 无添加"字样（n = 8）</h2>
+    <div class="card">
+      <table>
+        <tr><th>时间</th><th>处罚机关</th><th>产品 / 问题</th><th>结果</th><th>链接</th></tr>
+        <tr><td>2025-07 通报</td><td>湛江市、县两级市监局（市场监管总局"铁拳"）</td><td>冷冻虾仁：超限量添加磷酸盐＋<span class="tag fa">虚假标注"零添加"</span></td><td class="amt">罚 749.43 万＋吊销 4 家许可证＋负责人 5 年禁入</td><td><a href="https://content-static.cctvnews.cctv.com/snow-book/index.html?item_id=15415359930227792001" target="_blank">央视新闻</a>／<a href="https://m.huanqiu.com/article/4NhXzKbAzub" target="_blank">环球网</a></td></tr>
+        <tr><td>2025-06</td><td>重庆石柱县市监局（渝石柱市监处罚〔2025〕58号）</td><td>酱油：宣传"0添加"被举报，查实<b>确为零添加</b>→不构成虚假宣传；仅营养成分表顺序颠倒</td><td class="amt"><span class="tag not">不构成虚假宣传</span>（反证）</td><td><a href="http://cqszx.gov.cn/bm/xscjgj/zwgk_51797/jczwgk_bm/xzcf/202507/t20250707_14793067.html" target="_blank">石柱县政府官网</a></td></tr>
+        <tr><td>2025-07</td><td>广西北海市市监局（桂北城市监处罚〔2025〕218号）</td><td>亚麻籽核桃酥：配料含麦芽糖醇却宣传<span class="tag fa">"0添加剂"</span></td><td class="amt">虚假宣传处罚</td><td><a href="http://www.beihai.gov.cn/xxgkbm/bhsscjdglj/xzcfxx/cqscjgfjxzcfxx/t25947365.shtml" target="_blank">北海市政府官网</a></td></tr>
+        <tr><td>2026-01</td><td>广西平乐县市监局（平市监处罚〔2026〕25号）</td><td>柿子蜜饯：实际使用添加剂却用<span class="tag fa">"无添加"</span>包装袋</td><td class="amt">罚款 2000 元</td><td><a href="http://www.pingle.gov.cn/zfxxgk/fdzdgknr/xzzf/xzcfxzqz/t27221701.shtml" target="_blank">平乐县政府官网</a></td></tr>
+        <tr><td>2026-04</td><td>广西忻城县市监局（忻市监处罚〔2026〕17号）</td><td>水果玉米：标"0添加"未按 GB7718-2011 第4.1.4.2 标注含量（实际确未添加）</td><td class="amt"><span class="tag flaw">标签瑕疵</span>＋罚 500 元</td><td><a href="http://www.gxxc.gov.cn/zfxxgk/fdzdgknr/zdlyxxgk_1/qtzdxx1/xzzfxxgk/jieguogongshi20231/t27445949.shtml" target="_blank">忻城县政府官网</a></td></tr>
+        <tr><td>2026-04</td><td>安徽利辛县市监局（利市监处罚〔2026〕201号）</td><td>"京德福"冰杨梅：配料含甜蜜素等，宣传图标注<span class="tag fa">"0添加"</span></td><td class="amt">罚款 300 元</td><td><a href="https://www.lixin.gov.cn/XxgkContent/show/2966810.html" target="_blank">利辛县政府官网</a></td></tr>
+        <tr><td>2026-06</td><td>重庆铜梁区市监局（渝铜梁市监处罚〔2026〕662号）</td><td>酸萝卜老鸭汤炖料：标"0添加防腐剂"实测检出山梨酸</td><td class="amt">没收＋罚 2600 元（标签虚假＋虚假广告）</td><td><a href="https://scjgj.cq.gov.cn/zz/tlq/zwgk/fdzdgknr_146781/qzcf/xzcf/bljg/202606/t20260626_15779457.html" target="_blank">重庆市市监局官网</a></td></tr>
+        <tr><td>2026-07</td><td>广西东兴市市监局（广西网售食品虚假宣传典型案例第二批）</td><td>梨膏糖：配料含白砂糖/麦芽糖浆等仍标<span class="tag fa">"0添加"</span></td><td class="amt">责令停止＋罚款</td><td><a href="http://scjdglj.gxzf.gov.cn/xwdt/qjdt/t28058156.shtml" target="_blank">广西市监局官网</a></td></tr>
+      </table>
+      <div class="src">注：8 起全部发生在近5年（2021-09-01 之后）内。其中 6 起"名不副实"被罚、1 起标签瑕疵、1 起查实属实不构成（反证）。</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>二、行政处罚 · 同类话术"不含防腐剂 / 绝无添加 / 0防腐"（n = 3）</h2>
+    <div class="card">
+      <table>
+        <tr><th>时间</th><th>处罚机关</th><th>产品 / 问题</th><th>结果</th><th>链接</th></tr>
+        <tr><td>2021-12</td><td>长春市市监局（长双市监减处〔2021〕78号）</td><td>藜麦煎饼：生产时加入碳酸氢钠，包装标注<span class="tag fa">"不含添加剂、防腐剂"</span></td><td class="amt">行政处罚</td><td><a href="http://scjg.changchun.gov.cn/jgsy/xzcfxxgs/syfj/202201/W020220125355004492529.pdf" target="_blank">长春市市监局（PDF决定书）</a></td></tr>
+        <tr><td>2023-11</td><td>福建福清市市监局</td><td>糕点：使用丙酸钙/脱氢乙酸钠（防腐剂），标签却称<span class="tag fa">"本产品绝无添加防腐剂"</span></td><td class="amt">没收＋罚款（食安法125条）</td><td><a href="http://www.fuqing.gov.cn/xjwz/zwgk/zfxxgkzdgz/wshspypaq/wfcf/202311/t20231110_4714590.htm" target="_blank">福清市政府官网</a></td></tr>
+        <tr><td>2025-09</td><td>浙江常山县市监局（常市监罚〔2025〕187号）</td><td>复合文旦汁饮料：2 批次实际加山梨酸钾却标<span class="tag fa">"0防腐"</span></td><td class="amt">罚没合计 178,372.56 元</td><td><a href="http://m.toutiao.com/group/7556056681915662848/" target="_blank">海报新闻（浙江政务服务网公示）</a></td></tr>
+      </table>
+      <div class="src">注：此类话术与"0添加"同属"未添加"宣称家族，一并纳入近5年统计。</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>三、民事判例（涉及"0添加/无添加"字样）</h2>
+    <div class="card">
+      <table>
+        <tr><th>法院 / 时间</th><th>案情</th><th>结果</th><th>链接</th></tr>
+        <tr><td>北京互联网法院，2020-01 判决</td><td>弗里生乳牛巧克力奶：网店宣传"无食品添加剂 / 无任何添加物"，实物配料表含 6 种添加剂</td><td class="amt"><span class="tag not">构成欺诈</span>：退货款 55 元＋赔偿 500 元（2020 年判决，<b>超出近5年</b>）</td><td><a href="https://www.peopleapp.com/article/rmh12916043/rmh12916043" target="_blank">人民日报·中国消费者报</a>／<a href="https://www.consumer.gov.mo/News/Data/PDF/CH/2020/4/04202050123522_%E4%B8%AD%E5%9C%8B%E6%B6%88%E8%B2%BB%E8%80%85%E5%A0%B1_%E7%89%9B%E5%A5%B6%E9%9B%B6%E6%B7%BB%E5%8A%A0%E5%BB%A0%E5%AE%B6%E8%A2%AB%E5%91%8A%E4%BA%86.pdf" target="_blank">中国消费者报PDF</a></td></tr>
+      </table>
+      <div class="src">注：近5年（2021-09 至今）内，公开可核验的、明确以"0添加/零添加/无添加"宣称提起欺诈诉讼并判决的民事判例暂未检索到直接案例；弗里生案为 2020 年标志性判例，供文章引用。</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>四、官方背景统计（可引用的治理规模数据）</h2>
+    <div class="card">
+      <table>
+        <tr><th>数据</th><th>口径</th><th>链接</th></tr>
+        <tr><td><b>4721 件</b>带欺骗性"心机商标"（含"零添加""零加"等）被国家知识产权局依职权宣告无效</td><td>央视《每周质量报告》2026-05-24 报道，国家知识产权局数据</td><td><a href="http://m.chinanews.com/wap/detail/chs/zw/10627647.shtml" target="_blank">中国新闻网</a></td></tr>
+        <tr><td><b>127.3 万件</b>易误导消费者的"心机商标"申请（2023 年以来）被驳回</td><td>同上</td><td><a href="http://m.chinanews.com/wap/detail/chs/zw/10627647.shtml" target="_blank">中国新闻网</a></td></tr>
+        <tr><td>"纯天然 / 零添加 / 有机"被列为网络食品虚假宣传"万能标签"，福州市专项整治公开典型案例</td><td>《中国消费者报》2026-08-06</td><td><a href="http://bgimg.ce.cn/cysc/zljd/gd/202608/t20260806_3130538.shtml" target="_blank">中国经济网</a></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>四·补 替代口径：查得到、能引用的真实比例（替换"精确全国占比"）</h2>
+    <p class="sub">精确的"0添加处罚 ÷ 全部虚假宣传处罚"全国占比无官方全量统计（原因见下节）。以下为来源可查、可直接引用的替代口径——区分"监管通报样本"与"消费端话术渗透"，勿混淆为同一口径。</p>
+    <div class="card">
+      <table>
+        <tr><th>口径</th><th>分子 / 分母</th><th>比例</th><th>性质</th><th>来源</th></tr>
+        <tr><td>A. 市场监管总局"铁拳"行动通报案例</td><td>5 起典型案例中 1 起涉"零添加"虚假标注（湛江保水虾仁）</td><td class="amt">1/5 = 20%</td><td>官方精选案例样本（非全量）</td><td><a href="https://content-static.cctvnews.cctv.com/snow-book/index.html?item_id=15415359930227792001" target="_blank">央视新闻 2025-07-29</a></td></tr>
+        <tr><td>B. 直播间涉"无糖/不添加糖"类话术占比</td><td>100 个直播间中 83 个涉"无糖、无蔗糖、不添加糖、不添加蔗糖"宣称</td><td class="amt">83%</td><td>消费端话术渗透率</td><td><a href="http://app.why.com.cn/epaper/webpc/qnb/images/2024-03/14/A04/20240314A04_pdf.pdf" target="_blank">上海消保委调查报告（青年报PDF）</a>／<a href="https://m.gmw.cn/2024-03/13/content_1303684566.htm" target="_blank">光明网</a></td></tr>
+        <tr><td>C. 直播间涉及"0添加"产品占比</td><td>100 个直播间中涉"0添加"产品共 66 件（口播/网页/包装）</td><td class="amt">66%</td><td>消费端话术渗透率</td><td><a href="http://www.ce.cn/cysc/sp/info/202403/15/t20240315_38934905.shtml" target="_blank">中国经济网 2024-03-15</a></td></tr>
+        <tr><td>D. "无糖"宣称名不副实占比</td><td>宣称无糖产品经检测与宣传不符的比例</td><td class="amt">≈ 50%（接近1/2）</td><td>消费端检测结果</td><td>同上（消保委调查）</td></tr>
+        <tr><td>E. 全国全量分母（分子无专项统计）</td><td>2025 年广告违法案件 44,521 件、罚没 2.52 亿；2025 上半年食品违法案件 18.1 万件</td><td class="amt">—（分子缺失）</td><td>官方全量，仅作量级参照</td><td><a href="https://www.samr.gov.cn/xw/zj/art/2026/art_b7802ad0a4dc407ea1b10a8a53a5792f.html" target="_blank">市场监管总局 2026-01-31</a>／央视铁拳通报</td></tr>
+      </table>
+      <div class="src">注：口径 A 为"监管执法通报"，口径 B/C/D 为"消费端话术/检测"。两者不可直接相除；新闻报道建议并列引用（如"监管通报典型案例中零添加案占 1/5；消费端 100 个直播间里 83 个主打无糖话术、66 件涉 0 添加"）。</div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <div class="chart-box" id="chartRatio" style="height:300px;"></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>五、为什么"精确全国占比"查不到 ＋ 具体操作步骤</h2>
+    <div class="steps">
+      <b>① 为什么"0添加处罚 ÷ 全部虚假宣传处罚"的全国精确比例查不到（三个技术原因，任何公开平台都无此数）：</b>
+      <ol>
+        <li><b>无专项案由</b>："0添加"不是独立违法案由——这类案件通常按《广告法》"虚假广告"或《反不正当竞争法》"虚假宣传"定性，处罚决定书中不一定出现"0添加"关键词，无法按词统计全量；</li>
+        <li><b>平台检索逻辑限制</b>：国家企业信用信息公示系统、信用中国均"按企业主体"检索而非"按违法关键词"检索，无法拉出"涉0添加案件总数"；</li>
+        <li><b>上网率不齐</b>：各地市监局处罚决定书上网率差异大，大量案件只在内部系统，公开渠道天然不全，任何"检索总数"都不是全量。</li>
+      </ol>
+      <div style="margin-top:8px;">结论：精确全国占比<b>在现有公开数据条件下不可得</b>。建议新闻直接引用上节替代口径（A/B/C/D），并明确标注"监管通报样本/消费端话术渗透"属性。</div>
+    </div>
+    <div class="steps">
+      <b>② 若仍要尽量逼近"官方通报样本内占比"（比逐个平台检索更有效、可复核）：</b>
+      <ol>
+        <li>收集各省级市监局"网络食品虚假宣传专项整治典型案例"系列通报（广西、南宁、崇左、资阳、青岛、防城港、重庆等均自2025年起分批公布）；</li>
+        <li>逐批统计"涉0添加/无添加/不含防腐剂话术"案例数 ÷ 该批全部案例数；</li>
+        <li>合并多批次后得出"专项整治通报样本内的0添加话术占比"，注明检索日期与批次数（如广西东兴/忻城/平乐/崇左等批次，0添加类话术占比较高）。</li>
+      </ol>
+    </div>
+    <div class="steps">
+      <b>② 查不到：近5年"0添加"欺诈民事判例的直接判决书原文（裁判文书网需登录）。</b>
+      <ol>
+        <li>打开「中国裁判文书网」（wenshu.court.gov.cn）→ 登录后检索关键词："0添加" + "欺诈"、"零添加" + "退一赔三"；</li>
+        <li>用"案由：产品责任纠纷/信息网络买卖合同纠纷"、"裁判年份：2021-2026"等条件过滤；</li>
+        <li>逐条统计"法院认定构成欺诈并支持退一赔三"的案件数 ÷ 检索命中的"0添加"标签欺诈案件总数，即得样本内支持率（建议注明检索日期与样本量）；</li>
+        <li>补充渠道：各互联网法院官网（北京/杭州/广州）、最高人民法院公报 gongbao.court.gov.cn 检索"标签欺诈 惩罚性赔偿"。</li>
+      </ol>
+    </div>
+    <div class="steps">
+      <b>③ 查不到：个别案件罚款金额（如东兴梨膏糖、北海核桃酥、湛江案未逐项列金额）。</b>
+      <ol>
+        <li>在处罚决定书原文（上述政府官网链接）中查找"决定对当事人行政处罚如下"段落；</li>
+        <li>若原文未公开金额，可通过「全国12315平台」（www.12315.cn）提交政府信息公开申请，或向处罚机关（当地市场监管局）申请公开该决定书全文。</li>
+      </ol>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  var ink="#4A443D", sub="#7A7266", line="#E7E1D7";
+  var sage="#9CAF9A", clay="#B08968";
+  var ttip={trigger:"axis",triggerOn:"click",renderMode:"richText",confine:true,backgroundColor:"rgba(74,68,61,.92)",borderColor:"rgba(74,68,61,0)",textStyle:{color:"#F5F1EA",fontSize:11},padding:[6,9]};
+
+  var yr=echarts.init(document.getElementById("chartYear"));
+  yr.setOption({
+    backgroundColor:"transparent",
+    tooltip:Object.assign({axisPointer:{type:"shadow"}},ttip,{formatter:function(p){return p.name+"年："+p.value+" 起";}}),
+    grid:{left:10,right:40,top:8,bottom:8,containLabel:true},
+    xAxis:{type:"category",data:["2021","2022","2023","2024","2025","2026"],axisLabel:{color:ink,fontSize:12},axisLine:{lineStyle:{color:line}},axisTick:{show:false}},
+    yAxis:{type:"value",minInterval:1,axisLabel:{color:sub,fontSize:11},splitLine:{lineStyle:{color:line}}},
+    series:[{name:"处罚事件（起）",type:"bar",barWidth:44,
+      data:[{value:1,itemStyle:{color:sage}},{value:0,itemStyle:{color:"#EDE9E0"}},{value:1,itemStyle:{color:sage}},{value:0,itemStyle:{color:"#EDE9E0"}},{value:4,itemStyle:{color:clay}},{value:5,itemStyle:{color:"#B0563A"}}],
+      itemStyle:{borderRadius:[6,6,0,0]},
+      label:{show:true,position:"top",color:ink,fontSize:12,fontWeight:600,formatter:function(p){return p.value>0?p.value:"";}}},
+      {name:"",type:"line",showSymbol:false,lineStyle:{opacity:0},data:[1,1,1,1,1,1]}]
+  });
+  window.addEventListener("resize",function(){yr.resize();});
+
+  var rt=echarts.init(document.getElementById("chartRatio"));
+  rt.setOption({
+    backgroundColor:"transparent",
+    tooltip:Object.assign({trigger:"axis",axisPointer:{type:"shadow"}},ttip,{formatter:function(ps){var s=ps[0].name+"：";s+=ps[0].value+"%";return s;}}),
+    grid:{left:10,right:60,top:8,bottom:8,containLabel:true},
+    xAxis:{type:"value",max:100,axisLabel:{formatter:"{value}%",color:sub,fontSize:11},splitLine:{lineStyle:{color:line}}},
+    yAxis:{type:"category",inverse:true,data:["铁拳通报·涉零添加案例（官方样本）","直播间·涉无糖/不添加糖话术（消费端）","直播间·涉0添加产品（消费端）","无糖宣称名不副实（检测）","全国全量·精确占比（无统计）"],
+      axisLabel:{color:ink,fontSize:11},axisLine:{lineStyle:{color:line}},axisTick:{show:false}},
+    series:[{name:"占比",type:"bar",barWidth:22,
+      data:[
+        {value:20,itemStyle:{color:"#9CAF9A"}},
+        {value:83,itemStyle:{color:"#B08968"}},
+        {value:66,itemStyle:{color:"#A4938F"}},
+        {value:50,itemStyle:{color:"#8FA3AD"}},
+        {value:null,itemStyle:{color:"#EDE9E0"}}],
+      itemStyle:{borderRadius:[0,6,6,0]},
+      label:{show:true,position:"right",color:ink,fontSize:12,fontWeight:600,formatter:function(p){return p.value==null?"不可计算":p.value+"%";}}}]
+  });
+  window.addEventListener("resize",function(){rt.resize();});
+</script>
+</body>
+</html>

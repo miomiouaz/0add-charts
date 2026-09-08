@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0添加宣称对照表_交互版</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:transparent; }
+  body {
+    font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;
+    display:flex; justify-content:center;
+  }
+  /* 总高与天平交互图一致：宽1000 时高约576（图547 + 来源29） */
+  .wrap {
+    width:min(1000px,94vw);
+    aspect-ratio:1000/576;
+    display:flex; flex-direction:column;
+  }
+  .tbl {
+    flex:1;
+    display:flex; flex-direction:column;
+    width:100%;
+    background:rgba(201,139,79,.09);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .thead {
+    display:flex;
+    background:rgba(201,139,79,.22);
+  }
+  .th {
+    flex:1;
+    padding:14px 18px;
+    font-size:19px; font-weight:900; color:#8F5B22;
+    border-bottom:1px solid rgba(201,139,79,.40);
+    white-space:nowrap;
+  }
+  .tbody {
+    flex:1;
+    display:flex; flex-direction:column;
+  }
+  .tr {
+    flex:1;
+    display:flex; align-items:center;
+    cursor:pointer;
+    transition:background .18s ease;
+  }
+  .tr:hover { background:rgba(31,58,58,.05); }
+  .tr.sel { background:rgba(201,139,79,.22); }
+  .tr.sel .td:first-child { box-shadow:inset 4px 0 0 #C98B4F; }
+  .td {
+    flex:1;
+    padding:14px 18px;
+    font-size:18px; font-weight:800; color:#1F3A3A;
+    border-bottom:1px solid rgba(31,58,58,.08);
+    min-width:0;
+  }
+  .tr:last-child .td { border-bottom:none; }
+  .td.claim { font-weight:900; }
+  .td.std { color:#2A4A48; }
+  .td.std b { font-weight:900; font-size:23px; }
+
+  .note {
+    height:29px; line-height:29px;
+    text-align:center;
+    font-size:11px; color:#5F7A78;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tbl">
+    <div class="thead">
+      <div class="th" style="width:26%;">声称</div>
+      <div class="th" style="width:28%;">消费者以为</div>
+      <div class="th" style="width:46%;">国标允许</div>
+    </div>
+    <div class="tbody">
+      <div class="tr" data-k="0糖">
+        <div class="td claim" style="width:26%;">0 糖</div>
+        <div class="td" style="width:28%;">完全无糖</div>
+        <div class="td std" style="width:46%;">每 100g/ml ≤ <b>0.5g</b></div>
+      </div>
+      <div class="tr" data-k="0反式脂肪酸">
+        <div class="td claim" style="width:26%;">0 反式脂肪酸</div>
+        <div class="td" style="width:28%;">完全不含</div>
+        <div class="td std" style="width:46%;">每 100g/ml ≤ <b>0.3g</b></div>
+      </div>
+      <div class="tr" data-k="0钠">
+        <div class="td claim" style="width:26%;">0 钠</div>
+        <div class="td" style="width:28%;">完全无钠</div>
+        <div class="td std" style="width:46%;">每 100g/ml ≤ <b>5mg</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="note">点击行可高亮查看 · 数据口径：GB 28050《预包装食品营养标签通则》</div>
+</div>
+
+<script>
+(function(){
+  try {
+    var rows = document.querySelectorAll('.tr');
+    for (var i = 0; i < rows.length; i++) {
+      (function(r){
+        r.addEventListener('click', function(){
+          for (var j = 0; j < rows.length; j++) rows[j].classList.remove('sel');
+          r.classList.add('sel');
+        });
+      })(rows[i]);
+    }
+  } catch(e){ console.error(e); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「0添加」在售食品品类分布统计（交互版）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F3F0EA; font-family: "PingFang SC","Microsoft YaHei",sans-serif; color: #3D3A36; padding: 32px 16px; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  .title { font-size: 22px; font-weight: 700; color: #3D3A36; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #6B675F; margin-bottom: 18px; line-height: 1.6; }
+  .card { background: #FBFAF7; border-radius: 14px; padding: 22px 20px 16px; margin-bottom: 20px; border: 1px solid #E7E2D8; }
+  .card h2 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .card .hint { font-size: 12px; color: #6B675F; margin-bottom: 10px; }
+  .chart { width: 100%; }
+  #barChart { height: 560px; }
+  #pieChart { height: 520px; }
+  .source { font-size: 11px; color: #8A857B; line-height: 1.7; margin-top: 12px; border-top: 1px dashed #D9D3C6; padding-top: 10px; }
+  .tip { font-size: 12px; color: #8A857B; margin-bottom: 8px; }
+  .tip b { color: #6B675F; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">「0添加」在售食品，到底长在哪类货架上？</div>
+  <div class="subtitle">基于京东、淘宝「0添加」关键词搜索结果（2026-09-02 采集）清洗后的 495 条有效食品，按 12 个品类归类统计</div>
+
+  <div class="card">
+    <h2>图 1 · 各品类商品数量排行</h2>
+    <div class="hint">横条长度代表该品类「0添加」商品数量。悬停或点击色块可查看件数与占比。</div>
+    <div id="barChart" class="chart"></div>
+    <div class="source">数据来源：京东 272 条 + 淘宝 277 条「0添加」关键词在售商品（2026-09-02 采集），剔除 54 条非食品后 495 条有效食品按标题关键词归入 12 品类；占比=品类数/495。同品不同规格按不同 SKU 计入。</div>
+  </div>
+
+  <div class="card">
+    <h2>图 2 · 品类结构占比</h2>
+    <div class="hint">环形图展示 12 个品类在 495 件「0添加」商品中的数量结构。悬停或点击色块可查看该品类占比。</div>
+    <div id="pieChart" class="chart"></div>
+    <div class="source">数据来源：同图 1。占比=品类数/495；最小为膨化零食（2 件，0.4%）。</div>
+  </div>
+
+  <div class="tip"><b>交互说明：</b>鼠标悬停色块即时显示数据；点击色块可固定显示，再次点击其他位置取消。图形右侧/下方图例可点击隐藏对应品类。</div>
+  <div class="source">分类口径：调味品(酱油/醋/蚝油/酱/料酒等)、乳制品(酸奶/牛奶/奶粉)、烘焙(面包/饼干/蛋糕/月饼)、冲饮谷物(燕麦/豆浆粉/咖啡/代餐)、饮料(即饮果汁/无糖茶/植物蛋白奶)、果干蜜饯(果干/山楂/蜜饯)、烘焙原料(色素/代糖/果酱)、肉制品(香肠/牛肉干/午餐肉)、坚果、米面主食(挂面/馒头/速冻)、巧克力糖果(奶片/果冻/黑巧)、膨化零食(素肉/辣条/米饼)。豆浆粉归冲饮谷物、即饮豆奶归饮料；奶片/果冻归糖果；水果罐头归果干蜜饯。</div>
+</div>
+
+<script>
+(function () {
+  var TOTAL = 495;
+  var BAR_COLORS = ['#A89B8F','#7E99AB','#B8A87E','#8BA888','#7FA7A0','#B58E8E','#9788A8','#B07E6F','#A8B08F','#C9B98F','#8D7B6B','#C9C2B6'];
+  var PIE_COLORS = {
+    '调味品':'#A89B8F','乳制品':'#7E99AB','烘焙':'#B8A87E','冲饮谷物':'#8BA888','饮料':'#7FA7A0',
+    '果干蜜饯':'#B58E8E','烘焙原料':'#9788A8','肉制品':'#B07E6F','坚果':'#A8B08F','米面主食':'#C9B98F',
+    '巧克力糖果':'#8D7B6B','膨化零食':'#C9C2B6'
+  };
+  // 降序排列
+  var barData = [
+    {name:'调味品',value:143},{name:'乳制品',value:90},{name:'烘焙',value:76},
+    {name:'冲饮谷物',value:51},{name:'饮料',value:46},{name:'果干蜜饯',value:34},
+    {name:'烘焙原料',value:18},{name:'肉制品',value:16},{name:'坚果',value:9},
+    {name:'米面主食',value:6},{name:'巧克力糖果',value:4},{name:'膨化零食',value:2}
+  ];
+  var names = [];
+  var seriesData = [];
+  for (var i = 0; i < barData.length; i++) {
+    names.push(barData[i].name);
+    seriesData.push({
+      value: barData[i].value,
+      itemStyle: { color: PIE_COLORS[barData[i].name], borderRadius: [0, 6, 6, 0] }
+    });
+  }
+
+  var barChart = echarts.init(document.getElementById('barChart'));
+  barChart.setOption({
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis',
+      triggerOn: 'click',
+      renderMode: 'richText',
+      confine: true,
+      textStyle: { fontSize: 11, lineHeight: 16 },
+      padding: [8, 10],
+      formatter: function (params) {
+        if (!params || !params.length) { return ''; }
+        var p = params[0];
+        var v = p.value;
+        var pct = (v / TOTAL * 100).toFixed(1);
+        return p.name + String.fromCharCode(10) + '数量：' + v + ' 件' + String.fromCharCode(10) + '占比：' + pct + '%';
+      }
+    },
+    grid: { left: 10, right: 52, top: 46, bottom: 10, containLabel: true },
+    xAxis: {
+      type: 'value',
+      name: '数量（件）',
+      nameTextStyle: { color: '#6B675F', fontSize: 11 },
+      axisLabel: { color: '#6B675F', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#E7E2D8' } }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: names,
+      axisLabel: { color: '#3D3A36', fontSize: 12 },
+      axisLine: { lineStyle: { color: '#D9D3C6' } },
+      axisTick: { show: false }
+    },
+    series: [{
+      name: '商品数量',
+      type: 'bar',
+      barWidth: 18,
+      data: seriesData,
+      label: {
+        show: true,
+        position: 'right',
+        color: '#3D3A36',
+        fontSize: 11,
+        formatter: function (p) {
+          if (!p) { return ''; }
+          var pct = (p.value / TOTAL * 100).toFixed(1);
+          return p.value + '件 · ' + pct + '%';
+        }
+      }
+    }]
+  });
+
+  var pieData = [
+    {value:143,name:'调味品'},{value:90,name:'乳制品'},{value:76,name:'烘焙'},
+    {value:51,name:'冲饮谷物'},{value:46,name:'饮料'},{value:34,name:'果干蜜饯'},
+    {value:18,name:'烘焙原料'},{value:16,name:'肉制品'},{value:9,name:'坚果'},
+    {value:6,name:'米面主食'},{value:4,name:'巧克力糖果'},{value:2,name:'膨化零食'}
+  ];
+  var coloredPie = [];
+  for (var j = 0; j < pieData.length; j++) {
+    coloredPie.push({
+      value: pieData[j].value,
+      name: pieData[j].name,
+      itemStyle: { color: PIE_COLORS[pieData[j].name] }
+    });
+  }
+
+  var pieChart = echarts.init(document.getElementById('pieChart'));
+  pieChart.setOption({
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'click',
+      renderMode: 'richText',
+      confine: true,
+      textStyle: { fontSize: 11, lineHeight: 16 },
+      padding: [8, 10],
+      formatter: function (p) {
+        if (!p) { return ''; }
+        var pct = (p.value / TOTAL * 100).toFixed(1);
+        return p.name + String.fromCharCode(10) + '数量：' + p.value + ' 件' + String.fromCharCode(10) + '占比：' + pct + '%';
+      }
+    },
+    title: { show: false },
+    graphic: [
+      { type: 'text', left: 'center', top: '40%', style: { text: '495', fontSize: 34, fontWeight: 700, fill: '#3D3A36' } },
+      { type: 'text', left: 'center', top: '50%', style: { text: '有效食品总数', fontSize: 12, fill: '#6B675F' } }
+    ],
+    legend: {
+      bottom: 0,
+      type: 'scroll',
+      itemWidth: 12,
+      itemHeight: 8,
+      textStyle: { color: '#3D3A36', fontSize: 11 }
+    },
+    series: [{
+      name: '品类',
+      type: 'pie',
+      radius: ['42%', '66%'],
+      center: ['50%', '46%'],
+      avoidLabelOverlap: true,
+      itemStyle: { borderColor: '#F3F0EA', borderWidth: 1.5 },
+      label: {
+        formatter: function (p) {
+          if (!p) { return ''; }
+          return p.name + ' ' + (p.value / TOTAL * 100).toFixed(1) + '%';
+        },
+        color: '#3D3A36',
+        fontSize: 11
+      },
+      labelLayout: { hideOverlap: true },
+      data: coloredPie
+    }]
+  });
+
+  // 响应式
+  window.addEventListener('resize', function () {
+    barChart.resize();
+    pieChart.resize();
+  });
+})();
+</script>
+</body>
+</html>
