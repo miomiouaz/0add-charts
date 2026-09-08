@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>认为标"无添加XX"产品比同类更好</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: transparent;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    padding: 12px;
+    color: #4A443D;
+  }
+  .card {
+    background: transparent;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 8px;
+  }
+  .title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4A443D;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 0px;
+  }
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    min-height: 280px;
+  }
+  #chart {
+    width: 100%;
+    height: 100%;
+  }
+  .src {
+    margin-top: 0px;
+    padding-top: 0px;
+    border-top: 1px dashed #E2DCD2;
+    font-size: 9px;
+    color: #7A7266;
+    text-align: center;
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+<div class="card">
+  <div class="title">认为标"无添加XX"产品比同类更好</div>
+  <div class="chart-wrap">
+    <div id="chart"></div>
+  </div>
+  <div class="src"><b>数据来源：</b>科信《2020中国消费者食品标签认知调查》，n=3100。</div>
+</div>
+
+<script>
+(function() {
+  var dom = document.getElementById('chart');
+  var c = echarts.init(dom, null, { renderer: 'canvas' });
+
+  var value = 60.65;
+  var color = "#8FA3AD";
+  var remainder = "#E8E3DA";
+
+  c.setOption({
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'mousemove',
+      confine: true,
+      backgroundColor: 'rgba(74,68,61,.92)',
+      borderColor: 'rgba(74,68,61,0)',
+      textStyle: { color: '#F5F1EA', fontSize: 12 },
+      padding: [6, 10],
+      formatter: function(p) {
+        return p.name + '：' + p.value + '%';
+      }
+    },
+    series: [{
+      name: '占比',
+      type: 'pie',
+      radius: '72%',
+      center: ['50%', '50%'],
+      startAngle: 90,
+      avoidLabelOverlap: true,
+      itemStyle: {
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: true,
+        position: 'inside',
+        formatter: function(p) {
+          if (p.name === '占比') return '{big|' + p.value + '%}\n{small|消费者占比}';
+          return '';
+        },
+        rich: {
+          big: { fontSize: 36, fontWeight: 'bold', color: '#3D3A36', lineHeight: 46, align: 'center' },
+          small: { fontSize: 11, color: '#5A564F', lineHeight: 16, align: 'center' }
+        }
+      },
+      labelLine: { show: false },
+      emphasis: {
+        scale: true,
+        scaleSize: 10,
+        itemStyle: {
+          shadowBlur: 18,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(74,68,61,.25)'
+        },
+        label: { fontSize: 15, fontWeight: 'bold' }
+      },
+      data: [
+        { value: value, name: '占比', itemStyle: { color: color } },
+        { value: Math.round((100 - value) * 100) / 100, name: '其余', itemStyle: { color: remainder } }
+      ]
+    }]
+  });
+
+  if (typeof ResizeObserver === 'function') {
+    var ro = new ResizeObserver(function() { c.resize(); });
+    ro.observe(dom);
+  }
+  window.addEventListener('resize', function() { c.resize(); });
+})();
+</script>
+</body>
+</html>

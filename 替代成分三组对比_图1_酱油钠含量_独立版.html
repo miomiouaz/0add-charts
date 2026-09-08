@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图1 · "0添加"酱油的钠含量</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:transparent;color:#3D3A36;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7;padding:16px;}
+  .wrap{max-width:760px;margin:0 auto;}
+  h2{font-size:15.5px;font-weight:700;margin-bottom:6px;color:#3D3A36;}
+  .chart{width:100%;height:340px;}
+  .src{font-size:11px;color:#6E8190;margin-top:6px;border-top:1px dashed #E2DCD2;padding-top:7px;line-height:1.9;}
+  .src a{color:#6E8190;text-decoration:none;}
+  .src a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>① "0添加"酱油的钠含量：并不低，反而更高</h2>
+  <div id="c1" class="chart"></div>
+  <div class="src"><b>数据来源：</b>吉林省消费者协会酱油比较试验（吉林省产品质量监督检验院检测，16 款样品、4 类各 4 款）· <a href="http://scjg.jl.gov.cn/jianguan/jsts/202603/t20260319_9446671.html" target="_blank">吉林省市场监督管理厅</a>｜<a href="https://m.gmw.cn/2026-03/21/content_1304385045.htm" target="_blank">光明网 2026-03</a></div>
+</div>
+<script>
+(function(){
+  var CLAY="#B08968", BLUE="#7E99AB", SAGE="#8BA888", GOLD="#B8A87E";
+  var c1=echarts.init(document.getElementById("c1"));
+  c1.setOption({
+    backgroundColor:"transparent",
+    tooltip:{trigger:"axis",triggerOn:"mousemove",renderMode:"richText",confine:true,textStyle:{fontSize:11,lineHeight:15},padding:[6,8]},
+    grid:{left:10,right:60,top:20,bottom:10,containLabel:true},
+    xAxis:{type:"value",name:"mg/kg",axisLabel:{color:"#7A7266",fontSize:11},splitLine:{lineStyle:{color:"#EDE6D8"}}},
+    yAxis:{type:"category",data:["减盐酱油","特级老抽","零添加酱油","特级生抽"],axisLabel:{color:"#3D3A36",fontSize:12},axisLine:{lineStyle:{color:"#3D3A36"}},axisTick:{show:false}},
+    series:[{name:"钠含量",type:"bar",barWidth:30,label:{show:true,position:"right",formatter:"{c}",color:"#3D3A36",fontSize:11},
+      itemStyle:{borderRadius:[0,6,6,0]},
+      data:[
+        {value:38900,itemStyle:{color:SAGE}},
+        {value:54025,itemStyle:{color:GOLD}},
+        {value:51775,itemStyle:{color:CLAY}},
+        {value:46150,itemStyle:{color:BLUE}}
+      ]}]
+  });
+  window.addEventListener("resize",function(){c1.resize();});
+})();
+</script>
+</body>
+</html>

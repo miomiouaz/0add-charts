@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图1 · 56条有效样本的三类判定结果</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:transparent;color:#000;font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7;padding:16px;}
+  .wrap{max-width:720px;margin:0 auto;}
+  h2{font-size:17px;font-weight:600;margin-bottom:2px;color:#000;}
+  .dsc{color:#000;font-size:13px;margin-bottom:8px;}
+  .chart{width:100%;height:340px;}
+  .src{font-size:11.5px;color:#9A9184;margin-top:4px;border-top:1px dashed #E3DCCE;padding-top:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>图1 · 56 条有效样本的三类判定结果</h2>
+  <div class="dsc">严格按宣传点对照后：近三成"0添加"宣称与配料不符，另有一成半宣传属实但藏着宣传范围之外的其他添加成分。</div>
+  <div class="chart" id="chart1"></div>
+  <div class="src">数据来源：2026-09-02 京东/淘宝 549条实测爬取 → 分层随机抽样 57条（random_state=42 可复现）→ 56条有效配料表核验，逐条按宣传点对照。</div>
+</div>
+<script>
+(function(){
+  // 莫兰迪三色（与认知误区三图最终版一致）
+  var C1_GREEN='#9CAF9A', C1_ORANGE='#D4B896', C1_BLUE='#8FA3AD';
+  var c1 = echarts.init(document.getElementById('chart1'));
+  c1.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'item',triggerOn:'mousemove',renderMode:'richText',confine:true,textStyle:{fontSize:11,color:'#000'},formatter:function(p){if(p&&p.name!=null&&p.value!=null){return p.name+String.fromCharCode(10)+p.value+' 条（占56条有效样本的 '+Math.round(p.value/56*100)+'%）';}return '';}},
+    legend:{bottom:0,itemWidth:14,itemHeight:8,textStyle:{color:'#000',fontSize:12}},
+    series:[{type:'pie',radius:'70%',center:['50%','48%'],avoidLabelOverlap:true,
+      startAngle:90,
+      // 顺时针展开动画：从顶部开始，扇区依次出现
+      animationType:'expand',
+      animationDuration:800,
+      animationEasing:'cubicOut',
+      animationDelay:function(idx){return idx*400;},
+      // 实心扇形图，数字在色块内部（黑色）
+      label:{show:true,position:'inside',formatter:'{d}%',color:'#000',fontSize:18,fontWeight:'bold'},
+      labelLine:{show:false},
+      emphasis:{scale:true,scaleSize:8},
+      // 色块边缘加白边
+      itemStyle:{borderColor:'#fff',borderWidth:3},
+      data:[
+        {value:17,name:'宣传不实',itemStyle:{color:C1_GREEN}},
+        {value:7,name:'宣传属实但藏其他添加',itemStyle:{color:C1_ORANGE}},
+        {value:32,name:'完全干净且符合宣传',itemStyle:{color:C1_BLUE}}
+      ]}]
+  });
+  window.addEventListener('resize', function(){ c1.resize(); });
+})();
+</script>
+</body>
+</html>
