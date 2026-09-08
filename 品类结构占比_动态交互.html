@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品类结构占比</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: transparent;
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    padding: 12px;
+    color: #3D3A36;
+  }
+  .card {
+    background: transparent;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12px;
+  }
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 880 / 520;
+    min-height: 380px;
+  }
+  #chart {
+    width: 100%;
+    height: 100%;
+  }
+  /* 底部分页图例 */
+  .legend-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 0 8px;
+  }
+  .legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    flex: 1;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #5A564F;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+  }
+  .legend-item:hover { opacity: 0.75; }
+  .legend-item.inactive { opacity: 0.35; }
+  .legend-item i {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .legend-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    flex-shrink: 0;
+  }
+  .legend-nav button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #D9D4CE;
+    background: #FBF9F6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #5A564F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .legend-nav button:hover { background: #EDEAE6; }
+  .legend-nav button:disabled { opacity: 0.35; cursor: default; }
+  .legend-nav .page {
+    font-size: 13px;
+    color: #8A8578;
+    min-width: 32px;
+    text-align: center;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+<div class="card">
+  <div class="chart-wrap">
+    <div id="chart"></div>
+  </div>
+  <div class="legend-bar">
+    <div class="legend-items" id="legendItems"></div>
+    <div class="legend-nav">
+      <button id="prevBtn" disabled>&#8249;</button>
+      <span class="page" id="pageNum">1/2</span>
+      <button id="nextBtn">&#8250;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // 12品类数据（495件）
+  var categories = [
+    { name: '调味品',   value: 143, pct: 28.9, color: '#4A6B4A' },
+    { name: '乳制品',   value: 90,  pct: 18.2, color: '#5A7D5A' },
+    { name: '烘焙',     value: 76,  pct: 15.4, color: '#6B8E6B' },
+    { name: '冲饮谷物', value: 51,  pct: 10.3, color: '#7BA07B' },
+    { name: '饮料',     value: 46,  pct: 9.3,  color: '#8BA888' },
+    { name: '果干蜜饯', value: 34,  pct: 6.9,  color: '#9AB897' },
+    { name: '烘焙原料', value: 18,  pct: 3.6,  color: '#A8C4A5' },
+    { name: '肉制品',   value: 16,  pct: 3.2,  color: '#B5CFB2' },
+    { name: '坚果',     value: 9,   pct: 1.8,  color: '#C2D9BF' },
+    { name: '米面主食', value: 6,   pct: 1.2,  color: '#CFE3CC' },
+    { name: '巧克力糖果', value: 4, pct: 0.8,  color: '#DCECD9' },
+    { name: '膨化零食', value: 2,   pct: 0.4,  color: '#E9F5E7' }
+  ];
+
+  var dom = document.getElementById('chart');
+  var c = echarts.init(dom, null, { renderer: 'canvas' });
+
+  var option = {
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: 'rgba(255,255,255,0.96)',
+      borderColor: '#ddd',
+      textStyle: { color: '#333', fontSize: 13 },
+      formatter: function(p) {
+        return '<b>' + p.name + '</b><br/>占比: <b>' + p.data.pct + '%</b><br/>数量: ' + p.value + ' 件';
+      }
+    },
+    series: [{
+      name: '品类结构',
+      type: 'pie',
+      radius: ['42%', '68%'],
+      center: ['50%', '48%'],
+      avoidLabelOverlap: true,
+      itemStyle: {
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: true,
+        formatter: '{b} {d}%',
+        fontSize: 12,
+        color: '#5A564F',
+        lineHeight: 16
+      },
+      labelLine: {
+        show: true,
+        length: 12,
+        length2: 10,
+        lineStyle: { color: '#B0A99E', width: 1 }
+      },
+      emphasis: {
+        scale: true,
+        scaleSize: 8,
+        itemStyle: {
+          shadowBlur: 20,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0,0,0,0.25)'
+        },
+        label: { fontSize: 14, fontWeight: 'bold' }
+      },
+      data: categories.map(function(d) {
+        return { name: d.name, value: d.value, pct: d.pct, itemStyle: { color: d.color } };
+      })
+    }],
+    // 中心文字
+    graphic: [
+      {
+        type: 'text',
+        left: 'center',
+        top: '42%',
+        style: {
+          text: '495',
+          fontSize: 36,
+          fontWeight: 'bold',
+          fill: '#3D3A36',
+          textAlign: 'center'
+        }
+      },
+      {
+        type: 'text',
+        left: 'center',
+        top: '52%',
+        style: {
+          text: '有效食品总数',
+          fontSize: 13,
+          fill: '#8A8578',
+          textAlign: 'center'
+        }
+      }
+    ]
+  };
+
+  c.setOption(option);
+
+  // ===== 底部分页图例 =====
+  var PAGE_SIZE = 6;
+  var currentPage = 0;
+  var totalPages = Math.ceil(categories.length / PAGE_SIZE);
+  var hiddenItems = {}; // 被隐藏的品类
+
+  var legendContainer = document.getElementById('legendItems');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var pageNum = document.getElementById('pageNum');
+
+  function renderLegend() {
+    legendContainer.innerHTML = '';
+    var start = currentPage * PAGE_SIZE;
+    var end = Math.min(start + PAGE_SIZE, categories.length);
+    for (var i = start; i < end; i++) {
+      (function(idx) {
+        var d = categories[idx];
+        var item = document.createElement('div');
+        item.className = 'legend-item' + (hiddenItems[d.name] ? ' inactive' : '');
+        item.innerHTML = '<i style="background:' + d.color + '"></i>' + d.name;
+        item.addEventListener('click', function() {
+          hiddenItems[d.name] = !hiddenItems[d.name];
+          item.classList.toggle('inactive');
+          c.dispatchAction({ type: hiddenItems[d.name] ? 'hide' : 'show', seriesIndex: 0, name: d.name });
+        });
+        item.addEventListener('mouseenter', function() {
+          c.dispatchAction({ type: 'highlight', seriesIndex: 0, name: d.name });
+        });
+        item.addEventListener('mouseleave', function() {
+          c.dispatchAction({ type: 'downplay', seriesIndex: 0, name: d.name });
+        });
+        legendContainer.appendChild(item);
+      })(i);
+    }
+    pageNum.textContent = (currentPage + 1) + '/' + totalPages;
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= totalPages - 1;
+  }
+
+  prevBtn.addEventListener('click', function() {
+    if (currentPage > 0) { currentPage--; renderLegend(); }
+  });
+  nextBtn.addEventListener('click', function() {
+    if (currentPage < totalPages - 1) { currentPage++; renderLegend(); }
+  });
+
+  renderLegend();
+
+  // 响应式
+  if (typeof ResizeObserver === 'function') {
+    var ro = new ResizeObserver(function() { c.resize(); });
+    ro.observe(dom);
+  }
+  window.addEventListener('resize', function() { c.resize(); });
+})();
+</script>
+</body>
+</html>
