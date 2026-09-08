@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图 2 · 专项整治批次样本构成（85 起）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  body{background:transparent;margin:0;padding:18px 16px;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:#4A443D;}
+  .wrap{max-width:560px;margin:0 auto;}
+  #chart{width:100%;height:340px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="chart"></div>
+</div>
+<script>
+(function(){
+  var ink="#4A443D", sub="#7A7266";
+  var clay="#B08968", sage="#9CAF9A";
+
+  var chart = echarts.init(document.getElementById("chart"));
+
+  chart.setOption({
+    backgroundColor:"transparent",
+    title:{
+      text:"专项整治批次样本构成（85 起）",
+      subtext:"数据来源：各省市监局网络食品销售虚假宣传专项整治通报（2025–2026）｜检索 2026-09-01",
+      left:"center",
+      textStyle:{color:ink,fontSize:15,fontWeight:700},
+      subtextStyle:{color:sub,fontSize:10.5}
+    },
+    tooltip:{
+      trigger:"item",
+      triggerOn:"mousemove",
+      confine:true,
+      backgroundColor:"rgba(74,68,61,.92)",
+      borderColor:"rgba(74,68,61,0)",
+      textStyle:{color:"#F5F1EA",fontSize:11},
+      padding:[6,9],
+      formatter:"{b}：{c} 起（{d}%）"
+    },
+    legend:{
+      bottom:0,
+      itemWidth:14,
+      itemHeight:8,
+      textStyle:{color:sub,fontSize:11}
+    },
+    series:[{
+      name:"样本构成",
+      type:"pie",
+      radius:["38%","62%"],
+      center:["50%","54%"],
+      startAngle:90,
+      animationType:"scale",
+      animationDuration:1200,
+      animationEasing:"cubicOut",
+      label:{
+        formatter:"{b}：{c} 起",
+        color:ink,
+        fontSize:11
+      },
+      labelLine:{
+        length:10,
+        length2:12,
+        lineStyle:{color:sub}
+      },
+      emphasis:{
+        scale:true,
+        scaleSize:6,
+        itemStyle:{shadowBlur:10,shadowColor:"rgba(0,0,0,.2)"}
+      },
+      data:[
+        {value:6, name:"涉0添加话术", itemStyle:{color:clay}},
+        {value:79,name:"功效/广告/其他虚假宣传", itemStyle:{color:sage}}
+      ]
+    }]
+  });
+
+  window.addEventListener("resize",function(){ chart.resize(); });
+})();
+</script>
+</body>
+</html>
