@@ -67,8 +67,8 @@
   var c = echarts.init(dom, null, { renderer: 'canvas' });
 
   var value = 60.65;
-  var color = "#8FA3AD";
-  var remainder = "#E8E3DA";
+  var color = "#DBC1A6";
+  var remainder = "#F3EFE7";
 
   c.setOption({
     backgroundColor: 'transparent',
@@ -87,6 +87,9 @@
     series: [{
       name: '占比',
       type: 'pie',
+      animationType: 'expansion',
+      animationDuration: 1400,
+      animationEasing: 'cubicOut',
       radius: '72%',
       center: ['50%', '50%'],
       startAngle: 90,
@@ -103,8 +106,8 @@
           return '';
         },
         rich: {
-          big: { fontSize: 36, fontWeight: 'bold', color: '#3D3A36', lineHeight: 46, align: 'center' },
-          small: { fontSize: 11, color: '#5A564F', lineHeight: 16, align: 'center' }
+          big: { fontSize: 36, fontWeight: 'bold', color: '#FFFFFF', lineHeight: 46, align: 'center' },
+          small: { fontSize: 11, color: '#FFFFFF', lineHeight: 16, align: 'center' }
         }
       },
       labelLine: { show: false },
