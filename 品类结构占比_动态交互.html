@@ -113,18 +113,18 @@
 (function() {
   // 12品类数据（495件）
   var categories = [
-    { name: '调味品',   value: 143, pct: 28.9, color: '#4A6B4A' },
-    { name: '乳制品',   value: 90,  pct: 18.2, color: '#5A7D5A' },
-    { name: '烘焙',     value: 76,  pct: 15.4, color: '#6B8E6B' },
-    { name: '冲饮谷物', value: 51,  pct: 10.3, color: '#7BA07B' },
-    { name: '饮料',     value: 46,  pct: 9.3,  color: '#8BA888' },
-    { name: '果干蜜饯', value: 34,  pct: 6.9,  color: '#9AB897' },
-    { name: '烘焙原料', value: 18,  pct: 3.6,  color: '#A8C4A5' },
-    { name: '肉制品',   value: 16,  pct: 3.2,  color: '#B5CFB2' },
-    { name: '坚果',     value: 9,   pct: 1.8,  color: '#C2D9BF' },
-    { name: '米面主食', value: 6,   pct: 1.2,  color: '#CFE3CC' },
-    { name: '巧克力糖果', value: 4, pct: 0.8,  color: '#DCECD9' },
-    { name: '膨化零食', value: 2,   pct: 0.4,  color: '#E9F5E7' }
+    { name: '调味品',   value: 143, pct: 28.9, c1: '#C65A1E', c2: '#9E4312' },
+    { name: '乳制品',   value: 90,  pct: 18.2, c1: '#D4672A', c2: '#AD4E18' },
+    { name: '烘焙',     value: 76,  pct: 15.4, c1: '#E07432', c2: '#B95820' },
+    { name: '冲饮谷物', value: 51,  pct: 10.3, c1: '#E8823A', c2: '#C56120' },
+    { name: '饮料',     value: 46,  pct: 9.3,  c1: '#EF9148', c2: '#CE6C28' },
+    { name: '果干蜜饯', value: 34,  pct: 6.9,  c1: '#F4A057', c2: '#D67B32' },
+    { name: '烘焙原料', value: 18,  pct: 3.6,  c1: '#F8AE66', c2: '#DE893C' },
+    { name: '肉制品',   value: 16,  pct: 3.2,  c1: '#FBBC75', c2: '#E69746' },
+    { name: '坚果',     value: 9,   pct: 1.8,  c1: '#FDC985', c2: '#ECA451' },
+    { name: '米面主食', value: 6,   pct: 1.2,  c1: '#FED695', c2: '#F2B25E' },
+    { name: '巧克力糖果', value: 4, pct: 0.8,  c1: '#FFD9A0', c2: '#F5BD74' },
+    { name: '膨化零食', value: 2,   pct: 0.4,  c1: '#FFE4BB', c2: '#FAD093' }
   ];
 
   var dom = document.getElementById('chart');
@@ -175,7 +175,10 @@
         label: { fontSize: 14, fontWeight: 'bold' }
       },
       data: categories.map(function(d) {
-        return { name: d.name, value: d.value, pct: d.pct, itemStyle: { color: d.color } };
+        return { name: d.name, value: d.value, pct: d.pct,
+          itemStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: d.c1 }, { offset: 1, color: d.c2 }
+          ]) } };
       })
     }],
     // 中心文字
@@ -228,7 +231,7 @@
         var d = categories[idx];
         var item = document.createElement('div');
         item.className = 'legend-item' + (hiddenItems[d.name] ? ' inactive' : '');
-        item.innerHTML = '<i style="background:' + d.color + '"></i>' + d.name;
+        item.innerHTML = '<i style="background:' + d.c1 + '"></i>' + d.name;
         item.addEventListener('click', function() {
           hiddenItems[d.name] = !hiddenItems[d.name];
           item.classList.toggle('inactive');
